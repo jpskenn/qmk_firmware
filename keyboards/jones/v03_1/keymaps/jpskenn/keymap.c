@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define JONES_LED_INDICATOR_INDEX 0        // where to start indicator
+#define JONES_LED_INDICATOR_INDEX 2        // where to start indicator
 #define JONES_LED_INDICATOR_COUNT 2         // how many leds for indicator
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
 #define JONES_LED_DIMMER_LEVEL 200          // brightness dimmer
@@ -203,6 +203,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
+    rgblight_set_effect_range(4, 8);
 }
 
 // Enabling and disabling lighting layers
