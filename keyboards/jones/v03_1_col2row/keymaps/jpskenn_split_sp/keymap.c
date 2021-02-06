@@ -57,6 +57,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 enum custom_keycodes {
   MAC = SAFE_RANGE,
   WIN,
+  M_PSCR,
 };
 
 // Key Macro
@@ -106,18 +107,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        SP_NRAI,        KC_P0,  KC_PDOT,_______,_______,_______,_______
     ),
     [_LOWER] = LAYOUT_all(
-        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_PSCR,    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_UP,      KC_END, KC_VOLU,
-        _______,    _______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGUP,KC_LEFT,KC_RGHT,    _______,KC_VOLD,
-        _______,        _______,_______,_______,_______,_______,_______,_______,KC_END, KC_PGDN,KC_DOWN,_______,_______,_______,
-        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
+        _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
+        KC_ESC,     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,     _______,_______,
+        _______,    M_PSCR, KC_SLCK,KC_PAUS,_______,_______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,KC_BSLS,    _______,KC_VOLD,
+        _______,        _______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,_______,_______,
+        _______,_______,KC_APP, _______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_RAISE] = LAYOUT_all(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_PSCR,    _______,_______,CT_E,   _______,_______,_______,_______,_______,_______,KC_PGUP,KC_DEL,     _______,_______,
-        _______,    CT_A,   _______,KC_DEL, KC_RGHT,KC_ESC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_INS,     _______,_______,
-        _______,        _______,_______,_______,_______,KC_LEFT,KC_PGDN,KC_ENT, _______,KC_MRWD,KC_MFFD,_______,_______,_______,
-        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
+        KC_PSCR,    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_DEL,     _______,_______,
+        _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_QUOT,    _______,_______,
+        _______,        KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,_______,_______,
+        _______,_______,KC_F11, KC_F12,         _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_NUM_RAISE] = LAYOUT_all(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,
@@ -127,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_ADJUST] = LAYOUT_all(
-        _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,    MAC,    WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
@@ -146,6 +147,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
+            }
+            return false;
+            break;
+        case M_PSCR: // Mac's advanced screen capture
+            if (record->event.pressed) {
+                tap_code16(LSFT(LGUI(KC_5)));
             }
             return false;
             break;
