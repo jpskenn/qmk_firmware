@@ -70,7 +70,7 @@ enum custom_keycodes {
 // #define BS_NRAI LT(_NUM_RAISE, KC_BSPC)
 // #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define C_SLSH  RCTL_T(KC_SLSH)
-#define S_LEFT  RCTL_T(KC_LEFT)
+#define S_LEFT  RSFT_T(KC_LEFT)
 #define CT_E    LCTL(KC_E)
 #define CT_A    LCTL(KC_A)
 #define CT_QUO  LCTL_T(KC_QUOT)
