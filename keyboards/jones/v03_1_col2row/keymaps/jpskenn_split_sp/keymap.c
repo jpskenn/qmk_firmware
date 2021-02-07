@@ -65,11 +65,12 @@ enum custom_keycodes {
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
-#define BS_RAI  LT(_RAISE, KC_BSPC)
+// #define BS_RAI  LT(_RAISE, KC_BSPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
-#define BS_NRAI LT(_NUM_RAISE, KC_BSPC)
-#define SP_SFT  MT(MOD_LSFT, KC_SPC)
+// #define BS_NRAI LT(_NUM_RAISE, KC_BSPC)
+// #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define C_SLSH  RCTL_T(KC_SLSH)
+#define S_LEFT  RCTL_T(KC_LEFT)
 #define CT_E    LCTL(KC_E)
 #define CT_A    LCTL(KC_A)
 #define CT_QUO  LCTL_T(KC_QUOT)
@@ -89,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,     KC_UP,  CT_QUO,
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_LEFT,KC_DOWN,KC_RGHT,
+        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, S_LEFT, KC_DOWN,KC_RGHT,
         XXXXXXX,XXXXXXX,ALT_JA, GUI_EN,        SP_LOW,         SP_RAI,          KC_RGUI,KC_RALT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_WIN] = LAYOUT_all(
