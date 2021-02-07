@@ -27,12 +27,7 @@
 
 #ifdef RGB_DI_PIN
     #undef RGBLED_NUM
-    #define RGBLED_NUM 4 // Left(4) + Under(8)
+    #define RGBLED_NUM 4 // Left(4)
 
     #undef RGBLIGHT_LED_MAP // Left --> Under, no need to re-map leds
-#endif
-
-#ifdef RGB_DI_PIN
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 4
 #endif
