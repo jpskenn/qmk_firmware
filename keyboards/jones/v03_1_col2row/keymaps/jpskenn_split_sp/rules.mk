@@ -1,1 +1,1 @@
-TAP_DANCE_ENABLE = yes		# Enable Tap Dance
+TAP_DANCE_ENABLE = no		# Enable Tap Dance
