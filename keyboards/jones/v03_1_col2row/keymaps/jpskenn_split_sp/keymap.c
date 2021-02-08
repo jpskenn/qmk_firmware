@@ -15,6 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifdef AUDIO_ENABLE
+    float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+    float song_caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
@@ -62,7 +67,7 @@ enum custom_keycodes {
 
 // Key Macro
 #define ESC_NUM TD(TD_ESC_NUM)
-#define S_CAP   TD(TD_LSFT_CAPS)
+#define S_CAPS   TD(TD_LSFT_CAPS)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 // #define BS_RAI  LT(_RAISE, KC_BSPC)
@@ -70,10 +75,11 @@ enum custom_keycodes {
 // #define BS_NRAI LT(_NUM_RAISE, KC_BSPC)
 // #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define C_SLSH  RCTL_T(KC_SLSH)
+#define S_SLSH  RSFT_T(KC_SLSH)
 #define S_LEFT  RSFT_T(KC_LEFT)
 #define CT_E    LCTL(KC_E)
 #define CT_A    LCTL(KC_A)
-#define CT_QUO  LCTL_T(KC_QUOT)
+#define C_QUO  LCTL_T(KC_QUOT)
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define NUM     TG(_NUM)
@@ -89,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_all(
         ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC,
-        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,     KC_UP,  CT_QUO,
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, S_LEFT, KC_DOWN,KC_RGHT,
+        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,     KC_UP,  C_QUO,
+        S_CAPS,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLSH, KC_LEFT,KC_DOWN,KC_RGHT,
         XXXXXXX,XXXXXXX,ALT_JA, GUI_EN,        SP_LOW,         SP_RAI,          KC_RGUI,KC_RALT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_WIN] = LAYOUT_all(
@@ -115,8 +121,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,KC_APP, _______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_RAISE] = LAYOUT_all(
-        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_PSCR,    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_DEL,     _______,_______,
+        _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
+        KC_ESC,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_DEL,     _______,_______,
         _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_QUOT,    _______,_______,
         _______,        KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,_______,_______,
         _______,_______,KC_F11, KC_F12,         _______,        _______,        _______,_______,_______,_______,_______,_______
@@ -124,15 +130,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM_RAISE] = LAYOUT_all(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC,
-        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENT,    KC_QUOT,KC_RCTL,
-        _______,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,_______,_______,
+        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS, KC_ENT,    KC_UP,  C_QUO,
+        _______,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLSH, KC_LEFT,KC_DOWN,KC_RGHT,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_ADJUST] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,    MAC,    WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
-        _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
+        KC_CAPS,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
 };
@@ -152,8 +158,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case M_PSCR: // Mac's advanced screen capture
-            if (record->event.pressed) {
-                tap_code16(LSFT(LGUI(KC_5)));
+            switch(biton32(default_layer_state)) {
+                case _WIN:
+                    if (record->event.pressed) {
+                        tap_code(KC_PSCR);
+                    }
+                    break;
+                default:
+                    if (record->event.pressed) {
+                        tap_code16(LSFT(LGUI(KC_5)));
+                    }
+                    break;
             }
             return false;
             break;
@@ -358,9 +373,11 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                     if (layer_state_is(_NUM)) {
                         // If already set, then switch it off
                         layer_off(_NUM);
+                        PLAY_SONG(song_caps_off);
                     } else {
                         // If not already set, then switch the layer on
                         layer_on(_NUM);
+                        PLAY_SONG(song_caps_on);
                     }
                     break;
             }
