@@ -28,7 +28,7 @@ enum layer_number {
     _NUM,
     _LOWER,
     _RAISE,
-    _NUM_RAISE,
+    _NUM_LOWER,
     _ADJUST
 };
 
@@ -73,8 +73,8 @@ enum custom_keycodes {
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 // #define BS_RAI  LT(_RAISE, KC_BSPC)
-#define SP_NRAI LT(_NUM_RAISE, KC_SPC)
-// #define BS_NRAI LT(_NUM_RAISE, KC_BSPC)
+#define SP_NRAI LT(_NUM_LOWER, KC_SPC)
+// #define BS_NRAI LT(_NUM_LOWER, KC_BSPC)
 // #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define C_ESC   LCTL_T(KC_ESC)
 // #define C_SPC   LCTL(KC_SPC)
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,KC_PGDN,_______,
         _______,_______,KC_F11, KC_F12,         ADJUST,         _______,        _______,_______,_______,_______,_______,_______
     ),
-    [_NUM_RAISE] = LAYOUT_all(
+    [_NUM_LOWER] = LAYOUT_all(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS, KC_ENT,    KC_UP,  C_QUO,
@@ -216,7 +216,7 @@ const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_num_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL}
 );
 
@@ -232,7 +232,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_caps_layer,
     my_lower_layer,
     my_raise_layer,
-    my_num_raise_layer,
+    my_num_lower_layer,
     my_adjust_layer
 );
 
@@ -249,7 +249,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_RAISE));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
     rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
 
     return state;
