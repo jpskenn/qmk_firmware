@@ -84,7 +84,7 @@ enum custom_keycodes {
 // #define CT_E    LCTL(KC_E)
 // #define CT_A    LCTL(KC_A)
 #define C_QUO   LCTL_T(KC_QUOT)
-#define A_GRV   LALT(KC_GRV)
+#define ALT_GRV   LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define ADJUST  MO(_ADJUST)
 #define NUM     TG(_NUM)
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,_______,
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,_______,
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,GUI_JA, ALT_EN,         _______,        _______,        A_GRV,  KC_APP, XXXXXXX,_______,_______,_______
+        _______,_______,KC_LGUI,KC_LALT,        _______,        _______,        ALT_GRV,KC_APP, XXXXXXX,_______,_______,_______
     ),
     [_NUM] = LAYOUT_all(
         KC_ESC,_______,_______,_______,_______,_______,_______,XXXXXXX,KC_PSLS,KC_PSLS,KC_PAST,_______,_______,_______,_______,
