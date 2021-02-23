@@ -26,77 +26,44 @@ enum layer_number {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    BASE = SAFE_RANGE,
-    // WIN,
-    LOWER,
+    LOWER = SAFE_RANGE,
     RAISE,
-    // M_PSCR,
-    // M_VOLD,
-    // M_VOLU,
-    ALT_EN,
-    ALT_JA,
-    GUI_EN,
-    GUI_JA,
 };
 
 // Key Macro
-#define SP_LOW  LT(_LOWER, KC_SPC)
-#define SP_RAI  LT(_RAISE, KC_SPC)
-#define S_DOT   RSFT_T(KC_DOT)
-#define C_SLS   RCTL_T(KC_SLSH)
-#define C_ESC   LCTL_T(KC_ESC)
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
-#define ALT_EN  LALT_T(KC_LANG2)
-#define ALT_JA  LALT_T(KC_LANG1)
-#define GUI_EN  LGUI_T(KC_LANG2)
-#define GUI_JA  LGUI_T(KC_LANG1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_all(
-        KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_BSLS,KC_PSLS,KC_PAST,KC_PMNS,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,  KC_MINS,KC_EQL,
+        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_P7,  KC_P8,  KC_P9,  KC_PPLS,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,       KC_BSPC,
-        C_ESC,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,    KC_ENT,
-        KC_LSFT,XXXXXXX,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,S_DOT,  C_SLS,  KC_UP,
-        XXXXXXX,XXXXXXX,ALT_JA, XXXXXXX,GUI_EN, SP_LOW, XXXXXXX,KC_P0,  XXXXXXX,KC_PDOT,SP_RAI, XXXXXXX,KC_RGUI,KC_ROPT,KC_LEFT,KC_DOWN,KC_RGHT
+        KC_LCTL,     KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,   KC_ENT,
+        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_UP,
+        KC_GRV, KC_BSLS,KC_LGUI,KC_LALT,KC_SPC, KC_SPC, LOWER,  KC_P0,  KC_P0,  KC_PDOT,RAISE,  KC_SPC,KC_APP,  KC_ROPT,KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_LOWER] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        KC_TILD,    KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_PSLS,KC_PSLS,KC_PAST,_______,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,    KC_DEL,
-        _______,    KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,_______,_______,_______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,    KC_BSLS,
-        _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_RAISE] = LAYOUT_all(
-        _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,_______,_______,_______,_______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,   KC_F11, KC_F12,
-        KC_GRV,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,_______,_______,_______,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,       KC_DEL,
-        _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,    KC_QUOT,
-        _______,_______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,
-        _______,_______,KC_F11, _______,KC_F12,_______,_______,_______,_______,_______,_______,_______,_______,KC_ESC,  _______,_______,_______
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_ADJUST] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,_______,    _______,RESET,  _______,_______,_______,_______,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
-        _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
-        KC_CAPS,_______,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     )
 };
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case BASE:
-//             if (record->event.pressed) {
-//                 // Change default layer --> Write to EEPROM
-//                 set_single_persistent_default_layer(_BASE);
-//             }
-//             return false;
-//             break;
-//         default:
-//             break;
-//     }
-//     return true;
-// }
 
 
 /* ------------------------------------------------------------------------------
