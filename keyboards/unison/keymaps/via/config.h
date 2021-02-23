@@ -17,7 +17,6 @@
 #pragma once
 
 #ifdef RGB_DI_PIN
-    /* Example settings for Underglow */
     #undef RGBLED_NUM
     #define RGBLED_NUM 17 // Layer Indicator(2) + Rotary Encoder(5) + Optional(2) + Under(8)
 
