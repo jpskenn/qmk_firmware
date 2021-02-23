@@ -136,17 +136,3 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
     #endif
 }
-
-
-/* ------------------------------------------------------------------------------
-   Rotary Encoder
------------------------------------------------------------------------------- */
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-}
-#endif
