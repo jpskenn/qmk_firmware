@@ -18,10 +18,9 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _BASE = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-    _CAPS,          // This is not a "REAL" layer. Define here to use for RGB light layer.
+    _LOW,
+    _RAI,
+    _ADJ,
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -36,13 +35,13 @@ enum custom_keycodes {
 };
 
 // Key Macro
-#define SP_LOW  LT(_LOWER, KC_SPC)
-#define SP_RAI  LT(_RAISE, KC_SPC)
+#define SP_LOW  LT(_LOW, KC_SPC)
+#define SP_RAI  LT(_RAI, KC_SPC)
 #define S_DOT   RSFT_T(KC_DOT)
 #define C_SLS   RCTL_T(KC_SLSH)
 #define C_ESC   LCTL_T(KC_ESC)
-#define LOWER   MO(_LOWER)
-#define RAISE   MO(_RAISE)
+#define LOWER   MO(_LOW)
+#define RAISE   MO(_RAI)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -56,21 +55,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,XXXXXXX,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,S_DOT,  C_SLS,  KC_UP,
         XXXXXXX,XXXXXXX,ALT_JA, XXXXXXX,GUI_EN, SP_LOW, XXXXXXX,KC_P0,  XXXXXXX,KC_PDOT,SP_RAI, XXXXXXX,KC_RGUI,KC_ROPT,KC_LEFT,KC_DOWN,KC_RGHT
     ),
-    [_LOWER] = LAYOUT_all(
+    [_LOW] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         KC_TILD,    KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_PSLS,KC_PSLS,KC_PAST,_______,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,    KC_DEL,
         _______,    KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,_______,_______,_______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,    KC_BSLS,
         _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END
     ),
-    [_RAISE] = LAYOUT_all(
+    [_RAI] = LAYOUT_all(
         _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,_______,_______,_______,_______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,   KC_F11, KC_F12,
         KC_GRV,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,_______,_______,_______,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,       KC_DEL,
         _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,    KC_QUOT,
         _______,_______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,
         _______,_______,KC_F11, _______,KC_F12,_______,_______,_______,_______,_______,_______,_______,_______,KC_ESC,  _______,_______,_______
     ),
-    [_ADJUST] = LAYOUT_all(
+    [_ADJ] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,    _______,RESET,  _______,_______,_______,_______,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
@@ -79,21 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case BASE:
-//             if (record->event.pressed) {
-//                 // Change default layer --> Write to EEPROM
-//                 set_single_persistent_default_layer(_BASE);
-//             }
-//             return false;
-//             break;
-//         default:
-//             break;
-//     }
-//     return true;
-// }
-
 
 /* ------------------------------------------------------------------------------
    RGB Light settings
@@ -101,66 +85,81 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define INDICATOR_INDEX 1         // where to start indicator
-#define INDICATOR_COUNT 2         // how many leds for indicator
-#define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
-#define DIMMER_LEVEL 150          // brightness dimmer
+#define INDICATOR_INDEX 0         // Where to start indicator, default:1
+#define INDICATOR_COUNT 1         // How many LEDs for indicator, default:2
+#define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
+#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_WHITE - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_BLACK}
 );
 
-// for temporal layer
-const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+// for Temporal layer
+const rgblight_segment_t PROGMEM my_LOW_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_GREEN - DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_RAI_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_CYAN - DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_ADJ_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_RED - DIMMER_LEVEL}
 );
 
 // for Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_base_layer,
-    my_lower_layer,
-    my_raise_layer,
-    my_adjust_layer,
-    my_caps_layer
+    my_caps_layer,
+    my_LOW_layer,
+    my_RAI_layer,
+    my_ADJ_layer
 );
-
-// Enabling and disabling lighting layers
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-
-    rgblight_set_layer_state(_LOWER, layer_state_cmp(state, _LOWER));
-    rgblight_set_layer_state(_RAISE, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(_ADJUST, layer_state_cmp(state, _ADJUST));
-
-    return state;
-}
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_BASE, layer_state_cmp(state, _BASE));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
 
     return state;
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(_CAPS, led_state.caps_lock);
+    rgblight_set_layer_state(1, led_state.caps_lock);
     return true;
 }
+
+// Enabling and disabling lighting layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOW, _RAI, _ADJ);
+
+    rgblight_set_layer_state(2, layer_state_cmp(state, _LOW));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _RAI));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _ADJ));
+
+    return state;
+}
 #endif
+
+
+/* ------------------------------------------------------------------------------
+   Post Initialize
+------------------------------------------------------------------------------ */
+void keyboard_post_init_user(void) {
+    #ifdef RGB_DI_PIN
+    // RGB Lighting: Set effect range from just after indicator.
+    rgblight_set_effect_range(1, 16);
+    #endif
+    #ifdef RGBLIGHT_LAYERS
+    // RGB Lighting Layers: Setup LED layers
+    rgblight_layers = my_rgb_layers;
+    #endif
+}
 
 
 /* ------------------------------------------------------------------------------
@@ -175,17 +174,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
-
-
-/* ------------------------------------------------------------------------------
-   Post Initialize
------------------------------------------------------------------------------- */
-void keyboard_post_init_user(void) {
-    // Debugging
-    // debug_enable=true;
-
-    #ifdef RGBLIGHT_LAYERS
-    // RGB Lighting Layers: Enable LED layers
-    rgblight_layers = my_rgb_layers;
-    #endif
-}

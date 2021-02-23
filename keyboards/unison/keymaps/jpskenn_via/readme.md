@@ -1,6 +1,11 @@
-# Keymap for Unison Terminal style with VIA support
+![Unison, VIA Layout Image](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/layout_via.png)
 
-Five rows layout for PC operation.
+# Keymap for jpskenn's Unison Terminal style with VIA support
+
+Five rows layout for PC operation.  
+VIA remapping is supported.
+
+Some tweaks for myself.
 
 ## Layers
 
@@ -14,15 +19,20 @@ Five rows layout for PC operation.
 
 ## LED lighting
 
-Front side 9 LEDs.
+Front side 9 LEDs + Under side 8 LEDs.
 
 - Indicator: 2
 - Rotary Encoder side: 5
 - Optional: 2
+- Under: 8
 
 ## Audio
 
 Simultaneous audio.
+
+## Rotary Encoder
+
+Enabled for volume control.
 
 ## Bootmagic
 
