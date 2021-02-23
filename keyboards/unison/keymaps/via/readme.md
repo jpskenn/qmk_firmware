@@ -7,7 +7,7 @@ VIA remapping is supported.
 
 ## Layers
 
-### Base layers
+### Base layer
 - Base
 
 ### Momentarily layers
@@ -17,7 +17,9 @@ VIA remapping is supported.
 
 ## LED lighting
 
-Front side 9 LEDs + Under side 8 LEDs.
+17 LEDs.
+One for Lighting Layer.
+The rest for Lighting Effects.
 
 - Indicator: 2
 - Rotary Encoder side: 5
@@ -26,13 +28,9 @@ Front side 9 LEDs + Under side 8 LEDs.
 
 ## Audio
 
-Simultaneous audio.
-
-## Rotary Encoder
-
-Enabled for volume control.
+Supports simultaneous audio.
 
 ## Bootmagic
 
-"lite" mode is activated.  
-Hold "Left-Bottom" key to enter bootloader.
+The "lite" mode is enabled.  
+Hold "Left-Top" key to enter bootloader.
