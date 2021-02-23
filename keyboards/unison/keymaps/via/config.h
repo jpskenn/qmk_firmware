@@ -16,9 +16,6 @@
 
 #pragma once
 
-// time for long press
-#define TAPPING_TERM 200
-
 #ifdef RGB_DI_PIN
     /* Example settings for Underglow */
     #undef RGBLED_NUM
@@ -26,10 +23,4 @@
 
     #undef RGBLIGHT_LED_MAP
     #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16} // Left to Right to Under Right to Under Left
-#endif
-
-#define RGBLIGHT_MAX_LAYERS 10
-
-#ifdef NKRO_ENABLE
-    #define FORCE_NKRO
 #endif
