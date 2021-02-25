@@ -576,7 +576,6 @@ void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_LAYERS
     // RGB Lighting Layers: Setup LED layers
     rgblight_layers = my_rgb_layers;
-
     #endif
 
     #ifdef RGB_DI_PIN
