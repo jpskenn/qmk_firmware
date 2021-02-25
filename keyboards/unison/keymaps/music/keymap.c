@@ -21,7 +21,7 @@ static void show_sequencer_steps(uint8_t, uint8_t);
 static void hide_sequencer_steps(void);
 static uint8_t step_frame_index = 0;
 
-// Defines names for use in layer keycodes and the keymap
+// Layer index
 enum layer_number {
     _MAC = 0,
     _WIN,
@@ -129,10 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#define SEQ_TRACK_INDICATOR_POSITION 0
-#define SEQ_LED_DIMMER 100
-#define SEQ_LED_STEP_OFF_DIMMER 200
-#define SEQ_TEMPO 100
+#define SEQ_TRACK_INDICATOR_INDEX 0 // Where to start track indicator, default:1
+#define SEQ_LED_DIMMER 100          // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_LED_STEP_OFF_DIMMER 200 // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+
+#define SEQ_TEMPO 100               // Sequencer initial tempo, default:100
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -168,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SEQ:
             if (record->event.pressed) {
-                // Stop LED animation for Sequencer display.
+                // Stop LED animation for step and track display.
                 rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
                 rgblight_sethsv_noeeprom(HSV_BLACK);
                 // Change default layer
@@ -240,7 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         break;
                     }
 
-                    // reset display frame index
+                    // when a track activated, reset display frame index
                    if(!is_sequencer_on()) {
                         step_frame_index = 0;
                     }
@@ -270,7 +271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    RGB Lighting for Sequencer
 ------------------------------------------------------------------------------ */
 void show_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
-    rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_POSITION);
+    rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
 }
 
 void hide_sequencer_steps(void) {
@@ -339,10 +340,10 @@ void show_sequencer_steps(uint8_t track, uint8_t index) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define INDICATOR_INDEX 1         // where to start indicator
-#define INDICATOR_COUNT 2         // how many LEDs for indicator
-#define INDICATOR_CHANGE_COUNT 1  // how meny LEDs to change color for temporally layer
-#define DIMMER_LEVEL 150          // brightness dimmer
+#define INDICATOR_INDEX 1         // Where to start indicator, default:1
+#define INDICATOR_COUNT 2         // How many LEDs for indicator, default:2
+#define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
+#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 
 // Default layers (= Base layers)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
