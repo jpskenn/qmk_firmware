@@ -16,10 +16,10 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-static void display_sequencer_track(uint8_t, uint8_t, uint8_t);
-static void display_sequencer_steps(uint8_t, uint8_t);
-static void turn_off_display_sequencer_steps(void);
-static uint8_t step_frame_index;
+static void show_sequencer_track(uint8_t, uint8_t, uint8_t);
+static void show_sequencer_steps(uint8_t, uint8_t);
+static void hide_sequencer_steps(void);
+static uint8_t step_frame_index = 0;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
@@ -188,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     #ifdef RGB_LIGHT_LAYER
                     rgblight_set_layer_state(_SEQPLAYBACK, true);
                     #endif
-                    turn_off_display_sequencer_steps();
+                    hide_sequencer_steps();
                 }
             }
             return false;
@@ -208,33 +208,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
             if (record->event.pressed) {
                 if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                    display_sequencer_track(HSV_WHITE);
-                    turn_off_display_sequencer_steps();
+                    show_sequencer_track(HSV_WHITE);
+                    hide_sequencer_steps();
                 } else {
                     switch (keycode - SEQUENCER_TRACK_MIN) {
                     case 0:
-                        display_sequencer_track(HSV_RED);
+                        show_sequencer_track(HSV_RED);
                         break;
                     case 1:
-                        display_sequencer_track(HSV_ORANGE);
+                        show_sequencer_track(HSV_ORANGE);
                         break;
                     case 2:
-                        display_sequencer_track(HSV_CHARTREUSE);
+                        show_sequencer_track(HSV_CHARTREUSE);
                         break;
                     case 3:
-                        display_sequencer_track(HSV_GREEN);
+                        show_sequencer_track(HSV_GREEN);
                         break;
                     case 4:
-                        display_sequencer_track(HSV_SPRINGGREEN);
+                        show_sequencer_track(HSV_SPRINGGREEN);
                         break;
                     case 5:
-                        display_sequencer_track(HSV_BLUE);
+                        show_sequencer_track(HSV_BLUE);
                         break;
                     case 6:
-                        display_sequencer_track(HSV_PURPLE);
+                        show_sequencer_track(HSV_PURPLE);
                         break;
                     case 7:
-                        display_sequencer_track(HSV_MAGENTA);
+                        show_sequencer_track(HSV_MAGENTA);
                         break;
                     default:
                         break;
@@ -269,16 +269,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* ------------------------------------------------------------------------------
    RGB Lighting for Sequencer
 ------------------------------------------------------------------------------ */
-void display_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
+void show_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
     rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_POSITION);
-
 }
 
-void turn_off_display_sequencer_steps(void) {
+void hide_sequencer_steps(void) {
     rgblight_sethsv_range(HSV_BLACK, 3, 7);
 }
 
-void display_sequencer_steps(uint8_t track, uint8_t index) {
+void show_sequencer_steps(uint8_t track, uint8_t index) {
     sequencer_activate_track(track);
 
     uint8_t hue;
@@ -630,7 +629,7 @@ void matrix_scan_user(void) {
         } else {
             for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
                 if (is_sequencer_track_active(i)) {
-                    display_sequencer_steps(i, step_frame_index);
+                    show_sequencer_steps(i, step_frame_index);
                 }
             }
         }
