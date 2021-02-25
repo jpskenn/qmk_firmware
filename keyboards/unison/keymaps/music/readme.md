@@ -1,3 +1,5 @@
+![Unison, Music-style Layout Image](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/layout_music.png)
+
 # Demonstration keymap for Unison Music style
 
 For DAW, Digital Audio Workstation operation and music play.  
@@ -7,16 +9,16 @@ See how it works.
 
 ## Layers
 
-### Base layers
-- Mac
-- Windows
-- Midi
-- Sequencer
+- Base layers
+    - Mac
+    - Windows
+    - MIDI
+    - Sequencer
 
-### Momentarily layers
-- Lower
-- Raise
-- Adjust
+- Momentarily layers
+    - Lower
+    - Raise
+    - Adjust
 
 ## LED lighting
 
@@ -27,7 +29,8 @@ Front side 7 LEDs.
 
 ## MIDI
 
-Advanced mode.
+Basic + Advanced mode.
+
 ## Sequencer
 
 - 8 tracks
