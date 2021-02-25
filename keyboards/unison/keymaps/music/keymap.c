@@ -21,6 +21,12 @@ static void show_sequencer_steps(uint8_t, uint8_t);
 static void hide_sequencer_steps(void);
 static uint8_t step_frame_index = 0;
 
+// Sequencer settings
+#define SEQ_TRACK_INDICATOR_INDEX 0 // Where to start track indicator, default:1
+#define SEQ_LED_DIMMER 100          // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_LED_STEP_OFF_DIMMER 200 // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_TEMPO 100               // Sequencer initial tempo, default:100
+
 // Layer index
 enum layer_number {
     _MAC = 0,
@@ -128,12 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     )
 };
-
-#define SEQ_TRACK_INDICATOR_INDEX 0 // Where to start track indicator, default:1
-#define SEQ_LED_DIMMER 100          // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-#define SEQ_LED_STEP_OFF_DIMMER 200 // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-
-#define SEQ_TEMPO 100               // Sequencer initial tempo, default:100
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -574,13 +574,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 ------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_LAYERS
-    // RGB Lighting Layers: Enable LED layers
+    // RGB Lighting Layers: Setup LED layers
     rgblight_layers = my_rgb_layers;
 
     #endif
 
     #ifdef RGB_DI_PIN
-    // RGB Lighting: Set effect range to right Rotary Encoder LEDs.
+    // RGB Lighting: Set effect range to right side of Rotary Encoder LEDs.
     rgblight_set_effect_range(3, 4);
     #endif
 
