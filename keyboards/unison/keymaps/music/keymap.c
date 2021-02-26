@@ -69,6 +69,7 @@ enum custom_keycodes {
     SEQ_FRM,
     SEQ_TMP,
     SEQ_RES,
+    SEQ_RST,
 };
 
 // Key Macro
@@ -131,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,    _______,_______,_______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
         _______,_______,_______,_______,_______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
         _______,_______,_______,_______,KC_CAPS,KC_CAPS,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+        _______,SEQ_RST,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     )
 };
 
@@ -248,6 +249,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;  // continue processing keycode.
+            break;
+        case SEQ_RST: // Turn off all steps on all track.
+            if (record->event.pressed) {
+                for (uint8_t i = 0; i < 7; i++) {
+                    sequencer_activate_track(i);
+                    sequencer_set_all_steps_off();
+                }
+            }
+            return false;
             break;
         case M_PSCR: // provide Mac's advanced screen capture
             if (record->event.pressed) {
