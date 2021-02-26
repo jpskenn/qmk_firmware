@@ -25,6 +25,8 @@
 // music map for music-mode
 #define MUSIC_MAP
 
+#define AUDIO_VOICES
+
 #ifdef RGB_DI_PIN
     #undef RGBLED_NUM
     #define RGBLED_NUM 12 // Left(4) + Under(8)
