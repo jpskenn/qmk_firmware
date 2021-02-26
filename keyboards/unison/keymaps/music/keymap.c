@@ -207,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             sequencer_set_resolution(SQ_RES_4);
             return false;
             break;
-        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
+        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
             if (record->event.pressed) {
                 if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                     show_sequencer_track(HSV_WHITE);
