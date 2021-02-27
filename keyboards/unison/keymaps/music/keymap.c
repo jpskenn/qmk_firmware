@@ -325,52 +325,52 @@ void show_sequencer_tempo_and_resolution() {
 void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
     switch (index) {
         case 0:
-            *hue = 0;
+            *hue = 0;   // black
             *sat = 0;
             *val = 0;
             break;
         case 1:
-            *hue = 0;    // red
+            *hue = 0;   // red
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 2:
-            *hue = 28;   // orange
+            *hue = 28;  // orange
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 3:
-            *hue = 64;   // chartreuse
+            *hue = 64;  // chartreuse
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 4:
-            *hue = 85;   // green
+            *hue = 85;  // green
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 5:
-            *hue = 106;  // spring green
+            *hue = 106; // spring green
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 6:
-            *hue = 170;  // blue
+            *hue = 170; // blue
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 7:
-            *hue = 191;  // purple
+            *hue = 191; // purple
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 8:
-            *hue = 213;  // magenta
+            *hue = 213; // magenta
             *sat = 255;
             *val = 255 - SEQ_LED_DIMMER;
             break;
         case 9:
-            *hue = 0;
+            *hue = 0;   // white
             *sat = 0;
             *val = 255 - SEQ_LED_DIMMER;
             break;
