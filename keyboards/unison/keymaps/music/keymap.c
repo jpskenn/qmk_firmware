@@ -270,8 +270,8 @@ void show_sequencer_playback(bool is_sequencer_on) {
 }
 
 bool is_any_sequencer_track_active() {
-    for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
-        if (is_sequencer_track_active(i)) {
+    for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
+        if (is_sequencer_track_active(track)) {
             return true;
         }
     }
@@ -301,8 +301,8 @@ void show_sequencer_tempo_and_resolution() {
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
 }
 
-void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
-    switch (index) {
+void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
+    switch (decimal_index) {
         case 0:
             *hue = 0;   // black
             *sat = 0;
@@ -356,11 +356,11 @@ void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t
     }
 }
 
-void show_sequencer_track(uint8_t index) {
+void show_sequencer_track(uint8_t track) {
     uint8_t hue = 0;
     uint8_t sat = 0;
     uint8_t val = 0;
-    set_hsv_by_decimal_index(index + 1, &hue, &sat, &val);
+    set_hsv_by_decimal_index(track + 1, &hue, &sat, &val);
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
 }
 
