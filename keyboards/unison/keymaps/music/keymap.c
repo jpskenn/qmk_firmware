@@ -245,13 +245,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
-            if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                show_sequencer_track((keycode - SEQUENCER_TRACK_MIN));
-
+            if(!is_sequencer_on() && is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                 // Reset display frame index when track is activated
-                if(!is_sequencer_on()) {
-                    step_frame_index = 0;
-                }
+                step_frame_index = 0;
             }
             break;
         default:
@@ -649,6 +645,21 @@ void keyboard_post_init_user(void) {
 ------------------------------------------------------------------------------ */
 void matrix_scan_user(void) {
     if (biton32(default_layer_state) == _SEQUENCER) {
+        uint8_t track;
+        bool is_track_showed = false;
+
+        for (track = 0; track < SEQUENCER_TRACKS; track++) {
+            if (is_sequencer_track_active(track)) {
+                show_sequencer_track(track);
+                is_track_showed = true;
+                break;
+            }
+        }
+
+        if (!is_track_showed) {
+            show_sequencer_track_deactivated();
+        }
+
         if (is_sequencer_on()) {
             switch (sequencer_get_current_step()) {
             case 0:
@@ -677,16 +688,9 @@ void matrix_scan_user(void) {
                 break;
             }
         } else {
-            bool is_track_showed = false;
-            for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
-                if (is_sequencer_track_active(track)) {
-                    show_sequencer_steps(track);
-                    is_track_showed = true;
-                    break;
-                }
-            }
-            if (!is_track_showed) {
-                show_sequencer_track_deactivated();
+            if (is_track_showed) {
+                show_sequencer_steps(track);
+            } else {
                 show_sequencer_tempo_and_resolution();
             }
         }
