@@ -247,7 +247,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                 show_sequencer_track((keycode - SEQUENCER_TRACK_MIN));
 
-                // when a track activated, reset display frame index
+                // Reset display frame index when track is activated
                 if(!is_sequencer_on()) {
                     step_frame_index = 0;
                 }
