@@ -81,6 +81,7 @@ enum custom_keycodes {
 #define C_ESC   LCTL_T(KC_ESC)
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
+#define SEQ     DF(_SEQUENCER)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -170,17 +171,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQ:
-            if (record->event.pressed) {
-                // Change default layer
-                default_layer_set(1UL << _SEQUENCER);
-
-                // Stop LED animation for step and track display.
-                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-                rgblight_sethsv_noeeprom(HSV_BLACK);
-            }
-            return false;
-            break;
         case SEQ_FRM: // Reset display frame index to the head.
             step_frame_index = 0;
             return false;
@@ -229,6 +219,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SEQ:
+            // Stop LED animation for step and track display.
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            rgblight_sethsv_noeeprom(HSV_BLACK);
+
+            // setup initial LED status
+            show_sequencer_track(HSV_WHITE);
+            if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
+                show_sequencer_tempo_and_resolution();
+            }
         case SQ_TOG:
             if(is_sequencer_on()) {
                 //TODO playbackがつかない。多分アニメなしエフェクトなので、更新されてないため。
