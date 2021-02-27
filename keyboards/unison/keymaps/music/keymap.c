@@ -373,8 +373,6 @@ void hide_sequencer_steps() {
 }
 
 void show_sequencer_steps(uint8_t track) {
-    sequencer_activate_track(track);//todo これはここでやるの？
-
     uint8_t hue;
     uint8_t sat;
     uint8_t val;
