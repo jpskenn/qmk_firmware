@@ -373,58 +373,35 @@ void hide_sequencer_steps() {
 }
 
 void show_sequencer_steps(uint8_t track) {
-    sequencer_activate_track(track);
+    sequencer_activate_track(track);//todo これはここでやるの？
 
     uint8_t hue;
-    switch (step_frame_index) {
-        case 0:
-            hue = 0;    // red
-            break;
-        case 1:
-            hue = 28;   // orange
-            break;
-        case 2:
-            hue = 64;   // chartreuse
-            break;
-        case 3:
-            hue = 85;   // green
-            break;
-        case 4:
-            hue = 106;  // spring green
-            break;
-        case 5:
-            hue = 170;  // blue
-            break;
-        case 6:
-            hue = 191;  // purple
-            break;
-        case 7:
-            hue = 213;  // magenta
-            break;
-    }
+    uint8_t sat;
+    uint8_t val;
+    set_hsv_by_decimal_index(step_frame_index + 1, &hue, &sat, &val);
 
     if (is_sequencer_step_on(step_frame_index * 4 + 0)) {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 3);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
     } else {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 3);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 3);
     }
 
     if (is_sequencer_step_on(step_frame_index * 4 + 1)) {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 4);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
     } else {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 4);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 4);
     }
 
     if (is_sequencer_step_on(step_frame_index * 4 + 2)) {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 5);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 5);
     } else {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 5);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 5);
     }
 
     if (is_sequencer_step_on(step_frame_index * 4 + 3)) {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 6);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
     } else {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 6);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 6);
     }
 }
 
