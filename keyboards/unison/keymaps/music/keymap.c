@@ -220,53 +220,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
-            if (record->event.pressed) {
-                if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                    show_sequencer_track(HSV_WHITE);
-                    // hide_sequencer_steps();
-
-                    if(!is_sequencer_on()) {
-                        show_sequencer_tempo_and_resolution();
-                    }
-                } else {
-                    switch (keycode - SEQUENCER_TRACK_MIN) {
-                    case 0:
-                        show_sequencer_track(HSV_RED);
-                        break;
-                    case 1:
-                        show_sequencer_track(HSV_ORANGE);
-                        break;
-                    case 2:
-                        show_sequencer_track(HSV_CHARTREUSE);
-                        break;
-                    case 3:
-                        show_sequencer_track(HSV_GREEN);
-                        break;
-                    case 4:
-                        show_sequencer_track(HSV_SPRINGGREEN);
-                        break;
-                    case 5:
-                        show_sequencer_track(HSV_BLUE);
-                        break;
-                    case 6:
-                        show_sequencer_track(HSV_PURPLE);
-                        break;
-                    case 7:
-                        show_sequencer_track(HSV_MAGENTA);
-                        break;
-                    default:
-                        break;
-                    }
-
-                    // when a track activated, reset display frame index
-                   if(!is_sequencer_on()) {
-                        step_frame_index = 0;
-                    }
-                }
-            }
-            return true;  // continue processing keycode.
-            break;
         case SEQ_RST: // Turn off all steps on all track.
             if (record->event.pressed) {
                 for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
@@ -293,6 +246,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
+            if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
+                switch (keycode - SEQUENCER_TRACK_MIN) {
+                case 0:
+                    show_sequencer_track(HSV_RED);
+                    break;
+                case 1:
+                    show_sequencer_track(HSV_ORANGE);
+                    break;
+                case 2:
+                    show_sequencer_track(HSV_CHARTREUSE);
+                    break;
+                case 3:
+                    show_sequencer_track(HSV_GREEN);
+                    break;
+                case 4:
+                    show_sequencer_track(HSV_SPRINGGREEN);
+                    break;
+                case 5:
+                    show_sequencer_track(HSV_BLUE);
+                    break;
+                case 6:
+                    show_sequencer_track(HSV_PURPLE);
+                    break;
+                case 7:
+                    show_sequencer_track(HSV_MAGENTA);
+                    break;
+                default:
+                    break;
+                }
+
+                // when a track activated, reset display frame index
+                if(!is_sequencer_on()) {
+                    step_frame_index = 0;
+                }
+            } else {
+                show_sequencer_track(HSV_WHITE);
+
+                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
+                    show_sequencer_tempo_and_resolution();
+                }
+            }
+            break;
+        default:
+            break;
+    }
 }
 /* ------------------------------------------------------------------------------
    RGB Lighting for Sequencer
