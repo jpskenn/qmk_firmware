@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+static void show_sequencer_playback(bool);
 static void show_sequencer_track(uint8_t, uint8_t, uint8_t);
 static void show_sequencer_steps(uint8_t, uint8_t);
 static void hide_sequencer_steps(void);
@@ -24,11 +25,20 @@ static void set_hsv_by_decimal_index(uint8_t index, uint8_t*, uint8_t*, uint8_t*
 static bool is_any_sequencer_track_active(void);
 static uint8_t step_frame_index = 0;
 
+#ifdef RGBLIGHT_LAYERS
+    // Indicator LED settings
+    #define INDICATOR_INDEX 0         // Where to start indicator, default:1
+    #define INDICATOR_COUNT 1         // How many LEDs for indicator, default:2
+    #define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
+    #define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#endif
+
 // Sequencer settings
-#define SEQ_TRACK_INDICATOR_INDEX 0 // Where to start track indicator, default:1
-#define SEQ_LED_DIMMER 100          // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-#define SEQ_LED_STEP_OFF_DIMMER 200 // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-#define SEQ_TEMPO 100               // Sequencer initial tempo, default:100
+#define SEQ_PLAYBACK_INDICATOR_INDEX 2  // Where to start playback indicator, default:2
+#define SEQ_TRACK_INDICATOR_INDEX 1     // Where to start track indicator, default:1
+#define SEQ_LED_DIMMER 100              // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_LED_STEP_OFF_DIMMER 200     // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_TEMPO 100                   // Sequencer initial tempo, default:100
 
 // Layer index
 enum layer_number {
@@ -40,7 +50,6 @@ enum layer_number {
     _RAISE,
     _ADJUST,
     _CAPS,          // This is not a "REAL" layer. Define here to use for RGB light layer.
-    _SEQPLAYBACK,   // This is not a "REAL" layer. Define here to use for RGB light layer.
 };
 
 // Sequencer Track note, General MIDI Drum mapping
@@ -144,7 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                rgblight_sethsv_at(HSV_BLACK, 0);
+                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_MAC);
@@ -154,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                rgblight_sethsv_at(HSV_BLACK, 0);
+                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_WIN);
@@ -164,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MIDI:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                rgblight_sethsv_at(HSV_BLACK, 0);
+                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer
                 default_layer_set(1UL << _MIDI);
@@ -231,15 +240,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         case SQ_TOG:
             if(is_sequencer_on()) {
-                //TODO playbackがつかない。多分アニメなしエフェクトなので、更新されてないため。
-                #ifdef RGB_LIGHT_LAYER
-                rgblight_set_layer_state(_SEQPLAYBACK, true);
-                #endif
+                show_sequencer_playback(true);
                 hide_sequencer_steps();
             } else {
-                #ifdef RGB_LIGHT_LAYER
-                rgblight_set_layer_state(_SEQPLAYBACK, false);
-                #endif
+                show_sequencer_playback(false);
                 if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
                     show_sequencer_track(HSV_WHITE);
                     show_sequencer_tempo_and_resolution();
@@ -296,6 +300,13 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* ------------------------------------------------------------------------------
    RGB Lighting for Sequencer
 ------------------------------------------------------------------------------ */
+void show_sequencer_playback(bool is_sequencer_on) {
+    if (is_sequencer_on) {
+        rgblight_sethsv_at(HSV_CHARTREUSE - DIMMER_LEVEL, SEQ_PLAYBACK_INDICATOR_INDEX);
+    } else {
+        rgblight_sethsv_at(HSV_SPRINGGREEN - DIMMER_LEVEL, SEQ_PLAYBACK_INDICATOR_INDEX);
+    }
+}
 
 bool is_any_sequencer_track_active() {
     for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
@@ -446,12 +457,6 @@ void show_sequencer_steps(uint8_t track, uint8_t index) {
 ------------------------------------------------------------------------------ */
 #ifdef RGBLIGHT_LAYERS
 
-// Indicator LED settings
-#define INDICATOR_INDEX 1         // Where to start indicator, default:1
-#define INDICATOR_COUNT 2         // How many LEDs for indicator, default:2
-#define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
-#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-
 // Default layers (= Base layers)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_WHITE - DIMMER_LEVEL}
@@ -481,12 +486,7 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
-);
-
-// Sequencer Playback indicator
-const rgblight_segment_t PROGMEM my_seqplayback_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
@@ -498,8 +498,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_lower_layer,
     my_raise_layer,
     my_adjust_layer,
-    my_caps_layer,
-    my_seqplayback_layer
+    my_caps_layer
 );
 
 // Enabling and disabling lighting layers for temporal layer
@@ -681,11 +680,6 @@ void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_LAYERS
     // RGB Lighting Layers: Setup LED layers
     rgblight_layers = my_rgb_layers;
-    #endif
-
-    #ifdef RGB_DI_PIN
-    // RGB Lighting: Set effect range to right side of Rotary Encoder LEDs.
-    rgblight_set_effect_range(3, 4);
     #endif
 
     // MIDI & Sequencer: Reset the octave offset to 0
