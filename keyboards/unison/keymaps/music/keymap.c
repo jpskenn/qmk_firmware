@@ -68,7 +68,6 @@ enum custom_keycodes {
     ALT_JA,
     GUI_EN,
     GUI_JA,
-    SEQ_TOG,
     SEQ_FRM,
     SEQ_TMP,
     SEQ_RES,
@@ -110,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_VELD, MI_VEL_9,MI_VELU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   LOWER,   XXXXXXX, RAISE,   RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT_music(
-                          KC_MUTE,          SEQ_TOG, XXXXXXX, SQ_TMPD, SQ_TMPU,          SEQ_TMP,          SEQ_RES,          XXXXXXX,          SEQ_FRM,
+                          KC_MUTE,          SQ_TOG,  XXXXXXX, SQ_TMPD, SQ_TMPU,          SEQ_TMP,          SEQ_RES,          XXXXXXX,          SEQ_FRM,
         SQ_S(0), SQ_S(1), SQ_S(2), SQ_S(3),     SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),SQ_S(17),SQ_S(18),SQ_S(19),    SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
         SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -182,26 +181,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQ_TOG: // Toggle Sqeuencer playback on/off
-            if (record->event.pressed) {
-                if(is_sequencer_on()) {
-                    sequencer_off();
-                    #ifdef RGB_LIGHT_LAYER
-                    rgblight_set_layer_state(_SEQPLAYBACK, false);
-                    #endif
-                    if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                        show_sequencer_tempo_and_resolution();
-                    }
-                } else {
-                    sequencer_on();
-                    #ifdef RGB_LIGHT_LAYER
-                    rgblight_set_layer_state(_SEQPLAYBACK, true);
-                    #endif
-                    hide_sequencer_steps();
-                }
-            }
-            return false;
-            break;
         case SEQ_FRM: // Reset display frame index to the head.
             step_frame_index = 0;
             return false;
@@ -250,6 +229,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SQ_TOG:
+            if(is_sequencer_on()) {
+                //TODO playbackがつかない。多分アニメなしエフェクトなので、更新されてないため。
+                #ifdef RGB_LIGHT_LAYER
+                rgblight_set_layer_state(_SEQPLAYBACK, true);
+                #endif
+                hide_sequencer_steps();
+            } else {
+                #ifdef RGB_LIGHT_LAYER
+                rgblight_set_layer_state(_SEQPLAYBACK, false);
+                #endif
+                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
+                    show_sequencer_track(HSV_WHITE);
+                    show_sequencer_tempo_and_resolution();
+                }
+            }
+            break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
             if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                 switch (keycode - SEQUENCER_TRACK_MIN) {
