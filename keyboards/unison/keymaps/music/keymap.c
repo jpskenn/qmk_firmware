@@ -17,7 +17,7 @@
 #include "muse.h"
 
 static void show_sequencer_playback(bool);
-static void show_sequencer_track(uint8_t, uint8_t, uint8_t);
+static void show_sequencer_track(uint8_t);
 static void show_sequencer_track_deactivated(void);
 static void show_sequencer_steps(uint8_t, uint8_t);
 static void hide_sequencer_steps(void);
@@ -27,18 +27,19 @@ static bool is_any_sequencer_track_active(void);
 static uint8_t step_frame_index = 0;
 
 #ifdef RGBLIGHT_LAYERS
-    // Indicator LED settings
-    #define INDICATOR_INDEX 0         // Where to start indicator, default:1
-    #define INDICATOR_COUNT 1         // How many LEDs for indicator, default:2
-    #define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
-    #define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+// Indicator LED settings
+#define INDICATOR_INDEX 0         // Where to start indicator, default:9
+#define INDICATOR_COUNT 1         // How many LEDs for indicator, default:1
+#define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
+#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 #endif
 
 // Sequencer settings
 #define SEQ_PLAYBACK_INDICATOR_INDEX 2  // Where to start playback indicator, default:2
 #define SEQ_TRACK_INDICATOR_INDEX 1     // Where to start track indicator, default:1
-#define SEQ_LED_DIMMER 100              // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
-#define SEQ_LED_STEP_OFF_DIMMER 200     // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define SEQ_TRACK_DEACTIVATED_COLOR_INDEX 9 // The color index in set_hsv_by_decimal_index(), default:9(=white)
+#define SEQ_LED_DIMMER 100              // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:100
+#define SEQ_LED_STEP_OFF_DIMMER 200     // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:200
 #define SEQ_TEMPO 100                   // Sequencer initial tempo, default:100
 
 // Layer index
@@ -244,34 +245,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
             if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                switch (keycode - SEQUENCER_TRACK_MIN) {
-                case 0:
-                    show_sequencer_track(HSV_RED);
-                    break;
-                case 1:
-                    show_sequencer_track(HSV_ORANGE);
-                    break;
-                case 2:
-                    show_sequencer_track(HSV_CHARTREUSE);
-                    break;
-                case 3:
-                    show_sequencer_track(HSV_GREEN);
-                    break;
-                case 4:
-                    show_sequencer_track(HSV_SPRINGGREEN);
-                    break;
-                case 5:
-                    show_sequencer_track(HSV_BLUE);
-                    break;
-                case 6:
-                    show_sequencer_track(HSV_PURPLE);
-                    break;
-                case 7:
-                    show_sequencer_track(HSV_MAGENTA);
-                    break;
-                default:
-                    break;
-                }
+                show_sequencer_track((keycode - SEQUENCER_TRACK_MIN));
 
                 // when a track activated, reset display frame index
                 if(!is_sequencer_on()) {
@@ -309,14 +283,21 @@ void show_sequencer_tempo_and_resolution() {
     uint8_t sat = 0;
     uint8_t val = 0;
 
-    set_hsv_by_decimal_index(sequencer_get_tempo()/100, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val, 3);
-    set_hsv_by_decimal_index(sequencer_get_tempo()/10%10, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val, 4);
-    set_hsv_by_decimal_index(sequencer_get_tempo()%10, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val, 5);
-    set_hsv_by_decimal_index(sequencer_get_resolution()+1, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val, 6);
+    // tempo: 100, hundreds place
+    set_hsv_by_decimal_index(sequencer_get_tempo() / 100, &hue, &sat, &val);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
+
+    // tempp: 10, tens place
+    set_hsv_by_decimal_index(sequencer_get_tempo() / 10 % 10, &hue, &sat, &val);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
+
+    // tempo: 1, ones place
+    set_hsv_by_decimal_index(sequencer_get_tempo() % 10, &hue, &sat, &val);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 5);
+
+    // resolution
+    set_hsv_by_decimal_index(sequencer_get_resolution() + 1, &hue, &sat, &val);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
 }
 
 void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
@@ -324,62 +305,66 @@ void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t
         case 0:
             *hue = 0;   // black
             *sat = 0;
-            *val = 0;
+            *val = SEQ_LED_DIMMER;
             break;
         case 1:
             *hue = 0;   // red
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 2:
             *hue = 28;  // orange
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 3:
             *hue = 64;  // chartreuse
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 4:
             *hue = 85;  // green
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 5:
             *hue = 106; // spring green
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 6:
             *hue = 170; // blue
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 7:
             *hue = 191; // purple
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 8:
             *hue = 213; // magenta
             *sat = 255;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
         case 9:
             *hue = 0;   // white
             *sat = 0;
-            *val = 255 - SEQ_LED_DIMMER;
+            *val = 255;
             break;
     }
 }
 
-void show_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
-    rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
+void show_sequencer_track(uint8_t index) {
+    uint8_t hue = 0;
+    uint8_t sat = 0;
+    uint8_t val = 0;
+    set_hsv_by_decimal_index(index + 1, &hue, &sat, &val);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
 }
 
 void show_sequencer_track_deactivated() {
-    show_sequencer_track(HSV_WHITE);
+    show_sequencer_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX);
 }
 
 void hide_sequencer_steps(void) {
