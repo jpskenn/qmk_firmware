@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "muse.h"
+#include <stdlib.h>
 
 static void show_sequencer_playback(bool);
 static void show_sequencer_track(uint8_t);
@@ -24,7 +25,7 @@ static void hide_sequencer_steps(void);
 static void show_sequencer_tempo_and_resolution(void);
 static void set_hsv_by_decimal_index(uint8_t index, uint8_t*, uint8_t*, uint8_t*);
 static bool is_any_sequencer_track_active(void);
-
+static void sequencer_generate_random_step(bool);
 static uint8_t step_frame_index = 0;
 
 #ifdef RGBLIGHT_LAYERS
@@ -84,6 +85,8 @@ enum custom_keycodes {
     SEQ_TMP,
     SEQ_RES,
     SEQ_RST,
+    SEQ_RND,
+    SEQ_LRD,
 };
 
 // Key Macro
@@ -126,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SQ_S(0), SQ_S(1), SQ_S(2), SQ_S(3),     SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),SQ_S(17),SQ_S(18),SQ_S(19),    SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
         SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        SQ_SALL, SQ_SCLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   LOWER,   XXXXXXX, RAISE,   RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        SQ_SALL, SQ_SCLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   LOWER,   XXXXXXX, RAISE,   RAISE,   XXXXXXX, XXXXXXX, SEQ_LRD, SEQ_RND
     ),
     [_LOWER] = LAYOUT_music(
                         KC_MUTE,        SEQ,    MAC,    WIN,    MIDI,           KC_MUTE,        KC_MUTE,        KC_MUTE,        KC_MUTE,
@@ -207,6 +210,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     sequencer_activate_track(i);
                     sequencer_set_all_steps_off();
                 }
+            }
+            return false;
+            break;
+        case SEQ_RND: // Generate random step
+            if (record->event.pressed) {
+                sequencer_generate_random_step(true);
+            }
+            return false;
+            break;
+        case SEQ_LRD: // Generate random step, lightly
+            if (record->event.pressed) {
+                sequencer_generate_random_step(false);
             }
             return false;
             break;
@@ -398,6 +413,25 @@ void show_sequencer_steps(uint8_t track) {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 6);
     }
 }
+
+void sequencer_generate_random_step(bool is_full_random) {
+    uint8_t divider = 2;
+    if (!is_full_random) {
+        divider = 4;
+    }
+
+    for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
+        if (is_sequencer_track_active(track)) {
+            srand(timer_read());
+            for (uint8_t step = 0; step < SEQUENCER_STEPS; step++) {
+                if (rand() % divider == 0) {
+                    sequencer_toggle_step(step);
+                }
+            }
+        }
+    }
+}
+
 
 /* ------------------------------------------------------------------------------
    RGB Light Layer settings
