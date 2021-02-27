@@ -18,6 +18,7 @@
 
 static void show_sequencer_playback(bool);
 static void show_sequencer_track(uint8_t, uint8_t, uint8_t);
+static void show_sequencer_track_deactivated(void);
 static void show_sequencer_steps(uint8_t, uint8_t);
 static void hide_sequencer_steps(void);
 static void show_sequencer_tempo_and_resolution(void);
@@ -232,22 +233,13 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Stop LED animation for step and track display.
             rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
             rgblight_sethsv_noeeprom(HSV_BLACK);
-
-            // setup initial LED status
-            show_sequencer_track(HSV_WHITE);
-            if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                show_sequencer_tempo_and_resolution();
-            }
+            break;
         case SQ_TOG:
             if(is_sequencer_on()) {
                 show_sequencer_playback(true);
                 hide_sequencer_steps();
             } else {
                 show_sequencer_playback(false);
-                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                    show_sequencer_track(HSV_WHITE);
-                    show_sequencer_tempo_and_resolution();
-                }
             }
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
@@ -284,12 +276,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // when a track activated, reset display frame index
                 if(!is_sequencer_on()) {
                     step_frame_index = 0;
-                }
-            } else {
-                show_sequencer_track(HSV_WHITE);
-
-                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                    show_sequencer_tempo_and_resolution();
                 }
             }
             break;
@@ -390,6 +376,10 @@ void set_hsv_by_decimal_index(uint8_t index, uint8_t *hue, uint8_t *sat, uint8_t
 
 void show_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
     rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
+}
+
+void show_sequencer_track_deactivated() {
+    show_sequencer_track(HSV_WHITE);
 }
 
 void hide_sequencer_steps(void) {
@@ -726,10 +716,17 @@ void matrix_scan_user(void) {
                 break;
             }
         } else {
+            bool is_track_showed = false;
             for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
                 if (is_sequencer_track_active(i)) {
                     show_sequencer_steps(i, step_frame_index);
+                    is_track_showed = true;
+                    break;
                 }
+            }
+            if (!is_track_showed) {
+                show_sequencer_track_deactivated();
+                show_sequencer_tempo_and_resolution();
             }
         }
     }
