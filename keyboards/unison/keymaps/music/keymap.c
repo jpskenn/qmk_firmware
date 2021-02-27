@@ -361,7 +361,7 @@ void show_sequencer_track(uint8_t track) {
 }
 
 void show_sequencer_track_deactivated() {
-    show_sequencer_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX);
+    show_sequencer_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX - 1);
 }
 
 void hide_sequencer_steps() {
