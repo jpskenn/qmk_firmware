@@ -173,11 +173,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SEQ:
             if (record->event.pressed) {
+                // Change default layer
+                default_layer_set(1UL << _SEQUENCER);
+
                 // Stop LED animation for step and track display.
                 rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
                 rgblight_sethsv_noeeprom(HSV_BLACK);
-                // Change default layer
-                default_layer_set(1UL << _SEQUENCER);
             }
             return false;
             break;
