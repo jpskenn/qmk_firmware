@@ -357,9 +357,9 @@ void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat,
 }
 
 void show_sequencer_track(uint8_t track) {
-    uint8_t hue = 0;
-    uint8_t sat = 0;
-    uint8_t val = 0;
+    uint8_t hue;
+    uint8_t sat;
+    uint8_t val;
     set_hsv_by_decimal_index(track + 1, &hue, &sat, &val);
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
 }
