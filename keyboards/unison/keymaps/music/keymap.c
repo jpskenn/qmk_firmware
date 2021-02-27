@@ -368,7 +368,7 @@ void show_sequencer_track_deactivated() {
     show_sequencer_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX);
 }
 
-void hide_sequencer_steps(void) {
+void hide_sequencer_steps() {
     rgblight_sethsv_range(HSV_BLACK, 3, 7);
 }
 
