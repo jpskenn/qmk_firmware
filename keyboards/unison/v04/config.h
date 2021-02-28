@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x2403
+#define VENDOR_ID 0xB9DD
 #define PRODUCT_ID 0x176A
 #define DEVICE_VER 0x0040
 #define MANUFACTURER jpskenn
@@ -48,8 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B6_AUDIO
-  #define C6_AUDIO
+  #define AUDIO_PIN C6
+  #define AUDIO_PIN_ALT B6
   #define AUDIO_CLICKY
   #define MUSIC_MAP
 #endif

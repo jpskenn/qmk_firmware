@@ -105,12 +105,13 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// Enabling and disabling lighting layers for lock key
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(1, led_state.caps_lock);
     return true;
 }
 
-// Enabling and disabling lighting layers
+// Enabling and disabling lighting layers for momentary layer
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOW, _RAI, _ADJ);
 
