@@ -36,6 +36,13 @@ static uint8_t sequencer_step_frame_index = 0;
 #define INDICATOR_DIMMER 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 #endif
 
+// LED position
+#define LED_RE0_INDEX 1
+#define LED_RE1_INDEX 3
+#define LED_RE2_INDEX 4
+#define LED_RE3_INDEX 5
+#define LED_RE4_INDEX 6
+
 // Sequencer settings
 #define SEQ_PLAYBACK_INDICATOR_INDEX 2  // Where to start playback indicator, default:2
 #define SEQ_TRACK_INDICATOR_INDEX 1     // Where to start track indicator, default:1
@@ -294,19 +301,19 @@ void sequencer_show_tempo_and_resolution() {
 
     // tempo: 100, hundreds place
     set_hsv_by_decimal_index(sequencer_get_tempo() / 100, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE1_INDEX);
 
     // tempo: 10, tens place
     set_hsv_by_decimal_index(sequencer_get_tempo() / 10 % 10, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE2_INDEX);
 
     // tempo: 1, ones place
     set_hsv_by_decimal_index(sequencer_get_tempo() % 10, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 5);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE3_INDEX);
 
     // resolution
     set_hsv_by_decimal_index(sequencer_get_resolution() + 1, &hue, &sat, &val);
-    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
+    rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE4_INDEX);
 }
 
 void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
@@ -377,7 +384,7 @@ void sequencer_show_track_deactivated() {
 }
 
 void sequencer_hide_steps() {
-    rgblight_sethsv_range(HSV_BLACK, 3, 7);
+    rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX, LED_RE4_INDEX + 1);
 }
 
 void sequencer_show_steps(uint8_t track) {
@@ -387,27 +394,27 @@ void sequencer_show_steps(uint8_t track) {
     set_hsv_by_decimal_index(sequencer_step_frame_index + 1, &hue, &sat, &val);
 
     if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 0)) {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE1_INDEX);
     } else {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 3);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, LED_RE1_INDEX);
     }
 
     if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 1)) {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE2_INDEX);
     } else {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 4);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, LED_RE2_INDEX);
     }
 
     if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 2)) {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 5);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE3_INDEX);
     } else {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 5);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, LED_RE3_INDEX);
     }
 
     if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 3)) {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, LED_RE4_INDEX);
     } else {
-        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 6);
+        rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, LED_RE4_INDEX);
     }
 }
 
