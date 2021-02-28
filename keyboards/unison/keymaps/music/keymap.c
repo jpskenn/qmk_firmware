@@ -33,7 +33,7 @@ static uint8_t sequencer_step_frame_index = 0;
 #define INDICATOR_INDEX 0         // Where to start indicator, default:9
 #define INDICATOR_COUNT 1         // How many LEDs for indicator, default:1
 #define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
-#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define INDICATOR_DIMMER 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 #endif
 
 // Sequencer settings
@@ -271,9 +271,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 ------------------------------------------------------------------------------ */
 void sequencer_show_playback(bool is_sequencer_on) {
     if (is_sequencer_on) {
-        rgblight_sethsv_at(HSV_CHARTREUSE - DIMMER_LEVEL, SEQ_PLAYBACK_INDICATOR_INDEX);
+        rgblight_sethsv_at(HSV_CHARTREUSE - INDICATOR_DIMMER, SEQ_PLAYBACK_INDICATOR_INDEX);
     } else {
-        rgblight_sethsv_at(HSV_SPRINGGREEN - DIMMER_LEVEL, SEQ_PLAYBACK_INDICATOR_INDEX);
+        rgblight_sethsv_at(HSV_SPRINGGREEN - INDICATOR_DIMMER, SEQ_PLAYBACK_INDICATOR_INDEX);
     }
 }
 
@@ -437,34 +437,34 @@ void sequencer_generate_random_step(bool is_full_random) {
 
 // Default layers (= Base layers)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_WHITE - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_WHITE - INDICATOR_DIMMER}
 );
 const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_BLUE - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_BLUE - INDICATOR_DIMMER}
 );
 const rgblight_segment_t PROGMEM my_midi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_ORANGE - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_ORANGE - INDICATOR_DIMMER}
 );
 const rgblight_segment_t PROGMEM my_sequencer_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_SPRINGGREEN - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_SPRINGGREEN - INDICATOR_DIMMER}
 );
 
 // Temporal layers
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_GREEN - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_GREEN - INDICATOR_DIMMER}
 );
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_CYAN - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_CYAN - INDICATOR_DIMMER}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_RED - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_RED - INDICATOR_DIMMER}
 );
 
 // Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - INDICATOR_DIMMER}
 );
 
 // Define the array of layers. Later layers take precedence
