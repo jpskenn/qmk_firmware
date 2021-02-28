@@ -82,13 +82,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ------------------------------------------------------------------------------
    RGB Lighting
 ------------------------------------------------------------------------------ */
-#ifdef RGBLIGHT_LAYERS
+// #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
 #define INDICATOR_INDEX 0         // Where to start indicator, default:1
 #define INDICATOR_COUNT 1         // How many LEDs for indicator, default:2
 #define INDICATOR_CHANGE_COUNT 1  // How meny LEDs to change for temporally layer default:1
-#define DIMMER_LEVEL 150          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
+#define DIMMER_LEVEL 200          // LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:150
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -144,7 +144,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     return state;
 }
-#endif
+// #endif
 
 
 /* ------------------------------------------------------------------------------
