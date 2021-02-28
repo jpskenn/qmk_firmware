@@ -159,7 +159,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_MAC);
@@ -169,7 +168,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_WIN);
@@ -179,7 +177,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MIDI:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
-                // rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer
                 default_layer_set(1UL << _MIDI);
