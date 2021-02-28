@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x175A
-#define DEVICE_VER 0x0031
+#define DEVICE_VER 0x0032
 #define MANUFACTURER jpskenn
 #define PRODUCT Jones
 
@@ -31,16 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 11
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
 // Same pins for Jones' custom Round-Robin matrix.
 #define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 #define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
@@ -55,8 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define C6_AUDIO
-  #define B7_AUDIO  // 2nd pin for simultaneous audio.
+  #define AUDIO_PIN C6
+  #define AUDIO_PIN_ALT B7  // 2nd pin for simultaneous audio.
   #define AUDIO_CLICKY
 #endif
 
