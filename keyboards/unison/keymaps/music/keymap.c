@@ -203,8 +203,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SEQ_RST: // Turn off all steps on all track.
             if (record->event.pressed) {
-                for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
-                    sequencer_activate_track(i);
+                for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
+                    sequencer_activate_track(track);
                     sequencer_set_all_steps_off();
                 }
             }
