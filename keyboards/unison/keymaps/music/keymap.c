@@ -548,9 +548,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     sequencer_decrease_tempo();
                 }
-                if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
-                    sequencer_show_tempo_and_resolution();
-                }
                 break;
             default:
                 if (clockwise) {
@@ -578,9 +575,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     sequencer_increase_resolution();
                 } else {
                     sequencer_decrease_resolution();
-                }
-                if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
-                    sequencer_show_tempo_and_resolution();
                 }
                 break;
             default:
