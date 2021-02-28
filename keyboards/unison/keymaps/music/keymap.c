@@ -296,7 +296,7 @@ void sequencer_show_tempo_and_resolution() {
     set_hsv_by_decimal_index(sequencer_get_tempo() / 100, &hue, &sat, &val);
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
 
-    // tempp: 10, tens place
+    // tempo: 10, tens place
     set_hsv_by_decimal_index(sequencer_get_tempo() / 10 % 10, &hue, &sat, &val);
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
 
