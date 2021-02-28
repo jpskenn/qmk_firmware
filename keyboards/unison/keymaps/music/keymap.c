@@ -678,17 +678,17 @@ void keyboard_post_init_user(void) {
 void matrix_scan_user(void) {
     if (biton32(default_layer_state) == _SEQUENCER) {
         uint8_t track;
-        bool is_track_showed = false;
+        bool is_track_active = false;
 
         for (track = 0; track < SEQUENCER_TRACKS; track++) {
             if (is_sequencer_track_active(track)) {
                 sequencer_show_track(track);
-                is_track_showed = true;
+                is_track_active = true;
                 break;
             }
         }
 
-        if (!is_track_showed) {
+        if (!is_track_active) {
             sequencer_show_track_deactivated();
         }
 
@@ -720,7 +720,7 @@ void matrix_scan_user(void) {
                 break;
             }
         } else {
-            if (is_track_showed) {
+            if (is_track_active) {
                 sequencer_show_steps(track);
             } else {
                 sequencer_show_tempo_and_resolution();
