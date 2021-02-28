@@ -17,16 +17,16 @@
 #include "muse.h"
 #include <stdlib.h>
 
-static void show_sequencer_playback(bool);
-static void show_sequencer_track(uint8_t);
-static void show_sequencer_track_deactivated(void);
-static void show_sequencer_steps(uint8_t);
-static void hide_sequencer_steps(void);
-static void show_sequencer_tempo_and_resolution(void);
+static void sequencer_show_playback(bool);
+static void sequencer_show_track(uint8_t);
+static void sequencer_show_track_deactivated(void);
+static void sequencer_show_steps(uint8_t);
+static void sequencer_hide_steps(void);
+static void sequencer_show_tempo_and_resolution(void);
 static void set_hsv_by_decimal_index(uint8_t index, uint8_t*, uint8_t*, uint8_t*);
-static bool is_any_sequencer_track_active(void);
+static bool is_sequencer_any_track_active(void);
 static void sequencer_generate_random_step(bool);
-static uint8_t step_frame_index = 0;
+static uint8_t sequencer_step_frame_index = 0;
 
 #ifdef RGBLIGHT_LAYERS
 // Indicator LED settings
@@ -187,20 +187,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case SEQ_FRM: // Reset display frame index to the head.
-            step_frame_index = 0;
+            sequencer_step_frame_index = 0;
             return false;
             break;
         case SEQ_TMP: // Reset sequencer tempo.
             sequencer_set_tempo(SEQ_TEMPO);
-            if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                show_sequencer_tempo_and_resolution();
+            if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
+                sequencer_show_tempo_and_resolution();
             }
             return false;
             break;
         case SEQ_RES: // Reset sequencer resolution.
             sequencer_set_resolution(SQ_RES_4);
-            if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                show_sequencer_tempo_and_resolution();
+            if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
+                sequencer_show_tempo_and_resolution();
             }
             return false;
             break;
@@ -253,16 +253,16 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SQ_TOG:
             if(is_sequencer_on()) {
-                show_sequencer_playback(true);
-                hide_sequencer_steps();
+                sequencer_show_playback(true);
+                sequencer_hide_steps();
             } else {
-                show_sequencer_playback(false);
+                sequencer_show_playback(false);
             }
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
             if(!is_sequencer_on() && is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                 // Reset display frame index when track is activated
-                step_frame_index = 0;
+                sequencer_step_frame_index = 0;
             }
             break;
         default:
@@ -272,7 +272,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* ------------------------------------------------------------------------------
    RGB Lighting for Sequencer
 ------------------------------------------------------------------------------ */
-void show_sequencer_playback(bool is_sequencer_on) {
+void sequencer_show_playback(bool is_sequencer_on) {
     if (is_sequencer_on) {
         rgblight_sethsv_at(HSV_CHARTREUSE - DIMMER_LEVEL, SEQ_PLAYBACK_INDICATOR_INDEX);
     } else {
@@ -280,7 +280,7 @@ void show_sequencer_playback(bool is_sequencer_on) {
     }
 }
 
-bool is_any_sequencer_track_active() {
+bool is_sequencer_any_track_active() {
     for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
         if (is_sequencer_track_active(track)) {
             return true;
@@ -290,7 +290,7 @@ bool is_any_sequencer_track_active() {
     return false;
 }
 
-void show_sequencer_tempo_and_resolution() {
+void sequencer_show_tempo_and_resolution() {
     uint8_t hue = 0;
     uint8_t sat = 0;
     uint8_t val = 0;
@@ -367,7 +367,7 @@ void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat,
     }
 }
 
-void show_sequencer_track(uint8_t track) {
+void sequencer_show_track(uint8_t track) {
     uint8_t hue;
     uint8_t sat;
     uint8_t val;
@@ -375,39 +375,39 @@ void show_sequencer_track(uint8_t track) {
     rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_INDEX);
 }
 
-void show_sequencer_track_deactivated() {
-    show_sequencer_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX - 1);
+void sequencer_show_track_deactivated() {
+    sequencer_show_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX - 1);
 }
 
-void hide_sequencer_steps() {
+void sequencer_hide_steps() {
     rgblight_sethsv_range(HSV_BLACK, 3, 7);
 }
 
-void show_sequencer_steps(uint8_t track) {
+void sequencer_show_steps(uint8_t track) {
     uint8_t hue;
     uint8_t sat;
     uint8_t val;
-    set_hsv_by_decimal_index(step_frame_index + 1, &hue, &sat, &val);
+    set_hsv_by_decimal_index(sequencer_step_frame_index + 1, &hue, &sat, &val);
 
-    if (is_sequencer_step_on(step_frame_index * 4 + 0)) {
+    if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 0)) {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 3);
     } else {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 3);
     }
 
-    if (is_sequencer_step_on(step_frame_index * 4 + 1)) {
+    if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 1)) {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 4);
     } else {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 4);
     }
 
-    if (is_sequencer_step_on(step_frame_index * 4 + 2)) {
+    if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 2)) {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 5);
     } else {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 5);
     }
 
-    if (is_sequencer_step_on(step_frame_index * 4 + 3)) {
+    if (is_sequencer_step_on(sequencer_step_frame_index * 4 + 3)) {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_DIMMER, 6);
     } else {
         rgblight_sethsv_at(hue, sat, val - SEQ_LED_STEP_OFF_DIMMER, 6);
@@ -551,8 +551,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     sequencer_decrease_tempo();
                 }
-                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                    show_sequencer_tempo_and_resolution();
+                if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
+                    sequencer_show_tempo_and_resolution();
                 }
                 break;
             default:
@@ -582,8 +582,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     sequencer_decrease_resolution();
                 }
-                if (!is_sequencer_on() && !is_any_sequencer_track_active()) {
-                    show_sequencer_tempo_and_resolution();
+                if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
+                    sequencer_show_tempo_and_resolution();
                 }
                 break;
             default:
@@ -632,12 +632,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             case _SEQUENCER:
                 if (clockwise) {
-                    if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
-                        step_frame_index++;
+                    if (sequencer_step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
+                        sequencer_step_frame_index++;
                     }
                 } else {
-                    if (step_frame_index > 0) {
-                        step_frame_index--;
+                    if (sequencer_step_frame_index > 0) {
+                        sequencer_step_frame_index--;
                     }
                 }
                 break;
@@ -684,14 +684,14 @@ void matrix_scan_user(void) {
 
         for (track = 0; track < SEQUENCER_TRACKS; track++) {
             if (is_sequencer_track_active(track)) {
-                show_sequencer_track(track);
+                sequencer_show_track(track);
                 is_track_showed = true;
                 break;
             }
         }
 
         if (!is_track_showed) {
-            show_sequencer_track_deactivated();
+            sequencer_show_track_deactivated();
         }
 
         if (is_sequencer_on()) {
@@ -723,9 +723,9 @@ void matrix_scan_user(void) {
             }
         } else {
             if (is_track_showed) {
-                show_sequencer_steps(track);
+                sequencer_show_steps(track);
             } else {
-                show_sequencer_tempo_and_resolution();
+                sequencer_show_tempo_and_resolution();
             }
         }
     }
