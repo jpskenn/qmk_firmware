@@ -244,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SEQ:
-            // Stop LED animation for step and track display.
+            // Stop LED animation and turn off all LEDs for step and track display.
             rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
             rgblight_sethsv_noeeprom(HSV_BLACK);
             break;
@@ -256,7 +256,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
                 sequencer_show_playback(false);
             }
             break;
-        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX: // Change track activation and show it on LED.
+        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
             if(!is_sequencer_on() && is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                 // Reset display frame index when track is activated
                 sequencer_step_frame_index = 0;
@@ -267,7 +267,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 /* ------------------------------------------------------------------------------
-   RGB Lighting for Sequencer
+   Sequencer
 ------------------------------------------------------------------------------ */
 void sequencer_show_playback(bool is_sequencer_on) {
     if (is_sequencer_on) {
