@@ -51,7 +51,7 @@ static bool is_sequencer_step_frame_mode = true;
 #define SEQ_TRACK_INDICATOR_INDEX 1     // Where to start track indicator, default:1
 #define SEQ_TRACK_DEACTIVATED_COLOR_INDEX 9 // The color index in set_hsv_by_decimal_index(), default:9(=white)
 #define SEQ_LED_DIMMER 100              // Sequencer LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:100
-#define SEQ_LED_DARK_DIMMER 200     // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:200
+#define SEQ_LED_DARK_DIMMER 220     // Step Off LED brightness dimmer level, 0(brightest) - 255(perfect dark), default:200
 #define SEQ_TEMPO 100                   // Sequencer initial tempo, default:100
 
 // Layer index
