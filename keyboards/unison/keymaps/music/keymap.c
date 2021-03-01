@@ -232,6 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 for (uint8_t track = 0; track < SEQUENCER_TRACKS; track++) {
                     sequencer_activate_track(track);
                     sequencer_set_all_steps_off();
+                    sequencer_deactivate_track(track);
                 }
             }
             return false;
