@@ -751,28 +751,28 @@ void matrix_scan_user(void) {
                 rgblight_sethsv_at(HSV_GREEN - SEQ_LED_DIMMER, LED_RE4_INDEX);
                 break;
             case 16:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
-                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DARK_DIMMER, LED_RE2_INDEX);
-                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DARK_DIMMER, LED_RE3_INDEX);
-                rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
+                rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DARK_DIMMER, LED_RE2_INDEX);
+                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DARK_DIMMER, LED_RE3_INDEX);
+                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
                 break;
             case 20:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
-                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, LED_RE2_INDEX);
-                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DARK_DIMMER, LED_RE3_INDEX);
-                rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
+                rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE2_INDEX);
+                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DARK_DIMMER, LED_RE3_INDEX);
+                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
                 break;
             case 24:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
-                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, LED_RE2_INDEX);
-                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, LED_RE3_INDEX);
-                rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
+                rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE2_INDEX);
+                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, LED_RE3_INDEX);
+                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DARK_DIMMER, LED_RE4_INDEX);
                 break;
             case 28:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
-                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, LED_RE2_INDEX);
-                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, LED_RE3_INDEX);
-                rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DIMMER, LED_RE4_INDEX);
+                rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE2_INDEX);
+                rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, LED_RE3_INDEX);
+                rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, LED_RE4_INDEX);
                 break;
             }
         }
