@@ -21,12 +21,15 @@ static void sequencer_show_playback(bool);
 static void sequencer_show_track(uint8_t);
 static void sequencer_show_track_deactivated(void);
 static void sequencer_show_steps(uint8_t);
-static void sequencer_hide_steps(void);
 static void sequencer_show_tempo_and_resolution(void);
 static void set_hsv_by_decimal_index(uint8_t index, uint8_t*, uint8_t*, uint8_t*);
 static bool is_sequencer_any_track_active(void);
 static void sequencer_generate_random_step(bool);
+static void sequencer_increase_step_frame_index(void);
+static void sequencer_decrease_step_frame_index(void);
+
 static uint8_t sequencer_step_frame_index = 0;
+static bool is_sequencer_step_frame_mode = true;
 
 #ifdef RGBLIGHT_LAYERS
 // Indicator LED settings
@@ -89,11 +92,14 @@ enum custom_keycodes {
     GUI_EN,
     GUI_JA,
     SEQ_FRM,
+    SEQ_FRI,
+    SEQ_FRD,
     SEQ_TMP,
     SEQ_RES,
     SEQ_RST,
     SEQ_RND,
     SEQ_LRD,
+    SEQ_FTG,
 };
 
 // Key Macro
@@ -132,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_VELD, MI_VEL_9,MI_VELU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   LOWER,   XXXXXXX, RAISE,   RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT_music(
-                          KC_MUTE,          SQ_TOG,  XXXXXXX, SQ_TMPD, SQ_TMPU,          SEQ_TMP,          SEQ_RES,          XXXXXXX,          SEQ_FRM,
+                          KC_MUTE,          SQ_TOG,  SEQ_FTG, SEQ_FRD, SEQ_FRI,          SEQ_TMP,          SEQ_RES,          XXXXXXX,          SEQ_FRM,
         SQ_S(0), SQ_S(1), SQ_S(2), SQ_S(3),     SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),SQ_S(17),SQ_S(18),SQ_S(19),    SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
         SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -190,6 +196,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case SEQ:
+            // Stop LED animation and turn off all LEDs for step and track display.
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            rgblight_sethsv_noeeprom(HSV_BLACK);
+            break;
+        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
+            if (!is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) { // At this point, the activate state is not changed yet.
+                sequencer_step_frame_index = 0;
+            }
+            if (!is_sequencer_on()) {
+                is_sequencer_step_frame_mode = true;
+            }
+            break;
         case SEQ_FRM: // Reset display frame index to the head.
             sequencer_step_frame_index = 0;
             return false;
@@ -229,6 +248,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case SEQ_FTG: // Toggle step frame display mode.
+            if (record->event.pressed) {
+                is_sequencer_step_frame_mode = !is_sequencer_step_frame_mode;
+            }
+            return false;
+            break;
+        case SEQ_FRI: // Increase step frame index
+            if (record->event.pressed) {
+                sequencer_increase_step_frame_index();
+            }
+            return false;
+            break;
+        case SEQ_FRD: // Decrease step frame index
+            if (record->event.pressed) {
+                sequencer_decrease_step_frame_index();
+            }
+            return false;
+            break;
         case M_PSCR: // provide Mac's advanced screen capture
             if (record->event.pressed) {
                 switch(biton32(default_layer_state)) {
@@ -240,7 +277,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     break;
                 }
             }
-            return true;
             break;
         default:
             break;
@@ -250,29 +286,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SEQ:
-            // Stop LED animation and turn off all LEDs for step and track display.
-            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-            rgblight_sethsv_noeeprom(HSV_BLACK);
-            break;
         case SQ_TOG:
-            if(is_sequencer_on()) {
-                sequencer_show_playback(true);
-                sequencer_hide_steps();
-            } else {
-                sequencer_show_playback(false);
+            if (is_sequencer_on()) {
+                is_sequencer_step_frame_mode = false;
             }
-            break;
-        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
-            if(!is_sequencer_on() && is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                // Reset display frame index when track is activated
-                sequencer_step_frame_index = 0;
-            }
-            break;
         default:
             break;
     }
 }
+
+
 /* ------------------------------------------------------------------------------
    Sequencer
 ------------------------------------------------------------------------------ */
@@ -318,53 +341,53 @@ void sequencer_show_tempo_and_resolution() {
 
 void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
     switch (decimal_index) {
-        case 0:
-            *hue = 0;   // black
+        case 0: // black
+            *hue = 0;
             *sat = 0;
             *val = SEQ_LED_DIMMER;
             break;
-        case 1:
-            *hue = 0;   // red
+        case 1: // red
+            *hue = 0;
             *sat = 255;
             *val = 255;
             break;
-        case 2:
-            *hue = 28;  // orange
+        case 2: // orange
+            *hue = 28;
             *sat = 255;
             *val = 255;
             break;
-        case 3:
-            *hue = 64;  // chartreuse
+        case 3: // chartreuse
+            *hue = 64;
             *sat = 255;
             *val = 255;
             break;
-        case 4:
-            *hue = 85;  // green
+        case 4: // green
+            *hue = 85;
             *sat = 255;
             *val = 255;
             break;
-        case 5:
-            *hue = 106; // spring green
+        case 5: // spring green
+            *hue = 106;
             *sat = 255;
             *val = 255;
             break;
-        case 6:
-            *hue = 170; // blue
+        case 6: // blue
+            *hue = 170;
             *sat = 255;
             *val = 255;
             break;
-        case 7:
-            *hue = 191; // purple
+        case 7: // purple
+            *hue = 191;
             *sat = 255;
             *val = 255;
             break;
-        case 8:
-            *hue = 213; // magenta
+        case 8: // magenta
+            *hue = 213;
             *sat = 255;
             *val = 255;
             break;
-        case 9:
-            *hue = 0;   // white
+        case 9: // white
+            *hue = 0;
             *sat = 0;
             *val = 255;
             break;
@@ -381,10 +404,6 @@ void sequencer_show_track(uint8_t track) {
 
 void sequencer_show_track_deactivated() {
     sequencer_show_track(SEQ_TRACK_DEACTIVATED_COLOR_INDEX - 1);
-}
-
-void sequencer_hide_steps() {
-    rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX, LED_RE4_INDEX + 1);
 }
 
 void sequencer_show_steps(uint8_t track) {
@@ -433,6 +452,17 @@ void sequencer_generate_random_step(bool is_full_random) {
                 }
             }
         }
+    }
+}
+
+void sequencer_increase_step_frame_index() {
+    if (sequencer_step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
+        sequencer_step_frame_index++;
+    }
+}
+void sequencer_decrease_step_frame_index() {
+    if (sequencer_step_frame_index > 0) {
+        sequencer_step_frame_index--;
     }
 }
 
@@ -568,7 +598,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch(biton32(default_layer_state)) {
             case _MIDI:
                 if (clockwise) {
-                    if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
+                    if (midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
                         midi_config.octave++;
                     }
                 } else {
@@ -630,13 +660,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             case _SEQUENCER:
                 if (clockwise) {
-                    if (sequencer_step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
-                        sequencer_step_frame_index++;
-                    }
+                    sequencer_increase_step_frame_index();
                 } else {
-                    if (sequencer_step_frame_index > 0) {
-                        sequencer_step_frame_index--;
-                    }
+                    sequencer_decrease_step_frame_index();
                 }
                 break;
             default:
@@ -692,39 +718,51 @@ void matrix_scan_user(void) {
             sequencer_show_track_deactivated();
         }
 
-        if (is_sequencer_on()) {
-            switch (sequencer_get_current_step()) {
-            case 0:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 3);
-                break;
-            case 4:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
-                break;
-            case 8:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
-                break;
-            case 12:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
-                break;
-            case 16:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 3);
-                break;
-            case 20:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
-                break;
-            case 24:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
-                break;
-            case 28:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
-                break;
-            }
-        } else {
+        if (is_sequencer_step_frame_mode) {
             if (is_track_active) {
                 sequencer_show_steps(track);
             } else {
                 sequencer_show_tempo_and_resolution();
             }
+        } else {
+            switch (sequencer_get_current_step()) {
+            case 0:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 4:
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE2_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE2_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 8:
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE3_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE3_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 12:
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE4_INDEX + 1);
+                break;
+            case 16:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 20:
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE2_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE2_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 24:
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE3_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE3_INDEX + 1, LED_RE4_INDEX + 1);
+                break;
+            case 28:
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE4_INDEX + 1);
+                break;
+            }
+        }
+
+        if (is_sequencer_on()) {
+            sequencer_show_playback(true);
+        } else {
+            sequencer_show_playback(false);
         }
     }
 }
