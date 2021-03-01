@@ -596,7 +596,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch(biton32(default_layer_state)) {
             case _MIDI:
                 if (clockwise) {
-                    if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
+                    if (midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
                         midi_config.octave++;
                     }
                 } else {
@@ -757,7 +757,7 @@ void matrix_scan_user(void) {
             }
         }
 
-        if(is_sequencer_on()) {
+        if (is_sequencer_on()) {
             sequencer_show_playback(true);
         } else {
             sequencer_show_playback(false);
