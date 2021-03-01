@@ -294,6 +294,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 }
+
+
 /* ------------------------------------------------------------------------------
    Sequencer
 ------------------------------------------------------------------------------ */
@@ -339,53 +341,53 @@ void sequencer_show_tempo_and_resolution() {
 
 void set_hsv_by_decimal_index(uint8_t decimal_index, uint8_t *hue, uint8_t *sat, uint8_t *val) {
     switch (decimal_index) {
-        case 0:
-            *hue = 0;   // black
+        case 0: // black
+            *hue = 0;
             *sat = 0;
             *val = SEQ_LED_DIMMER;
             break;
-        case 1:
-            *hue = 0;   // red
+        case 1: // red
+            *hue = 0;
             *sat = 255;
             *val = 255;
             break;
-        case 2:
-            *hue = 28;  // orange
+        case 2: // orange
+            *hue = 28;
             *sat = 255;
             *val = 255;
             break;
-        case 3:
-            *hue = 64;  // chartreuse
+        case 3: // chartreuse
+            *hue = 64;
             *sat = 255;
             *val = 255;
             break;
-        case 4:
-            *hue = 85;  // green
+        case 4: // green
+            *hue = 85;
             *sat = 255;
             *val = 255;
             break;
-        case 5:
-            *hue = 106; // spring green
+        case 5: // spring green
+            *hue = 106;
             *sat = 255;
             *val = 255;
             break;
-        case 6:
-            *hue = 170; // blue
+        case 6: // blue
+            *hue = 170;
             *sat = 255;
             *val = 255;
             break;
-        case 7:
-            *hue = 191; // purple
+        case 7: // purple
+            *hue = 191;
             *sat = 255;
             *val = 255;
             break;
-        case 8:
-            *hue = 213; // magenta
+        case 8: // magenta
+            *hue = 213;
             *sat = 255;
             *val = 255;
             break;
-        case 9:
-            *hue = 0;   // white
+        case 9: // white
+            *hue = 0;
             *sat = 0;
             *val = 255;
             break;
