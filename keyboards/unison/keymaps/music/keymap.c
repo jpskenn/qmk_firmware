@@ -725,34 +725,34 @@ void matrix_scan_user(void) {
         } else {
             switch (sequencer_get_current_step()) {
             case 0:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 3);
-                rgblight_sethsv_range(HSV_BLACK, 3 + 1, 6 + 1);
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 4:
-                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, 3, 4 + 1);
-                rgblight_sethsv_range(HSV_BLACK, 4 + 1, 6 + 1);
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE2_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE2_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 8:
-                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, 3, 5 + 1);
-                rgblight_sethsv_range(HSV_BLACK, 5 + 1, 6 + 1);
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE3_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE3_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 12:
-                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, 3, 6 + 1);
+                rgblight_sethsv_range(HSV_RED - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE4_INDEX + 1);
                 break;
             case 16:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 3);
-                rgblight_sethsv_range(HSV_BLACK, 3 + 1, 6 + 1);
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE1_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 20:
-                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, 3, 4 + 1);
-                rgblight_sethsv_range(HSV_BLACK, 4 + 1, 6 + 1);
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE2_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE2_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 24:
-                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, 3, 5 + 1);
-                rgblight_sethsv_range(HSV_BLACK, 5 + 1, 6 + 1);
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE3_INDEX + 1);
+                rgblight_sethsv_range(HSV_BLACK, LED_RE3_INDEX + 1, LED_RE4_INDEX + 1);
                 break;
             case 28:
-                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, 3, 6 + 1);
+                rgblight_sethsv_range(HSV_BLUE - SEQ_LED_DIMMER, LED_RE1_INDEX, LED_RE4_INDEX + 1);
                 break;
             }
         }
