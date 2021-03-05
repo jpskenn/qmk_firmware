@@ -1,24 +1,29 @@
-![Unison, Music-style Layout Image](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/layout_music.png)
-
 # Demonstration keymap for Unison Music style
 
-For DAW, Digital Audio Workstation operation and music play.  
+For Digital Audio Workstation(DAW) operation and music play.  
 
-See how it works.
-[QMK Sequencer & MIDI keyboard](https://youtu.be/_A8NaXlWKeE)
+![Unison, Music-style Layout Image](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/layout_music.png)
+
+## References
+
+- Operation guide  
+  [Unison Music Style 操作ガイド / Operation guide](https://youtu.be/0ARp5gR2G88)
+
+- How to play Sequencer and MIDI keyboard together.  
+  [QMK Sequencer & MIDI keyboard](http://www.youtube.com/watch?v=_A8NaXlWKeE)
 
 ## Layers
 
 - Base layers
-    - Mac
-    - Windows
-    - MIDI
-    - Sequencer
+  - Mac
+  - Windows
+  - MIDI
+  - Sequencer
 
 - Momentarily layers
-    - Lower
-    - Raise
-    - Adjust
+  - Lower
+  - Raise
+  - Adjust
 
 ## LED lighting
 
