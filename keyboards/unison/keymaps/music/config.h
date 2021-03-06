@@ -19,6 +19,15 @@
 // time for long press
 #define TAPPING_TERM 200
 
+// Comment off to enable settings, ios device friendly.
+//#define IOS_DEVICE_ENABLE
+
+#ifdef IOS_DEVICE_ENABLE
+    #define  USB_MAX_POWER_CONSUMPTION 100
+    #undef RGBLIGHT_LIMIT_VAL
+    #define RGBLIGHT_LIMIT_VAL 200
+#endif
+
 #ifdef AUDIO_ENABLE
     #define MUSIC_MAP
 #endif
