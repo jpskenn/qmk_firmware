@@ -16,9 +16,6 @@
 
 #pragma once
 
-// time for long press
-#define TAPPING_TERM 200
-
 // Comment off to enable settings, ios device friendly.
 //#define IOS_DEVICE_ENABLE
 
