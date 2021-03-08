@@ -197,31 +197,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case SEQ:
-            // Stop LED animation and turn off all LEDs for step and track display.
-            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-            rgblight_sethsv_noeeprom(HSV_BLACK);
+            if (record->event.pressed) {
+                // Stop LED animation and turn off all LEDs for step and track display.
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_sethsv_noeeprom(HSV_BLACK);
+            }
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
-            if (!is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) { // At this point, the activate state is not changed yet.
-                sequencer_step_frame_index = 0;
-            }
-            if (!is_sequencer_on()) {
-                is_sequencer_step_frame_mode = true;
+            if (record->event.pressed) {
+                if (!is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) { // At this point, the activate state is not changed yet.
+                    sequencer_step_frame_index = 0;
+                }
+                if (!is_sequencer_on()) {
+                    is_sequencer_step_frame_mode = true;
+                }
             }
             break;
         case SEQ_FRM: // Reset display frame index to the head.
-            sequencer_step_frame_index = 0;
+            if (record->event.pressed) {
+                sequencer_step_frame_index = 0;
+            }
             return false;
             break;
         case SEQ_TMP: // Reset sequencer tempo.
-            sequencer_set_tempo(SEQ_TEMPO);
+            if (record->event.pressed) {
+                sequencer_set_tempo(SEQ_TEMPO);
+            }
             if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
                 sequencer_show_tempo_and_resolution();
             }
             return false;
             break;
         case SEQ_RES: // Reset sequencer resolution.
-            sequencer_set_resolution(SQ_RES_4);
+            if (record->event.pressed) {
+                sequencer_set_resolution(SQ_RES_4);
+            }
             if (!is_sequencer_on() && !is_sequencer_any_track_active()) {
                 sequencer_show_tempo_and_resolution();
             }
@@ -288,9 +298,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SQ_TOG:
-            if (is_sequencer_on()) {
-                is_sequencer_step_frame_mode = false;
+            if (!record->event.pressed) {
+                if (is_sequencer_on()) {
+                    is_sequencer_step_frame_mode = false;
+                }
             }
+            break;
         default:
             break;
     }
