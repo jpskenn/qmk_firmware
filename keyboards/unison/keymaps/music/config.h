@@ -17,12 +17,12 @@
 #pragma once
 
 // Comment off to enable settings, ios device friendly.
-//#define IOS_DEVICE_ENABLE
+#define IOS_DEVICE_ENABLE
 
 #ifdef IOS_DEVICE_ENABLE
     #define  USB_MAX_POWER_CONSUMPTION 100
     #undef RGBLIGHT_LIMIT_VAL
-    #define RGBLIGHT_LIMIT_VAL 200
+    #define RGBLIGHT_LIMIT_VAL 100
 #endif
 
 #ifdef AUDIO_ENABLE
