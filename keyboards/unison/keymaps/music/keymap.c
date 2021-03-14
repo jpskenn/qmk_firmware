@@ -299,9 +299,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SQ_TOG:
             if (!record->event.pressed) {
-                if (is_sequencer_on()) {
-                    is_sequencer_step_frame_mode = false;
-                }
+                is_sequencer_step_frame_mode = !is_sequencer_on();
             }
             break;
         default:
