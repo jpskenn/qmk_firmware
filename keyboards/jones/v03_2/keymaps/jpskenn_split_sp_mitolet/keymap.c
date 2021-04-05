@@ -64,6 +64,7 @@ enum custom_keycodes {
   MAC = SAFE_RANGE,
   WIN,
   M_PSCR,
+  GUI_IME,
 };
 
 // Key Macro
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC,
         C_ESC,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,     KC_QUOT,KC_PGUP,
         KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,KC_RCTL,KC_PGDN,
-        XXXXXXX,XXXXXXX,ALT_JA, GUI_EN,        SP_LOW,         SP_RAI,          KC_RGUI,KC_RALT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
+        XXXXXXX,XXXXXXX,ALT_JA, GUI_EN,        SP_LOW,         SP_RAI,          GUI_IME,  KC_RALT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_WIN] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
@@ -148,6 +149,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+uint16_t key_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MAC: // Change default ayer --> Write to EEPROM
@@ -172,6 +175,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default:
                     if (record->event.pressed) {
                         tap_code16(LSFT(LGUI(KC_5)));
+                    }
+                    break;
+            }
+            return false;
+            break;
+        case GUI_IME: // self made Mod-Tap with toggle IME
+            switch(biton32(default_layer_state)) {
+                case _MAC: // tap to toggle IME, hold to RGUI(=RCMD)
+                    if (record->event.pressed) {
+                        key_timer = timer_read();
+                        register_code(KC_RGUI);
+                    } else {
+                        unregister_code(KC_RGUI);
+
+                        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                            SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
+                        }
+                    }
+                    break;
+                case _WIN: // tap to toggle IME, hold to RALT
+                    if (record->event.pressed) {
+                        key_timer = timer_read();
+                        register_code(KC_RALT);
+                    } else {
+                        unregister_code(KC_RALT);
+
+                        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                            SEND_STRING(SS_LALT(SS_TAP(X_GRV)));
+                        }
                     }
                     break;
             }
