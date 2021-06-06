@@ -78,15 +78,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GRV_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_BSLS,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL,
             KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
             C_ESC,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_SCLN,KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,
-        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LEFT,KC_RGHT,KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLSH, KC_UP,
-        XXXXXXX,XXXXXXX,ALT_JA, GUI_EN, SP_LOW,             KC_BSPC,         SP_RAI, XXXXXXX,GUI_IME,  KC_LEFT,KC_DOWN,KC_RGHT
+        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LEFT,KC_RGHT,KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLSH, KC_RCTL,
+        XXXXXXX,XXXXXXX,KC_LOPT,KC_LCMD,SP_LOW,             KC_ENT ,         SP_RAI, XXXXXXX,GUI_IME,  KC_ROPT,KC_LEFT,KC_RGHT
     ),
     [_WIN] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,KC_LGUI,KC_LALT,_______,            _______,        SP_RAI, XXXXXXX,ALT_GRV, _______,_______,_______
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_UP,
+        _______,_______,KC_LGUI,KC_LALT,_______,            _______,        _______, _______,ALT_GRV, KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_NUM] = LAYOUT(
         KC_GRV,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSLS,KC_PSLS,KC_PSLS,KC_PAST,_______,_______,
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,_______,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_DEL,
             _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  _______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_QUOT,
         _______,_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,
-        _______,_______,_______,_______,SP_ADJ,             _______,        _______,_______,_______,_______,_______,_______
+        _______,_______,_______,_______,SP_ADJ,             _______,        _______,_______,_______,_______,KC_DOWN,KC_UP
     ),
     [_NUM_LOWER] = LAYOUT(
         KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_GRV, KC_BSLS,KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL,
