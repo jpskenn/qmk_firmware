@@ -1,4 +1,4 @@
-/* Copyright 2020 Takeshi Nishio
+/* Copyright 2021 Takeshi Nishio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,86 +19,39 @@
 #include "quantum.h"
 
 /*
-FULL 9x9 ROUND-ROBIN MATRIX for Reference
-{ k91,   k81,   k71,   k61,   k51,   k41,   k31,   k21,   KC_NO, }, \
-{ k92,   k82,   k72,   k62,   k52,   k42,   k32,   KC_NO, k12,   }, \
-{ k93,   k83,   k73,   k63,   k53,   k43,   KC_NO, k23,   k13,   }, \
-{ k94,   k84,   k74,   k64,   k54,   KC_NO, k34,   k24,   k14,   }, \
-{ k95,   k85,   k75,   k65,   KC_NO, k45,   k35,   k25,   k15,   }, \
-{ k96,   k86,   k76,   KC_NO, k56,   k46,   k36,   k26,   k16,   }, \
-{ k97,   k87,   KC_NO, k67,   k57,   k47,   k37,   k27,   k17,   }, \
-{ k98,   KC_NO, k78,   k68,   k58,   k48,   k38,   k28,   k18,   }, \
-{ KC_NO, k89,   k79,   k69,   k59,   k49,   k39,   k29,   k19,   }  \
+FULL 10x10 ROUND-ROBIN MATRIX for Reference
+
+{ KC_NO, k01,   k02,   k03,   k04,   k05,   k06,   k07,   k08,   k0a   }, \
+{ k10,   KC_NO, k12,   k13,   k14,   k15,   k16,   k17,   k18,   k1a   }, \
+{ k20,   k21,   KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   k2a   }, \
+{ k30,   k31,   k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   k3a   }, \
+{ k40,   k41,   k42,   k43,   KC_NO, k45,   k46,   k47,   k48,   k4a   }, \
+{ k50,   k51,   k52,   k53,   k54,   KC_NO, k56,   k57,   k58,   k5a   }, \
+{ k60,   k61,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k6a   }, \
+{ k70,   k71,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k7a   }, \
+{ k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k8a   }, \
+{ k90,   k91,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO } \
+
 */
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT_all( \
-    k19, k68, k18, k17, k67, k16, k65, k15, k14, k64, k63, k13, k62, k12, k61, \
-    k29,   k69, k28, k27, k78, k26, k75, k25, k24, k74, k73, k23,    k21, k71, \
-    k39,   k79, k38, k37, k87, k36, k85, k35, k34, k84, k83, k32,    k31, k81, \
-    k49, k89, k48, k47, k97, k46, k95, k45, k43, k94, k93, k42, k72, k41, k91, \
-    k59, k98, k58, k57,      k56,      k96,      k54, k53, k92, k82, k52, k51  \
+/* Keys on 6th row are used with rotary encoder, by VIA's dynamic key setting. */
+#define LAYOUT( \
+      k09, k59, k08, k54, k04, k50, k56, k06, k05, k52, k02, k53, k07, k51, k01, \
+        k19,  k69, k18, k64, k14, k60, k10, k16, k15, k62, k12, k63, k17,  k61,  \
+        k29,  k79, k28, k74, k24, k70, k20, k26, k25, k72, k23, k73, k27,  k71,  \
+      k39, k89, k38, k84, k34, k80, k30, k36, k35, k82, k32, k83, k37, k81, k31, \
+      k49, k98,  k48,  k94,   k90,  k40, k46, k45, k92, k42, k93, k47, k91, k41, \
+    k85, k86,                                                            k95, k96 \
 ) \
 { \
-    { k91,   k81,   k71,   k61,   k51,   k41,   k31,   k21,   KC_NO, }, \
-    { k92,   k82,   k72,   k62,   k52,   k42,   k32,   KC_NO, k12,   }, \
-    { k93,   k83,   k73,   k63,   k53,   k43,   KC_NO, k23,   k13,   }, \
-    { k94,   k84,   k74,   k64,   k54,   KC_NO, k34,   k24,   k14,   }, \
-    { k95,   k85,   k75,   k65,   KC_NO, k45,   k35,   k25,   k15,   }, \
-    { k96,   KC_NO, KC_NO, KC_NO, k56,   k46,   k36,   k26,   k16,   }, \
-    { k97,   k87,   KC_NO, k67,   k57,   k47,   k37,   k27,   k17,   }, \
-    { k98,   KC_NO, k78,   k68,   k58,   k48,   k38,   k28,   k18,   }, \
-    { KC_NO, k89,   k79,   k69,   k59,   k49,   k39,   k29,   k19,   }  \
+    { KC_NO, k01,   k02,   KC_NO, k04,   k05,   k06,   k07,   k08,   k09,  }, \
+    { k10,   KC_NO, k12,   KC_NO, k14,   k15,   k16,   k17,   k18,   k19,  }, \
+    { k20,   KC_NO, KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   k29,  }, \
+    { k30,   k31,   k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   k39,  }, \
+    { k40,   k41,   k42,   KC_NO, KC_NO, k45,   k46,   k47,   k48,   k49,  }, \
+    { k50,   k51,   k52,   k53,   k54,   KC_NO, k56,   KC_NO, KC_NO, k59,  }, \
+    { k60,   k61,   k62,   k63,   k64,   KC_NO, KC_NO, KC_NO, KC_NO, k69,  }, \
+    { k70,   k71,   k72,   k73,   k74,   KC_NO, KC_NO, KC_NO, KC_NO, k79,  }, \
+    { k80,   k81,   k82,   k83,   k84,   k85,   k86,   KC_NO, KC_NO, k89,  }, \
+    { k90,   k91,   k92,   k93,   k94,   k95,   k96,   KC_NO, k98,   KC_NO } \
 }
-
-/*
-//TODO ansiとjpを残すか？
-#define LAYOUT_ansi( \
-    k17, k27, k37, k47, k57, k67, k76, k86, k96, ka6, kb6, k81, k91, ka1, kb1, \
-    k18,   k38, k48, k58, k68, k78, k87, k97, ka7, kb7, k82, k92,    ka2, kb2, \
-    k19,   k39, k49, k59, k69, k79, k89, k98, ka8, kb8, k83, k93,         kb3, \
-    k1a,      k3a, k4a, k5a, k6a, k7a, k8a, k9a, ka9, kb9, k84, k94, ka4, kb4, \
-    k1b, k2b, k3b, k4b,      k6b,      k8b,      k9b, kab, k85, k95, ka5, kb5  \
-) \
-{ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k81,   k91,   ka1,   kb1 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k82,   k92,   ka2,   kb2 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k83,   k93,   KC_NO, kb3 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k84,   k94,   ka4,   kb4 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k85,   k95,   ka5,   kb5 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k76,   k86,   k96,   ka6,   kb6 }, \
-    { k17,   k27,   k37,   k47,   k57,   k67,   KC_NO, k87,   k97,   ka7,   kb7 }, \
-    { k18,   KC_NO, k38,   k48,   k58,   k68,   k78,   KC_NO, k98,   ka8,   kb8 }, \
-    { k19,   KC_NO, k39,   k49,   k59,   k69,   k79,   k89,   KC_NO, ka9,   kb9 }, \
-    { k1a,   KC_NO, k3a,   k4a,   k5a,   k6a,   k7a,   k8a,   k9a,   KC_NO, KC_NO }, \
-    { k1b,   k2b,   k3b,   k4b,   KC_NO, k6b,   KC_NO, k8b,   k9b,   kab,   KC_NO }  \
-}
-
-#define LAYOUT_jp( \
-    k17, k27, k37, k47, k57, k67, k76, k86, k96, ka6, kb6, k81, k91, ka1, kb1, \
-    k18,   k38, k48, k58, k68, k78, k87, k97, ka7, kb7, k82,         ka2, kb2, \
-    k19,   k39, k49, k59, k69, k79, k89, k98, ka8, kb8, k83,  k93,   ka3, kb3, \
-    k1a,      k3a, k4a, k5a, k6a, k7a, k8a, k9a, ka9, kb9, k84, k94, ka4, kb4, \
-    k1b, k2b, k3b, k4b,      k6b,      k8b,      k9b, kab, k85, k95, ka5, kb5  \
-) \
-{ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k81,   k91,   ka1,   kb1 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k82,   KC_NO, ka2,   kb2 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k83,   k93,   ka3,   kb3 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k84,   k94,   ka4,   kb4 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k85,   k95,   ka5,   kb5 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k76,   k86,   k96,   ka6,   kb6 }, \
-    { k17,   k27,   k37,   k47,   k57,   k67,   KC_NO, k87,   k97,   ka7,   kb7 }, \
-    { k18,   KC_NO, k38,   k48,   k58,   k68,   k78,   KC_NO, k98,   ka8,   kb8 }, \
-    { k19,   KC_NO, k39,   k49,   k59,   k69,   k79,   k89,   KC_NO, ka9,   kb9 }, \
-    { k1a,   KC_NO, k3a,   k4a,   k5a,   k6a,   k7a,   k8a,   k9a,   KC_NO, KC_NO }, \
-    { k1b,   k2b,   k3b,   k4b,   KC_NO, k6b,   KC_NO, k8b,   k9b,   kab,   KC_NO }  \
-}
-*/

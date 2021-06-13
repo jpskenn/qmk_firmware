@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Takeshi Nishio
+Copyright 2021 Takeshi Nishio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,25 +28,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 // Same size for Jones' custom Round-Robin matrix.
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 10
 
 // Same pins for Jones' custom Round-Robin matrix.
-#define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6 }
-#define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6 }
+// Reverse COL order for matrix(0,0) not get always High, avoid Bootmagic continue enter bootloader.
+#define MATRIX_ROW_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
+#define MATRIX_COL_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
+// #define MATRIX_COL_PINS { D7, B4, B7, B1, B0, D4, D6, E6, B2, B3 }
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder */
-#define ENCODERS_PAD_A { F6, B3 }
-#define ENCODERS_PAD_B { F7, B2 }
+#define ENCODERS_PAD_A { F5, D2 }
+#define ENCODERS_PAD_B { F4, D3 }
 #define ENCODER_RESOLUTION 4  //the default & suggested is 4
 
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6
-  #define AUDIO_PIN_ALT B7  // 2nd pin for simultaneous audio.
+  #define AUDIO_PIN_ALT B6  // 2nd pin for simultaneous audio.
   #define AUDIO_CLICKY
 #endif
 
@@ -59,10 +61,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-#define RGB_DI_PIN F0
+#define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 12 // Left(2) + Right(2) + Under(8)
-  #define RGBLIGHT_LED_MAP {0,1,11,10,4,5,6,7,8,9} // Left --> Right --> Under
+  #define RGBLED_NUM 2 // Left(2) or Right(2) or Both(4)
+//TODO 2個だけならLED_MAPいらない
+//  #define RGBLIGHT_LED_MAP {0,1,11,10,4,5,6,7,8,9} // Left --> Right --> Under
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
@@ -77,9 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   /*== or choose animations ==*/
   // #define RGBLIGHT_EFFECT_BREATHING
   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+  // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   // #define RGBLIGHT_EFFECT_SNAKE
-  #define RGBLIGHT_EFFECT_KNIGHT
+  // #define RGBLIGHT_EFFECT_KNIGHT
   // #define RGBLIGHT_EFFECT_CHRISTMAS
   // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
   // #define RGBLIGHT_EFFECT_RGB_TEST
@@ -149,9 +152,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-//TODO リリース時は、この設定を消す。
-//TODO v03_2のマトリクスは左上が常にHighなため、テストする際に回避する設定。
-//TODO　本物のv04のマトリクスは、この設定不要。
+//TODO
+//TODO 左上（0,0）が常にHighなため、左上キーに該当するマトリクスを指定する必要がある
 /* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 6
-#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 9
