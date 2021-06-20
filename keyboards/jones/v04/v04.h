@@ -34,7 +34,7 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
 
 */
 
-/* Keys on 6th row are used with rotary encoder, by VIA's dynamic key setting. */
+/* Keys on 6th row are used with rotary encoder. */
 #define LAYOUT( \
       k09, k59, k08, k54, k04, k50, k56, k06, k05, k52, k02, k53, k07, k51, k01, \
         k19,  k69, k18, k64, k14, k60, k10, k16, k15, k62, k12, k63, k17,  k61,  \
