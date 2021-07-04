@@ -36,7 +36,6 @@ enum layer_number {
 enum custom_keycodes {
   MAC = SAFE_RANGE,
   WIN,
-  M_PSCR,
   GUI_IME,
   VERSION,
 };
@@ -124,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_ADJUST] = LAYOUT(
-        NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  M_PSCR,   KC_SLCK,  KC_PAUS,
+        NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
             _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
@@ -238,13 +237,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_num_lower_layer,
     my_adjust_layer
 );
-
-void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-    rgblight_disable();
-    clicky_off();
-}
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
