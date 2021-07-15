@@ -21,6 +21,9 @@ enum layer_number {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _5TH,
+    _6TH,
+    _7TH,
 };
 
 // Key Macro
@@ -32,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
-           KC_LCTL,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
+           KC_LCTL,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_ENT,
         KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_LEFT,  KC_RGHT,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_UP,    KC_SLSH,
         KC_MUTE,  KC_LANG2, KC_LGUI,     KC_LALT,       SP_LOW,        KC_ENT,KC_ENT, KC_BSPC,SP_RAI,KC_RALT,      KC_RALT,     KC_LEFT,  KC_DOWN,  KC_RGHT,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
@@ -60,7 +63,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
-    )
+    ),
+    [_5TH] = LAYOUT(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
+        _______,  _______,                                                                                                                _______,  _______
+    ),
+    [_6TH] = LAYOUT(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
+        _______,  _______,                                                                                                                _______,  _______
+    ),
+    [_7TH] = LAYOUT(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
+        _______,  _______,                                                                                                                _______,  _______
+    ),
 };
 
 //------------------------------------------------------------------------------
@@ -70,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Indicator LED settings
 #define JONES_LED_INDICATOR_INDEX 0         // where to start indicator
-#define JONES_LED_INDICATOR_COUNT 2         // how many leds used for indicator
+#define JONES_LED_INDICATOR_COUNT 4         // how many leds used for indicator
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
 #define JONES_LED_DIMMER_LEVEL 200          // brightness dimmer
 
@@ -104,11 +131,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_raise_layer,
     my_adjust_layer
 );
-
-void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -166,4 +188,26 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     tap_code16(keycode);
 
     return true;
+}
+
+//------------------------------------------------------------------------------
+// Keyboard Initialization
+//------------------------------------------------------------------------------
+void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_LAYERS
+    // Enable the LED layers.
+    rgblight_layers = my_rgb_layers;
+#endif
+
+#ifdef RGB_DI_PIN
+    // disable LED animation
+    rgblight_disable();
+#endif
+
+#ifdef AUDIO_CLICKY
+    // Disable clicky sound on startup for silence.
+    clicky_off();
+#endif
+
 }
