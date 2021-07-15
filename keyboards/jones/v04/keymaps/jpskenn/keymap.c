@@ -30,7 +30,7 @@ enum layer_number {
     _LOWER,
     _RAISE,
     _NUM_LOWER,
-    _ADJUST
+    _ADJUST,
 };
 
 enum custom_keycodes {
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
-    )
+    ),
 };
 
 uint16_t key_timer;
@@ -176,7 +176,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Indicator LED settings
 #define JONES_LED_INDICATOR_INDEX 0         // where to start indicator
-#define JONES_LED_INDICATOR_COUNT 2         // how many leds used for indicator
+#define JONES_LED_INDICATOR_COUNT 4         // how many leds used for indicator
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
 #define JONES_LED_DIMMER_LEVEL 150          // brightness dimmer
 
@@ -193,23 +193,28 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL}
+    {JONES_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL},
+    {JONES_LED_INDICATOR_INDEX + 1 + 2 , 1, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - JONES_LED_DIMMER_LEVEL}
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - JONES_LED_DIMMER_LEVEL},
+    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - JONES_LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL}
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL},
+    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL}
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL},
+    {JONES_LED_INDICATOR_INDEX + 2 , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL}
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL},
+    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
@@ -284,4 +289,27 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     tap_code16(keycode);
 
     return true;
+}
+
+
+//------------------------------------------------------------------------------
+// Keyboard Initialization
+//------------------------------------------------------------------------------
+void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_LAYERS
+    // Enable the LED layers.
+    rgblight_layers = my_rgb_layers;
+#endif
+
+#ifdef RGB_DI_PIN
+    // disable LED animation
+    rgblight_disable();
+#endif
+
+#ifdef AUDIO_CLICKY
+    // Disable clicky sound on startup for silence.
+    clicky_off();
+#endif
+
 }
