@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGBLIGHT */
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 2 // Left(2) or Right(2) or Both(4)
+  #define RGBLED_NUM 4 // Left(2) + Right(2)
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
