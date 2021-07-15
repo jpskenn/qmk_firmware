@@ -146,20 +146,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_WIN);
             }
             return false;
-        case M_PSCR: // Mac's advanced screen capture.
-            switch(biton32(default_layer_state)) {
-                case _MAC:
-                    if (record->event.pressed) {
-                        tap_code16(LSFT(LGUI(KC_5)));
-                    }
-                    break;
-                default:
-                    if (record->event.pressed) {
-                        tap_code(KC_PSCR);
-                    }
-                    break;
-            }
-            return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
             if (record->event.pressed) {
                 key_timer = timer_read();
