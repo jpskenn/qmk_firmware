@@ -31,3 +31,12 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
+
+#ifdef DYNAMIC_KEYMAP_LAYER_COUNT
+
+    #undef DYNAMIC_KEYMAP_LAYER_COUNT
+    #define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
+
+#endif
