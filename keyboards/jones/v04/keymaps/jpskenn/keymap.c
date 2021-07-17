@@ -15,12 +15,27 @@
  */
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "process_unicode.h"
 
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
     // float song_caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
     // float song_adjust[][2] = SONG(UNICODE_WINDOWS);
 #endif
+
+// const uint32_t PROGMEM unicode_map[]=
+// {
+//     0x2620,//skull and crossbones
+//     // 0x1f37a,//beer
+//     // 0x1f423,//hatching chick
+//     // 0x1f498,//heart with arrow
+//     // 0x1f607,//innocent
+//     // 0x1f647,//bow
+//     // 0x1f914,//thinking face
+//     // 0x1f644,//rolling eye
+//     // 0x1f363, //sushi
+//     // 0x1f4b8,//money with wings
+// };
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
@@ -77,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT(
         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   XXXXXXX,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
-           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
+           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  UC(0x2620),  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
         KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_UP,    S_SLSH,
         KC_MUTE,  KC_LANG2, KC_LOPT,     KC_LCMD,       SP_LOW,        KC_ENT,KC_ENT, KC_BSPC,SP_RAI,XXXXXXX,       GUI_IME,    KC_LEFT,  KC_DOWN,  KC_RGHT,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
