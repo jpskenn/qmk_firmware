@@ -40,3 +40,9 @@
     #define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
 
 #endif
+
+#ifndef RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    #define RGBLIGHT_MAX_LAYERS 10
+#endif

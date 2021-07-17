@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-    KC_LEFT,  KC_RGHT,  KC_LOPT,  KC_LCMD,  SP_LOW,   SP_LOW,   SP_RAI,   SP_RAI,   GUI_IME,  KC_ROPT,  KC_DOWN,  KC_UP
+    _______,  _______,  KC_LOPT,  KC_LCMD,  SP_LOW,   SP_LOW,   SP_RAI,   SP_RAI,   GUI_IME,  KC_ROPT,  _______,  _______
 ),
 [_WIN] = LAYOUT_preonic_grid(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -100,30 +100,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUM] = LAYOUT_preonic_grid(
     KC_ESC,   _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_EQL,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_BSPC,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    XXXXXXX,  KC_ENT,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  _______,
-    _______,  _______,  _______,  _______,  SP_NLOW,  SP_NLOW,  _______,  _______,  KC_P0,    KC_PDOT,  XXXXXXX,  XXXXXXX
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  KC_ENT,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    _______,  _______,
+    _______,  _______,  _______,  _______,  SP_NLOW,  SP_NLOW,  _______,  _______,  KC_P0,    KC_PDOT,  _______,  _______
 ),
 [_LOWER] = LAYOUT_preonic_grid(
     KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F12,
     _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_INS,
     _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
     _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
-    KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  SP_ADJ,   SP_ADJ,   _______,  _______,  KC_PGDN,  KC_PGUP
+    _______,  _______,  _______,  _______,  _______,  _______,  SP_ADJ,   SP_ADJ,   _______,  _______,  _______,  _______
 ),
 [_RAISE] = LAYOUT_preonic_grid(
     KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F12,
     _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
     _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
     _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F11,   KC_F12,
-    KC_HOME,  KC_END,   _______,  _______,  SP_ADJ,   SP_ADJ,   _______,  _______,  _______,  _______,  KC_PGDN,  KC_PGUP
+    _______,  _______,  _______,  _______,  SP_ADJ,   SP_ADJ,   _______,  _______,  _______,  _______,  _______,  _______
 ),
 [_NUM_LOWER] = LAYOUT_preonic_grid(
     ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-    _______,  _______,  _______,  _______,  _______,  _______,  SP_ADJ,   SP_ADJ,   GUI_IME,  KC_ROPT,  KC_DOWN,  KC_UP
+    _______,  _______,  _______,  _______,  _______,  _______,  SP_ADJ,   SP_ADJ,   GUI_IME,  KC_ROPT,  _______,  _______
 ),
 [_ADJUST] = LAYOUT_preonic_grid(
     NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
@@ -171,6 +171,89 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+//------------------------------------------------------------------------------
+// RGB Light settings
+//------------------------------------------------------------------------------
+#ifdef RGBLIGHT_LAYERS
+
+// Indicator LED settings
+#define LED_INDICATOR_INDEX 0         // where to start indicator
+#define LED_INDICATOR_COUNT 9         // how many leds used for indicator
+#define LED_INDICATOR_TEMP_INDEX 3
+#define LED_INDICATOR_CHANGE_COUNT 2  // how meny leds to change for temporally layer
+#define LED_DIMMER_LEVEL 0          // brightness dimmer
+
+// for Default layer (= Base layer)mmwn
+const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE - LED_DIMMER_LEVEL}
+);
+const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE - LED_DIMMER_LEVEL}
+);
+const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, 0,0,0}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_TEMP_INDEX + 2 , 2, HSV_MAGENTA - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_TEMP_INDEX, LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_TEMP_INDEX, LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_TEMP_INDEX, LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_TEMP_INDEX, LED_INDICATOR_CHANGE_COUNT, HSV_RED - LED_DIMMER_LEVEL}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_mac_layer,
+    my_win_layer,
+    my_num_layer,
+    my_caps_layer,
+    my_lower_layer,
+    my_raise_layer,
+    my_num_lower_layer,
+    my_adjust_layer
+);
+
+// Enabling and disabling lighting layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
+    rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
+
+    return state;
+}
+
+// Enabling and disabling lighting layers for default layer
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
+
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, led_state.caps_lock);
+
+    return true;
+}
+#endif
 
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
@@ -253,4 +336,13 @@ bool music_mask_user(uint16_t keycode) {
     default:
       return true;
   }
+}
+
+void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_LAYERS
+    // Enable the LED layers.
+    rgblight_layers = my_rgb_layers;
+#endif
+
 }
