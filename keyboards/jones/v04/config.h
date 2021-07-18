@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6
   #define AUDIO_CLICKY
-  #define MUSIC_MAP
+//   #define MUSIC_MAP
 #endif
 
 /* RGBLIGHT */
