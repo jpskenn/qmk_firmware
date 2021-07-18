@@ -7,4 +7,4 @@
 // If it's not set, EEPROM size will be set ATmega32u4's 1023.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6 // default:4
