@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v04.h"
+#include "v04_1.h"
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 //TODO Music-mapを良い感じにする
