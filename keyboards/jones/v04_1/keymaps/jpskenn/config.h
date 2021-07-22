@@ -18,10 +18,10 @@
 // Disable unused encoder pad to reduce firmware size.
 // Override keyboard's config.h : Left encoder only
 // +0.3kb
-#undef ENCODERS_PAD_A
-#undef ENCODERS_PAD_B
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
+// #undef ENCODERS_PAD_A
+// #undef ENCODERS_PAD_B
+// #define ENCODERS_PAD_A { F5 }
+// #define ENCODERS_PAD_B { F4 }
 
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64
