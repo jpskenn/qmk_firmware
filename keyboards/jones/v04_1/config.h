@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Same pins for Round-Robin matrix.
 #define MATRIX_ROW_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
 #define MATRIX_COL_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
-#define UNUSED_PINS { B5, C7, D5, F0, F6, F7 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -47,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN B6
   #define AUDIO_CLICKY
-//   #define MUSIC_MAP
+  #define MUSIC_MAP
 #endif
 
 /* RGBLIGHT */
