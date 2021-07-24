@@ -1,8 +1,6 @@
-# Jones v04
+# Jones v04_1
 
-![Jones, ANSI style](https://github.com/jpskenn/Jones/raw/master/assets/IMG_2204.jpeg)
-
-![Jones, JP style](https://github.com/jpskenn/Jones/raw/master/assets/DSC_7189.jpeg)
+![Jones, ](https://github.com/jpskenn/Jones/raw/master/assets/DSC_7440.jpeg)
 
 A 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row.  
 GH60 case compatible PCB and keyplate.
@@ -13,11 +11,11 @@ GH60 case compatible PCB and keyplate.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jones/v04:default
+    make jones/v04_1:default
 
 Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
-    make jones/v04:default:flash
+    make jones/v04_1:default:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
