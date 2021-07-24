@@ -9,8 +9,8 @@
 // Disable music mode to reduce firmware size.
 // +2.3kb
 #ifdef AUDIO_ENABLE
-  #undef MUSIC_MAP
-  #define NO_MUSIC_MODE
+//   #undef MUSIC_MAP
+//   #define NO_MUSIC_MODE
 //   #define SONG_CAPS_ON SONG(CAPS_LOCK_ON_SOUND)
 //   #define SONG_CAPS_OFF SONG(CAPS_LOCK_OFF_SOUND)
 #endif
