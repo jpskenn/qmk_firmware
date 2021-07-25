@@ -8,6 +8,12 @@ VIA supported basic keymap.
 - Lower
 - Raise
 - Adjust
+- 5th
+- 6th
+
+## External 8KB EEPROM
+
+I2C connected external 8KB EEPROM.
 
 ## LED lighting
 
