@@ -29,6 +29,8 @@ Supports up to 2 rotary encoders. (Left bottom and Right bottom.)
 Supports audio.  
 Music mode and Clicky sound available.
 
+Simultaneous audio enabled.
+
 ## Bootmagic
 
 The "lite" mode is enabled.  
