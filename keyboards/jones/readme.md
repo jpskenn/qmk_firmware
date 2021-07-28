@@ -8,7 +8,7 @@ Symmetrical alpha-keys and nearby right side mod-keys provide natural typing pos
 It has compact and light fingering which like 40% and 50% keyboards.
 And also, it has enough keys, no need to push numeric and symbol keys into layers.
 
-It can be used with GH60 or Poker compatible cases.
+It can be used with GH60 and Poker compatible cases.
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
 * Hardware Supported: Jones PCB, Keyplate
