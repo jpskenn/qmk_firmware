@@ -17,9 +17,9 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
-    _BASE = 0,
-    _2ND,
-    _3RD,
+    _BASE1 = 0,
+    _BASE2,
+    _BASE3,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -31,7 +31,7 @@ enum layer_number {
 #define SP_ADJ  LT(_ADJUST, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
+    [_BASE1] = LAYOUT(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
            KC_LCTL,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_ENT,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE,  KC_LANG2, KC_LGUI,     KC_LALT,       SP_LOW,        SP_RAI,   KC_BSPC,     SP_RAI,KC_RALT,      KC_RALT,     KC_LEFT,  KC_DOWN,  KC_RGHT,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_VOLD,  KC_VOLU
     ),
-    [_2ND] = LAYOUT(
+    [_BASE2] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
-    [_3RD] = LAYOUT(
+    [_BASE3] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-            _______,    DF(_BASE),DF(_2ND), DF(_3RD), RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
+            _______,    DF(_BASE1),DF(_BASE2), DF(_BASE3), RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______,
@@ -93,15 +93,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define JONES_LED_DIMMER_LEVEL 200          // brightness dimmer
 
 // for Default layer (= Base layer)
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_2nd_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_BLUE - JONES_LED_DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_3rd_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_YELLOW - JONES_LED_DIMMER_LEVEL}
 );
 
@@ -124,9 +124,9 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,
-    my_2nd_layer,
-    my_3rd_layer,
+    my_base1_layer,
+    my_base2_layer,
+    my_base3_layer,
     my_caps_layer,
     my_lower_layer,
     my_raise_layer,
@@ -144,9 +144,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _2ND));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _3RD));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
 
     return state;
 }
