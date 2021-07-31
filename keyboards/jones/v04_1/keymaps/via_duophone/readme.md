@@ -4,12 +4,11 @@ VIA supported basic keymap.
 
 ## Layers
 
-- Base
+- Base #1
+- Base #2
 - Lower
 - Raise
 - Adjust
-- 5th
-- 6th
 
 ## External 8KB EEPROM
 
@@ -17,7 +16,7 @@ I2C connected external 8KB EEPROM.
 
 ## LED lighting
 
-2 LEDs. (Left side or Right side.)  
+4 LEDs. (2 for Left side and 2 for Right side.)  
 For layer indicator.
 
 ## Rotary encoder
@@ -27,7 +26,7 @@ Supports up to 2 rotary encoders. (Left bottom and Right bottom.)
 ## Audio
 
 Supports audio.  
-Music mode and Clicky sound available.
+Music mode and Clicky sound enabled.
 
 Simultaneous audio enabled.
 
