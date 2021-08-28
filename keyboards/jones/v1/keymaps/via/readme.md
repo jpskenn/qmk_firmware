@@ -2,6 +2,10 @@
 
 VIA supported basic keymap.
 
+## Layout
+
+Japanese style wide layout.
+
 ## Layers
 
 - Base #1
@@ -17,8 +21,7 @@ I2C connected external 8KB EEPROM.
 
 ## LED lighting
 
-4 LEDs. (2 for Left side and 2 for Right side.)  
-For layer indicator.
+4 LEDs (2 for Left side and 2 for Right side.) for layer indicator.
 
 ## Rotary encoder
 
