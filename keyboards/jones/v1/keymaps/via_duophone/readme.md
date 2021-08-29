@@ -1,6 +1,6 @@
 # Keymap for Jones with VIA support
 
-VIA supported basic keymap.
+Simultaneous audio enabled, VIA supported basic keymap.
 
 ## Layers
 
@@ -26,11 +26,13 @@ Supports up to 2 rotary encoders. (Left bottom and Right bottom.)
 ## Audio
 
 Supports audio.  
-Music mode and Clicky sound enabled.
+"Music Mode" and "Audio Click" are enabled.
 
-Simultaneous audio enabled.
+*Simultaneous audio is enabled.*
 
 ## Bootmagic
 
-The "lite" mode is enabled.  
-Hold "Left-Top" key and plug USB cable to enter bootloader.
+The "Lite" mode is enabled.  
+Hold "Left-Top" key and plug USB cable to enter bootloader.  
+
+Note: EEPROM will be reset when use Bootmagic Lite.
