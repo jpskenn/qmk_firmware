@@ -212,6 +212,9 @@ void keyboard_post_init_user(void) {
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
+
+    // Set range to after layer indicator.
+    rgblight_set_effect_range(4, 15);
   #endif
 #endif
 
