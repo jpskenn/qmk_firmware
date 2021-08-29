@@ -16,11 +16,29 @@
 
 
 //------------------------------------------------------------------------------
+// RGB Lighting
+//------------------------------------------------------------------------------
+
+// Using Underglow LEDs(RGB Lighting)
+#ifdef RGB_DI_PIN
+  #undef RGBLED_NUM
+  #define RGBLED_NUM 19 // Left(2) + Right(2) + LED Strip(15*) *:60LEDs/1m
+//   #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_EFFECT_BREATHING
+  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+  #define RGBLIGHT_EFFECT_KNIGHT
+  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  #define RGBLIGHT_EFFECT_TWINKLE
+#endif
+
+//------------------------------------------------------------------------------
 // Audio
 //------------------------------------------------------------------------------
 
 // Disable "Music Mode" to reduce firmware size.
-// #ifdef AUDIO_ENABLE
-//   #define NO_MUSIC_MODE
-//   #undef MUSIC_MAP
-// #endif
+#ifdef AUDIO_ENABLE
+  #define NO_MUSIC_MODE
+  #undef MUSIC_MAP
+#endif
