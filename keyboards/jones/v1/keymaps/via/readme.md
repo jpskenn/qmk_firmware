@@ -1,6 +1,6 @@
 # Keymap for Jones with VIA support
 
-VIA supported basic keymap.
+VIA supported basic keymap with external EEPROM.
 
 ## Layout
 
@@ -15,9 +15,9 @@ Japanese style wide layout.
 - Raise
 - Adjust
 
-## External 8KB EEPROM
+## External EEPROM
 
-I2C connected external 8KB EEPROM.
+I2C connected external EEPROM.
 
 ## LED lighting
 
@@ -29,12 +29,5 @@ Supports up to 2 rotary encoders. (Left bottom and Right bottom.)
 
 ## Audio
 
-Supports audio.  
+Supports monophonic audio.  
 "Music Mode" and "Audio Click" are enabled.
-
-## Bootmagic
-
-The "Lite" mode is enabled.  
-Hold "Left-Top" key and plug USB cable to enter bootloader.  
-
-Note: EEPROM will be reset when use Bootmagic Lite.

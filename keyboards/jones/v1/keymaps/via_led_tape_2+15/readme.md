@@ -16,9 +16,9 @@ Japanese style wide layout.
 - Raise
 - Adjust
 
-## External 8KB EEPROM
+## External EEPROM
 
-I2C connected external 8KB EEPROM.
+I2C connected external EEPROM.
 
 ## LED lighting
 
@@ -34,10 +34,3 @@ Supports up to 2 rotary encoders. (Left bottom and Right bottom.)
 Supports audio.  
 
 To reduce firmware size, "Music Mode" and "Audio Click" are *disabled*.
-
-## Bootmagic
-
-The "Lite" mode is enabled.  
-Hold "Left-Top" key and plug USB cable to enter bootloader.  
-
-Note: EEPROM will be reset when use Bootmagic Lite.
