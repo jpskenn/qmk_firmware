@@ -13,14 +13,3 @@
 
 // How many layers to use with VIA / Remap.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6 // default:4
-
-
-//------------------------------------------------------------------------------
-// Audio
-//------------------------------------------------------------------------------
-
-// Disable "Music Mode" to reduce firmware size.
-// #ifdef AUDIO_ENABLE
-//   #define NO_MUSIC_MODE
-//   #undef MUSIC_MAP
-// #endif
