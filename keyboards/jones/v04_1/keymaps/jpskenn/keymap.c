@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
            C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
         KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-        XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,        SP_LOW,        KC_ENT,   KC_BSPC,     SP_RAI,GUI_JA,        GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,        SP_LOW,        KC_ENT,   KC_BSPC,     SP_RAI,GUI_IME,        GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
     [_WIN] = LAYOUT(
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
+        _______,  _______,  _______,     AG_TOGG,        _______,      _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
 };
@@ -154,7 +154,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_RGUI);
 
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
+                    if (keymap_config.swap_ralt_rgui) {     // swapped, windows
+                        SEND_STRING(SS_LCMD("`")); // NOTE: SS_LCMD will be swapped to SS_LALT by MAGIC
+                    } else {                                // mac
+                        SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
+                    }
                 }
             }
             return false;
