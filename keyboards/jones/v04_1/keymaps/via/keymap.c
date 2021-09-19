@@ -202,19 +202,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 
+#ifdef RGB_DI_PIN
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
-#endif
 
-#ifdef RGB_DI_PIN
-    // disable LED animation
-    rgblight_disable();
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
 #endif
-
-#ifdef AUDIO_CLICKY
-    // Disable clicky sound on startup for silence.
-    clicky_off();
 #endif
 
 }
