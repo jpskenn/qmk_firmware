@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "version.h"
+#    include <stdio.h>
 
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
@@ -127,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     AG_TOGG,        _______,      _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
+        KC_ASTG,  _______,  _______,     AG_TOGG,        _______,      _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
 };
@@ -165,6 +166,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+        case KC_FN5:  // KC_ASTG
+            if (record->event.pressed) {
+                autoshift_toggle();
+            }
+            return false;
+        case KC_FN6:  // KC_ASUP
+            if (record->event.pressed) {
+                set_autoshift_timeout(get_autoshift_timeout() + 5);
+            }
+            return false;
+        case KC_FN7:  // KC_ASDN
+            if (record->event.pressed) {
+                set_autoshift_timeout(get_autoshift_timeout() - 5);
+            }
+            return false;
+        case KC_FN8:  // KC_ASRP（ちょっとおかしい）
+            if (record->event.pressed) {
+#ifndef AUTO_SHIFT_NO_SETUP
+    char display[8];
+
+    snprintf(display, 8, "\n%d\n", get_autoshift_timeout());
+
+    send_string((const char *)display);
+#endif
+
             }
             return false;
         default:
