@@ -8,12 +8,12 @@
 
 // Disable music mode to reduce firmware size.
 // +2.3kb
-// #ifdef AUDIO_ENABLE
-//   #undef MUSIC_MAP
-//   #define NO_MUSIC_MODE
+#ifdef AUDIO_ENABLE
+  #undef MUSIC_MAP
+  #define NO_MUSIC_MODE
 //   #define SONG_CAPS_ON SONG(CAPS_LOCK_ON_SOUND)
 //   #define SONG_CAPS_OFF SONG(CAPS_LOCK_OFF_SOUND)
-// #endif
+#endif
 
 // Disable unused encoder pad to reduce firmware size.
 // Override keyboard's config.h : Left encoder only
