@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   XXXXXXX,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
            C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
-        KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_UP,    S_SLSH,
-        KC_MUTE,  KC_LANG2, KC_LOPT,     KC_LCMD,       SP_LOW,        KC_ENT,KC_ENT, KC_BSPC,SP_RAI,XXXXXXX,       GUI_IME,    KC_LEFT,  KC_DOWN,  KC_RGHT,
+        KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX, KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH, KC_UP,
+        KC_MUTE,  KC_LANG2, KC_LOPT,     KC_LCMD,       SP_LOW,        DM_PLY1,DM_PLY1, DM_PLY2,SP_RAI,XXXXXXX,       GUI_IME,    KC_LEFT,  KC_DOWN,  KC_RGHT,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
     [_WIN] = LAYOUT(
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,  _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
             _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
         _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F11,   KC_F12,
-        _______,  _______,  _______,     _______,        SP_ADJ,       _______,_______,_______,_______,_______,     _______,    _______,  KC_DOWN,  KC_UP,
+        _______,  _______,  _______,     _______,        SP_ADJ,       _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_NUM_LOWER] = LAYOUT(
@@ -119,15 +119,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
             C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_ENT,
         KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH,   KC_UP,
-        _______,  _______,  _______,     _______,        _______,      _______,_______,_______,SP_ADJ,_______,      _______,    KC_LEFT,  KC_DOWN,  KC_RGHT,
+        _______,  _______,  KC_LGUI,     KC_LALT,        _______,      _______,_______,_______,SP_ADJ,_______,      A_GRV,      KC_LEFT,  KC_DOWN,  KC_RGHT,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_ADJUST] = LAYOUT(
-        NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
             _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      _______,_______,_______,_______,_______,     _______,    _______,  _______,  _______,
+        _______,  _______,  _______,     _______,        _______,      DM_REC1,DM_REC1,DM_REC2,_______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
 };
@@ -167,6 +167,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+//------------------------------------------------------------------------------
+// Dynamic Macro settings
+//------------------------------------------------------------------------------
+void dynamic_macro_play_user(int8_t direction) {
+    // Revert layer indicator, just after macro played.
+    // It returns to base layer. WHY???
+    layer_state_set_user(layer_state);
 }
 
 //------------------------------------------------------------------------------
@@ -300,11 +309,9 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
-#endif
 
-#ifdef RGB_DI_PIN
-    // disable LED animation
-    rgblight_disable();
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
 #endif
 
 #ifdef AUDIO_CLICKY
