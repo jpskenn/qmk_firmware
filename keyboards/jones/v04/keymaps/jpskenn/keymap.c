@@ -178,6 +178,14 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
+void dynamic_macro_record_start_user(void) {
+    rgblight_blink_layer_repeat(8, 250, 3);
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    rgblight_blink_layer_repeat(9, 250, 3);
+}
+
 //------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
@@ -189,7 +197,7 @@ void dynamic_macro_play_user(int8_t direction) {
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
 #define JONES_LED_DIMMER_LEVEL 150          // brightness dimmer
 
-// for Default layer (= Base layer)mmwn
+// for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
 );
@@ -226,6 +234,15 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL}
 );
 
+const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_ORANGE - JONES_LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_PINK - JONES_LED_DIMMER_LEVEL}
+);
+
+
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_mac_layer,
@@ -235,7 +252,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_lower_layer,
     my_raise_layer,
     my_num_lower_layer,
-    my_adjust_layer
+    my_adjust_layer,
+    my_blink1_layer,
+    my_blink2_layer
 );
 
 // Enabling and disabling lighting layers
