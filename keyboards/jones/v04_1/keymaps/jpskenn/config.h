@@ -23,7 +23,8 @@
 // #define ENCODERS_PAD_A { F5 }
 // #define ENCODERS_PAD_B { F4 }
 
-#define RGBLIGHT_LAYER_BLINK
+// Lighting Layer
+#define RGBLIGHT_LAYER_BLINK // Enable Blink function
 #define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
 
 // Use 24LC64 EEPROM
