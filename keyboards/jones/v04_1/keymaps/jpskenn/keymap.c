@@ -331,11 +331,9 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
-#endif
 
-#ifdef RGB_DI_PIN
-    // disable LED animation
-    rgblight_disable();
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
 #endif
 
 #ifdef AUDIO_CLICKY
