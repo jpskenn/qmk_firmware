@@ -19,4 +19,27 @@
 // place overrides here
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
+// LEDが足りなくて、本来16個のところ12個しか取り付けていないことの回避策
+#ifdef RGBLED_NUM
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 12
+#endif
+
+#ifdef RGBLIGHT_EFFECT_RGB_TEST
+    #undef RGBLIGHT_EFFECT_RGB_TEST
+#endif
+
+#ifdef RGBLIGHT_LIMIT_VAL
+    #undef RGBLIGHT_LIMIT_VAL
+    #define RGBLIGHT_LIMIT_VAL 255
+#endif
+
+#define RGBLIGHT_DEFAULT_VAL 128
+
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_TWINKLE
+
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
 #define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
+#define RGBLIGHT_LAYER_BLINK // Enable Blink function

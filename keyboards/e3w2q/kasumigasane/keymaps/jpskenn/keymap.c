@@ -66,4 +66,80 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+//------------------------------------------------------------------------------
+// RGB Light settings
+//------------------------------------------------------------------------------
+#ifdef RGBLIGHT_LAYERS
 
+// Indicator LED settings
+#define KGSN_LED_INDICATOR_INDEX 0         // where to start indicator
+#define KGSN_LED_INDICATOR_COUNT 4         // how many leds used for indicator
+#define KGSN_LED_INDICATOR_CHANGE_COUNT 4  // how meny leds to change for temporally layer
+#define KGSN_LED_INDICATOR_HALF_CHANGE_COUNT 2  // how meny leds to change for temporally layer
+#define KGSN_LED_DIMMER_LEVEL 150          // brightness dimmer
+
+const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {KGSN_LED_INDICATOR_INDEX , KGSN_LED_INDICATOR_HALF_CHANGE_COUNT, HSV_RED - KGSN_LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {KGSN_LED_INDICATOR_INDEX + 2 , KGSN_LED_INDICATOR_HALF_CHANGE_COUNT, HSV_RED - KGSN_LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {KGSN_LED_INDICATOR_INDEX , KGSN_LED_INDICATOR_CHANGE_COUNT, HSV_RED - KGSN_LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {KGSN_LED_INDICATOR_INDEX , KGSN_LED_INDICATOR_COUNT, HSV_ORANGE - KGSN_LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {KGSN_LED_INDICATOR_INDEX , KGSN_LED_INDICATOR_COUNT, HSV_PINK - KGSN_LED_DIMMER_LEVEL}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_lower_layer,
+    my_raise_layer,
+    my_adjust_layer,
+    my_blink1_layer,
+    my_blink2_layer
+);
+
+// Enabling and disabling lighting layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _ADJUST));
+
+    return state;
+}
+
+#endif
+
+
+//------------------------------------------------------------------------------
+// Keyboard Initialization
+//------------------------------------------------------------------------------
+void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_LAYERS
+    // Enable the LED layers.
+    rgblight_layers = my_rgb_layers;
+
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
+#endif
+
+}
+
+void matrix_init_user(void) {
+
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+
+}
