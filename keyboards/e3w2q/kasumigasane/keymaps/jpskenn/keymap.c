@@ -93,9 +93,9 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 // Indicator LED settings
 #define KGSN_LED_INDICATOR_INDEX 0         // where to start indicator
-#define KGSN_LED_INDICATOR_COUNT 4         // how many leds used for indicator
-#define KGSN_LED_INDICATOR_CHANGE_COUNT 4  // how meny leds to change for temporally layer
-#define KGSN_LED_INDICATOR_HALF_CHANGE_COUNT 2  // how meny leds to change for temporally layer
+#define KGSN_LED_INDICATOR_COUNT 4         // how many LEDs used for indicator
+#define KGSN_LED_INDICATOR_CHANGE_COUNT 4  // how many LEDs to change for temporally layer
+#define KGSN_LED_INDICATOR_HALF_CHANGE_COUNT 2  // how many LEDs to change for temporally layer
 #define KGSN_LED_DIMMER_LEVEL 150          // brightness dimmer
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
