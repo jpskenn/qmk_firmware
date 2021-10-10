@@ -156,10 +156,11 @@ void keyboard_post_init_user(void) {
 
 void matrix_init_user(void) {
 
-   DDRD &= ~(1<<5);
-   PORTD &= ~(1<<5);
+    // Turn off Pro Micro's red LED
+    DDRD &= ~(1<<5);
+    PORTD &= ~(1<<5);
 
-   DDRB &= ~(1<<0);
-   PORTB &= ~(1<<0);
+    DDRB &= ~(1<<0);
+    PORTB &= ~(1<<0);
 
 }
