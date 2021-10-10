@@ -67,6 +67,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 //------------------------------------------------------------------------------
+// Dynamic Macro settings
+//------------------------------------------------------------------------------
+bool savedNumLayer = false; // Stored Num layer status
+
+// void dynamic_macro_play_user(int8_t direction) {
+//     // Revert layer indicator, just after macro played.
+//     // It returns to base layer. WHY???
+//     layer_state_set_user(layer_state);
+// }
+
+void dynamic_macro_record_start_user(void) {
+    rgblight_blink_layer_repeat(3, 250, 3);
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    rgblight_blink_layer_repeat(4, 250, 3);
+}
+
+
+//------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
 #ifdef RGBLIGHT_LAYERS
