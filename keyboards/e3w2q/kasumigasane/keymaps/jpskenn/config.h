@@ -19,12 +19,6 @@
 // place overrides here
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
-// LEDが足りなくて、本来16個のところ12個しか取り付けていないことの回避策
-#ifdef RGBLED_NUM
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 12
-#endif
-
 #ifdef RGBLIGHT_EFFECT_RGB_TEST
     #undef RGBLIGHT_EFFECT_RGB_TEST
 #endif
