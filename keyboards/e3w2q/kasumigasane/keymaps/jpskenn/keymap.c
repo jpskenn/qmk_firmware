@@ -103,14 +103,19 @@ led_config_t g_led_config = { {
     { 0, 21 }, { 75, 21 }, { 149, 21 }, { 224, 21 },
     { 0, 43 }, { 75, 43 }, { 149, 43 }, { 224, 43 },
     { 0, 64 }, { 75, 64 }, { 149, 64 }, { 224, 64 },
-    { 0,  0 },//additional 1 LED
     }, {
     // LED Index to Flag
+    //
+    // LED_FLAG_NONE        0x00    If this LED has no flags
+    // LED_FLAG_ALL         0xFF    If this LED has all flags
+    // LED_FLAG_MODIFIER    0x01    If the LED is on a modifier key
+    // LED_FLAG_UNDERGLOW   0x02    If the LED is for underglow
+    // LED_FLAG_KEYLIGHT    0x04    If the LED is for key backlight
+    // LED_FLAG_INDICATOR   0x08    If the LED is for keyboard state indication
     4+8, 4+8, 4+8, 4+8,
     4, 4, 4, 4,
     4, 4, 4, 4,
-    4, 4, 4, 4,
-    8
+    4+1, 4+1, 4+1, 4+1,
 } };
 
 // Layer indicator

@@ -25,7 +25,7 @@
 
 #ifdef RGBLIGHT_LIMIT_VAL
     #undef RGBLIGHT_LIMIT_VAL
-    #define RGBLIGHT_LIMIT_VAL 255
+    #define RGBLIGHT_LIMIT_VAL 200
 #endif
 
 #define RGBLIGHT_DEFAULT_VAL 128
