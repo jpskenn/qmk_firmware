@@ -78,12 +78,56 @@ bool savedNumLayer = false; // Stored Num layer status
 // }
 
 void dynamic_macro_record_start_user(void) {
-    rgblight_blink_layer_repeat(3, 250, 3);
+    // rgblight_blink_layer_repeat(3, 250, 3);
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
-    rgblight_blink_layer_repeat(4, 250, 3);
+    // rgblight_blink_layer_repeat(4, 250, 3);
 }
+
+
+
+//------------------------------------------------------------------------------
+// RGB Matrix settings
+//------------------------------------------------------------------------------
+#ifdef RGB_MATRIX_ENABLE
+
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
+}, {
+  // LED Index to Physical Position
+  { 0,  0 }, {  75,  0 }, { 149,  0 }, { 224, 0 },
+  { 0, 21 }, { 75, 21 }, { 149, 21 }, { 224, 21 },
+  { 0, 43 }, { 75, 43 }, { 149, 43 }, { 224, 43 },
+  { 0, 64 }, { 75, 64 }, { 149, 64 }, { 224, 64 },
+  { 0,  0 },
+
+}, {
+  // LED Index to Flag
+  1, 4, 4, 4,
+  4, 4, 4, 4,
+  4, 4, 4, 4,
+  4, 4, 4, 4,
+  8
+} };
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case _RAISE:
+                rgb_matrix_set_color(i, RGB_GREEN);
+                break;
+            case _LOWER:
+                rgb_matrix_set_color(i, RGB_AZURE);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+#endif
 
 
 //------------------------------------------------------------------------------
