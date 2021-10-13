@@ -25,17 +25,24 @@
 
 #ifdef RGBLIGHT_LIMIT_VAL
     #undef RGBLIGHT_LIMIT_VAL
-    #define RGBLIGHT_LIMIT_VAL 255
+    #define RGBLIGHT_LIMIT_VAL 200
 #endif
 
 #define RGBLIGHT_DEFAULT_VAL 128
 
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_TWINKLE
+#ifndef RGB_MATRIX_ENABLE
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-#define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
-#define RGBLIGHT_LAYER_BLINK // Enable Blink function
+    #define RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
+    #define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
+    #define RGBLIGHT_LAYER_BLINK // Enable Blink function
+#endif
+
+#ifdef DRIVER_LED_TOTAL
+    #undef DRIVER_LED_TOTAL
+    #define DRIVER_LED_TOTAL 17
+#endif
