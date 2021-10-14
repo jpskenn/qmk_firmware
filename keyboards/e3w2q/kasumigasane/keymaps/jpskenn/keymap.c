@@ -94,9 +94,32 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 // LED matrix definition
 // NOTE: We should define this at "keyboard.h".
+// led_config_t g_led_config = { {
+//     // Key Matrix to LED Index
+//     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, NO_LED, NO_LED }
+//     }, {
+//     // LED Index to Physical Position
+//     { 0,  0 }, {  75,  0 }, { 149,  0 }, { 224, 0 },
+//     { 0, 21 }, { 75, 21 }, { 149, 21 }, { 224, 21 },
+//     { 0, 43 }, { 75, 43 }, { 149, 43 }, { 224, 43 },
+//     { 0, 64 }, { 75, 64 }, { 149, 64 }, { 224, 64 },
+//     }, {
+//     // LED Index to Flag
+//     //
+//     // LED_FLAG_NONE        0x00    If this LED has no flags
+//     // LED_FLAG_ALL         0xFF    If this LED has all flags
+//     // LED_FLAG_MODIFIER    0x01    If the LED is on a modifier key
+//     // LED_FLAG_UNDERGLOW   0x02    If the LED is for underglow
+//     // LED_FLAG_KEYLIGHT    0x04    If the LED is for key backlight
+//     // LED_FLAG_INDICATOR   0x08    If the LED is for keyboard state indication
+//     4+8, 4+8, 4+8, 4+8,
+//     4, 4, 4, 4,
+//     4, 4, 4, 4,
+//     4+1, 4+1, 4+1, 4+1,
+// } };
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
-    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, NO_LED, NO_LED }
+    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, NO_LED,NO_LED,NO_LED,NO_LED, NO_LED, NO_LED }
     }, {
     // LED Index to Physical Position
     { 0,  0 }, {  75,  0 }, { 149,  0 }, { 224, 0 },
@@ -115,7 +138,7 @@ led_config_t g_led_config = { {
     4+8, 4+8, 4+8, 4+8,
     4, 4, 4, 4,
     4, 4, 4, 4,
-    4+1, 4+1, 4+1, 4+1,
+    2, 2, 2, 2,
 } };
 
 // Layer indicator
@@ -135,6 +158,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 default:
                     break;
             }
+        } else if (g_led_config.flags[i] == LED_FLAG_UNDERGLOW) {
+            rgb_matrix_set_color(i, RGB_PURPLE);
         }
     }
 }
