@@ -42,7 +42,7 @@
     #define RGBLIGHT_LAYER_BLINK // Enable Blink function
 #endif
 
-#ifdef DRIVER_LED_TOTAL
-    #undef DRIVER_LED_TOTAL
-    #define DRIVER_LED_TOTAL 17
-#endif
+// #ifdef DRIVER_LED_TOTAL
+//     #undef DRIVER_LED_TOTAL
+//     #define DRIVER_LED_TOTAL 17
+// #endif
