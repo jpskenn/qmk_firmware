@@ -158,8 +158,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 default:
                     break;
             }
-        } else if (g_led_config.flags[i] == LED_FLAG_UNDERGLOW) {
-            rgb_matrix_set_color(i, RGB_PURPLE);
+        // } else if (g_led_config.flags[i] == LED_FLAG_UNDERGLOW) {
+        //     rgb_matrix_set_color(i, RGB_PURPLE);
         }
     }
 }
