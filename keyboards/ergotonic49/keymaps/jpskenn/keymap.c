@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			TAB_NUM	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,							KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_BSPC	,	KC_UP	,
 			C_ESC	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,							KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_MINS	,	KC_ENT	,	KC_DOWN	,
 			KC_LSFT	,	KC_Z	,	KC_X	,	KC_C	,	KC_V	,	KC_B	,	KC_GRV	,	KC_PIPE	,	KC_N	,	KC_M	,	KC_COMM	,	KC_DOT	,	KC_SLSH	,	KC_RSFT	,
-	XXXXXXX	,								KC_LOPT	,	KC_LCMD	,	SP_LOW	,	KC_BSPC	,	KC_SPC  ,   KC_ENT	,	SP_RAI	,	KC_RCMD	,	KC_LOPT	,
+	XXXXXXX	,								KC_LOPT	,	KC_LCMD	,	SP_LOW	,	KC_BSPC	,	KC_SPC  ,   KC_ENT	,	SP_RAI	,	GUI_IME	,	KC_LOPT	,
 			KC_VOLD	,	KC_VOLU	,								XXXXXXX	,	XXXXXXX	,			XXXXXXX	,	XXXXXXX
 ),
 
@@ -83,11 +83,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint16_t key_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+        case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
+            if (record->event.pressed) {
+                key_timer = timer_read();
+                register_code(KC_RGUI);
+            } else {
+                unregister_code(KC_RGUI);
+
+                if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                    if (keymap_config.swap_ralt_rgui) {     // swapped, windows
+                        SEND_STRING(SS_LCMD("`")); // NOTE: SS_LCMD will be swapped to SS_LALT by MAGIC
+                    } else {                                // mac
+                        SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
+                    }
+                }
             }
             return false;
         default:
@@ -172,7 +190,7 @@ const rgblight_segment_t PROGMEM rgb_rai_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM rgb_adj_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_YELLOW}
+    {0, 3, HSV_RED}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -193,9 +211,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.num_lock);
+    // rgblight_set_layer_state(0, led_state.num_lock);
     rgblight_set_layer_state(1, led_state.caps_lock);
-    rgblight_set_layer_state(2, led_state.scroll_lock);
+    // rgblight_set_layer_state(2, led_state.scroll_lock);
 
     return true;
 }
