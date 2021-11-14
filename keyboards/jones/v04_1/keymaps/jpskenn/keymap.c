@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include <print.h>
 
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
@@ -24,9 +25,9 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
-    _MAC = 0,
+    _NUM = 0,
+    _MAC,
     _WIN,
-    _NUM,
     _LOWER,
     _RAISE,
     _NUM_LOWER,
@@ -36,8 +37,10 @@ enum layer_number {
 enum custom_keycodes {
   MAC = SAFE_RANGE,
   WIN,
+  TG_NUM,
   GUI_IME,
   VERSION,
+  L_STATE,
 };
 
 // Key Macro
@@ -48,7 +51,8 @@ enum custom_keycodes {
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_ADJ  LT(_ADJUST, KC_SPC)
-#define SP_NLOW LT(_NUM_LOWER, KC_SPC)
+// #define SP_NLOW LT(_NUM_LOWER, KC_SPC)
+#define SP_MAC  LT(_MAC, KC_SPC)
 // #define BS_RAI  LT(_RAISE, KC_BSPC)
 // #define SP_NRAI LT(_NUM_LOWER, KC_SPC)
 // #define BS_NRAI LT(_NUM_LOWER, KC_BSPC)
@@ -65,7 +69,8 @@ enum custom_keycodes {
 #define CA_SPC  LCA(KC_SPC)
 #define LOWER   MO(_LOWER)
 #define ADJUST  MO(_ADJUST)
-#define NUM     TG(_NUM)
+// #define NUM     TG(_NUM)
+//#define NUM     DF(_NUM)
 // #define HENKAN  LGUI(KC_GRV)
 #define GUI_JA  LGUI_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -74,6 +79,14 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_NUM] = LAYOUT(
+        KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_MINS,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_EQL,
+           KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_TAB,   KC_P7,    KC_P8,    KC_P9,    KC_PPLS,   KC_BSPC,
+           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_LCBR,  KC_RCBR,  S(KC_TAB),KC_P4,    KC_P5,    KC_P6,    XXXXXXX,   KC_ENT,
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_GRV,   XXXXXXX,  KC_BSLS,   KC_N,    KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  KC_RSFT,
+        XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,       SP_MAC,        DM_PLY1,  DM_PLY2,     SP_RAI,  GUI_IME,      KC_P0,      KC_PDOT,  XXXXXXX,  XXXXXXX,
+        KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
+    ),
     [_MAC] = LAYOUT(
         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_MINS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
@@ -88,14 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_LGUI,     KC_LALT,        _______,      _______,  _______,     _______,A_GRV,        A_GRV,      _______,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
-    ),
-    [_NUM] = LAYOUT(
-        KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,
-           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_TAB,   KC_P7,    KC_P8,    KC_P9,    KC_PPLS,   _______,
-           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  S(KC_TAB),KC_P4,    KC_P5,    KC_P6,    XXXXXXX,   _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  _______,
-        _______,  _______,  _______,     _______,       SP_NLOW,       _______,  _______,     _______,_______,      KC_P0,      KC_PDOT,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_LOWER] = LAYOUT(
@@ -125,14 +130,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
             _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
-            _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
-        KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     AG_TOGG,        _______,      DM_REC1,   DM_REC2,   _______,_______,     _______,     _______,  _______,  _______,
+            L_STATE,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
+        KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  TG_NUM,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,     AG_TOGG,        _______,      DM_REC1,   DM_REC2,   _______, _______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
 };
 
 uint16_t key_timer;
+// layer_state_t default_layer_state;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -144,6 +150,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
+            }
+            return false;
+        case TG_NUM: // Toggle number layer
+            if (record->event.pressed) {
+                    // default_layer_or((layer_state_t)1 << _NUM);
+                if (layer_state_cmp(default_layer_state, _NUM)) {
+                    default_layer_set((layer_state_t)1 << _MAC);
+                    // SEND_STRING("mac");
+                    dprint("mac\n");
+                } else {
+                    default_layer_set((layer_state_t)1 << _NUM);
+                    // SEND_STRING("num");
+                    dprint("num\n");
+                    default_layer_debug();
+                }
+                dprintf("%08lX(%u)", default_layer_state, get_highest_layer(default_layer_state));
+            }
+            return false;
+        case SP_MAC:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_MAC);
             }
             return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
@@ -339,6 +366,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
+
+
+    debug_enable=true;
+    // debug_matrix=true;
+    // debug_keyboard=true;
+// default_layer_set((layer_state_t)1 << _NUM);
+// dprintf("%08lX(%u)", default_layer_state, get_highest_layer(default_layer_state));
+// default_layer_set((layer_state_t)1 << _MAC);
+
 
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
