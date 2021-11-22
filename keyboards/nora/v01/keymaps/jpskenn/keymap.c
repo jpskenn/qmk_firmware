@@ -185,54 +185,54 @@ void dynamic_macro_record_end_user(int8_t direction) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define JONES_LED_INDICATOR_INDEX 0         // where to start indicator
-#define JONES_LED_INDICATOR_COUNT 4         // how many leds used for indicator
-#define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
-#define JONES_LED_DIMMER_LEVEL 150          // brightness dimmer
+#define LED_INDICATOR_INDEX 0         // where to start indicator
+#define LED_INDICATOR_COUNT 4         // how many LEDs used for indicator
+#define LED_INDICATOR_CHANGE_COUNT 1  // how many LEDs to change for temporally layer
+#define LED_DIMMER_LEVEL 150          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE - LED_DIMMER_LEVEL}
 );
 const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_BLUE - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE - LED_DIMMER_LEVEL}
 );
 const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_YELLOW - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_YELLOW - LED_DIMMER_LEVEL}
 );
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL},
-    {JONES_LED_INDICATOR_INDEX + 1 + 2 , 1, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - LED_DIMMER_LEVEL},
+    {LED_INDICATOR_INDEX + 1 + 2 , 1, HSV_MAGENTA - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - JONES_LED_DIMMER_LEVEL},
-    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL},
+    {LED_INDICATOR_INDEX + 2, LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL},
-    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - LED_DIMMER_LEVEL},
+    {LED_INDICATOR_INDEX + 2, LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL},
-    {JONES_LED_INDICATOR_INDEX + 2 , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - LED_DIMMER_LEVEL},
+    {LED_INDICATOR_INDEX + 2 , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL},
-    {JONES_LED_INDICATOR_INDEX + 2, JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_RED - LED_DIMMER_LEVEL},
+    {LED_INDICATOR_INDEX + 2, LED_INDICATOR_CHANGE_COUNT, HSV_RED - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_ORANGE - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_ORANGE - LED_DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_PINK - JONES_LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_PINK - LED_DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
@@ -275,42 +275,6 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 #endif
-
-
-//------------------------------------------------------------------------------
-// Rotary Encoder
-//------------------------------------------------------------------------------
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
-
-    // Both encoders hit specific key matrix position when turn knob clockwise or counterclockwise.
-
-    if (index == 0) { // First encoder, Left side : k85, k86
-        if (clockwise) {
-            key.row = 8;
-            key.col = 6;
-        } else {
-            key.row = 8;
-            key.col = 5;
-        }
-    } else if (index == 1) { // Second encoder, Right side : k95, k96
-        if (clockwise) {
-            key.row = 9;
-            key.col = 6;
-        } else {
-            key.row = 9;
-            key.col = 5;
-        }
-    }
-
-    uint8_t  layer   = layer_switch_get_layer(key);
-    uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-    tap_code16(keycode);
-
-    return true;
-}
-
 
 //------------------------------------------------------------------------------
 // Keyboard Initialization
