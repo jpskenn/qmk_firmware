@@ -25,9 +25,12 @@
 
 // Lighting Layer
 #define RGBLIGHT_LAYER_BLINK // Enable Blink function
-#define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
-
+#define RGBLIGHT_MAX_LAYERS 11 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
 #define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
+
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RGB_TEST
 
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64

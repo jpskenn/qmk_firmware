@@ -16,6 +16,17 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+typedef union {
+    uint32_t raw;
+    struct {
+        bool is_indicator_enabled : 1;
+    };
+} user_config_t;
+
+user_config_t user_config;
+
+void toggle_layer_indicator(bool);
+
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
     // float song_caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
@@ -124,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-            _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
+            _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  KC_FN0,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     AG_TOGG,        _______,      DM_REC1,   DM_REC2,   _______,_______,     _______,     _______,  _______,  _______,
@@ -167,6 +178,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
             }
             return false;
+        case KC_FN0: // Toggle Layer Indicator
+            if (record->event.pressed) {
+                // invert indicator status
+                toggle_layer_indicator(!user_config.is_indicator_enabled);
+                // Toggle indicator status
+                user_config.is_indicator_enabled = !user_config.is_indicator_enabled;
+                // Writes the new status to EEPROM
+                eeconfig_update_user(user_config.raw);
+            }
+            return false;
+
         default:
             break;
     }
@@ -213,7 +235,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
 #define JONES_LED_DIMMER_LEVEL 150          // brightness dimmer
 
-// for Default layer (= Base layer)mmwn
+// for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
 );
@@ -297,6 +319,14 @@ bool led_update_user(led_t led_state) {
 
     return true;
 }
+
+void toggle_layer_indicator(bool is_enabled) {
+    if (is_enabled) {
+        rgblight_layers = my_rgb_layers;
+    } else {
+        rgblight_layers = NULL;
+    }
+}
 #endif
 
 
@@ -339,13 +369,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
+    // Call the keymap level matrix init.
+
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
 
 #ifdef RGBLIGHT_LAYERS
-    // Enable the LED layers.
-    rgblight_layers = my_rgb_layers;
+    if(user_config.is_indicator_enabled) {
+        // Enable the indicator
+        rgblight_layers = my_rgb_layers;
+        // prevent RGB light overrides layer indicator.
+        layer_state_set(default_layer_state);
+    } else {
+        rgblight_layers = NULL;
+    }
 
-    // prevent RGB light overrides layer indicator.
-    layer_state_set(default_layer_state);
 #endif
 
 #ifdef AUDIO_CLICKY
