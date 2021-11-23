@@ -1,10 +1,10 @@
 #pragma once
 
 // Change LED count.
-// #ifdef RGB_DI_PIN
-//     #undef RGBLED_NUM
-//     #define RGBLED_NUM 4 // Left(2) + Right(2)
-// #endif
+#ifdef RGB_DI_PIN
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 2 // Left(2), Right(2)
+#endif
 
 // Disable music mode to reduce firmware size.
 // +2.3kb
