@@ -170,17 +170,18 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
-void dynamic_macro_record_start_user(void) {
-    rgblight_blink_layer_repeat(8, 250, 3);
-}
+// void dynamic_macro_record_start_user(void) {
+//     rgblight_blink_layer_repeat(8, 250, 3);
+// }
 
-void dynamic_macro_record_end_user(int8_t direction) {
-    rgblight_blink_layer_repeat(9, 250, 3);
-}
+// void dynamic_macro_record_end_user(int8_t direction) {
+//     rgblight_blink_layer_repeat(9, 250, 3);
+// }
 
 //------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
+#ifndef RGB_MATRIX_ENABLE
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
@@ -274,6 +275,7 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 #endif
+#endif
 
 //------------------------------------------------------------------------------
 // Keyboard Initialization
@@ -281,13 +283,13 @@ bool led_update_user(led_t led_state) {
 void keyboard_post_init_user(void) {
 
 #ifdef RGB_DI_PIN
-#ifdef RGBLIGHT_LAYERS
-    // Enable the LED layers.
-    rgblight_layers = my_rgb_layers;
+    #ifdef RGBLIGHT_LAYERS
+        // Enable the LED layers.
+        rgblight_layers = my_rgb_layers;
 
-    // prevent RGB light overrides layer indicator.
-    layer_state_set(default_layer_state);
-#endif
+        // prevent RGB light overrides layer indicator.
+        layer_state_set(default_layer_state);
+    #endif
 #endif
 
 }
