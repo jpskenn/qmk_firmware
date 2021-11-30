@@ -203,6 +203,21 @@ void dynamic_macro_record_end_user(int8_t direction) {
 }
 
 //------------------------------------------------------------------------------
+// Layer Control
+//------------------------------------------------------------------------------
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Set the layer status
+    // _LOWERと_NUM_LOWERは同時に押されないので、別々に判定する
+    if (state != update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST)) {
+        state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    } else {
+        state = update_tri_layer_state(state, _NUM_LOWER, _RAISE, _ADJUST);
+    }
+
+    return state;
+}
+
+//------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
 #ifdef RGBLIGHT_LAYERS
@@ -350,10 +365,10 @@ void keyboard_post_init_user(void) {
 
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
-    // rgblight_layers = my_rgb_layers;
+    rgblight_layers = my_rgb_layers;
 
     // prevent RGB light overrides layer indicator.
-    // layer_state_set(default_layer_state);
+    layer_state_set(default_layer_state);
 #endif
 
 #ifdef AUDIO_CLICKY
