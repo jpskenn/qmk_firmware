@@ -27,3 +27,25 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
   0,  0,                                                   0,  0
 );
 #endif
+
+led_config_t g_led_config = {
+{
+  // Key Matrix to LED Index
+    { NO_LED, 2, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0 },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0 },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 1 },
+    { NO_LED, 3, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 1 },
+    { NO_LED, 3, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 1 },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 2, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 3, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
+}, {
+  // LED Index to Physical Position
+  { 16, 32 }, { 16,  48 }, { 240,  32 }, { 240,  48 }
+}, {
+  // LED Index to Flag
+  8, 8, 8, 8
+}
+};

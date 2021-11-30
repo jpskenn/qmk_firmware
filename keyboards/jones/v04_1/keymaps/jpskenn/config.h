@@ -1,10 +1,10 @@
 #pragma once
 
 // Change LED count.
-#ifdef RGB_DI_PIN
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 2 // Left(2), Right(2)
-#endif
+// #ifdef RGB_DI_PIN
+//     #undef RGBLED_NUM
+//     #define RGBLED_NUM 2 // Left(2), Right(2)
+// #endif
 
 // Disable music mode to reduce firmware size.
 // +2.3kb
@@ -24,10 +24,10 @@
 // #define ENCODERS_PAD_B { F4 }
 
 // Lighting Layer
-#define RGBLIGHT_LAYER_BLINK // Enable Blink function
-#define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
+// #define RGBLIGHT_LAYER_BLINK // Enable Blink function
+// #define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
 
-#define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
+// #define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
 
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64

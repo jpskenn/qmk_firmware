@@ -190,7 +190,7 @@ void dynamic_macro_record_start_user(void) {
     if (IS_LAYER_ON(_NUM)) {
         savedNumLayer = true;
     }
-    rgblight_blink_layer_repeat(8, 250, 3);
+    // rgblight_blink_layer_repeat(8, 250, 3);
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
@@ -199,7 +199,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
         layer_on(_NUM);
         savedNumLayer = false;
     }
-    rgblight_blink_layer_repeat(9, 250, 3);
+    // rgblight_blink_layer_repeat(9, 250, 3);
 }
 
 //------------------------------------------------------------------------------
@@ -350,10 +350,10 @@ void keyboard_post_init_user(void) {
 
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
-    rgblight_layers = my_rgb_layers;
+    // rgblight_layers = my_rgb_layers;
 
     // prevent RGB light overrides layer indicator.
-    layer_state_set(default_layer_state);
+    // layer_state_set(default_layer_state);
 #endif
 
 #ifdef AUDIO_CLICKY

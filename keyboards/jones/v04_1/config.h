@@ -52,15 +52,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGBLIGHT */
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 4 // Left(2) + Right(2)
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_DEFAULT_VAL 128
-  /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS
-  #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
+    #define DRIVER_LED_TOTAL 4
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGB_MATRIX_KEYPRESSES
+//   #define RGBLED_NUM 4 // Left(2) + Right(2)
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_DEFAULT_VAL 128
+//   /*== Lighting Layers ==*/
+//   #define RGBLIGHT_LAYERS
+//   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
