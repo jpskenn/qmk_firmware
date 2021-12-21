@@ -54,7 +54,7 @@ Merge two rows into single row to make 5x16 keyboard.
     { KC_NO, k11,   k12,   k13,   k14,   k15,   k16,   k17   }, \
     { KC_NO, k21,   k22,   k23,   k24,   k25,   k26,   k27   }, \
     { k30,   k31,   k32,   k33,   k34,   k35,   k36,   k37   }, \
-    { KC_NO, KC_NO, k42,   k44,   KC_NO, k45,   k46,   KC_NO }, \
+    { KC_NO, KC_NO, k42,   KC_NO, k44,   k45,   k46,   KC_NO }, \
     { k50,   k51,   k52,   k53,   k54,   k55,   k56,   k57   }, \
     { k60,   k61,   k62,   k63,   k64,   k65,   k66,   k67   }, \
     { k70,   k71,   k72,   k73,   k74,   k75,   k76,   k77   }, \
