@@ -49,8 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
   #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_EFFECT_TWINKLE
+  #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_ANIMATIONS
+//   #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
