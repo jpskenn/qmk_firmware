@@ -44,8 +44,8 @@ Merge two rows into single row to make 5x16 keyboard.
 
 #define LAYOUT( \
     k00, k50, k01, k51, k02, k52, k03, k53, k04, k54, k05, k55, k06, k56, k07, k57, \
-      k60,  k11, k61, k12, k62, k13, k63, k14, k64, k15, k65,  k16,  k66, k17, k67, \
-      k70,  k21, k71, k22, k72, k23, k73, k24, k74, k25, k75,  k26,  k76, k27, k77, \
+    k60,    k11, k61, k12, k62, k13, k63, k14, k64, k15, k65, k16, k66, k17,   k67, \
+    k70,    k21, k71, k22, k72, k23, k73, k24, k74, k25, k75, k26, k76, k27,   k77, \
     k30, k80, k31, k81, k32, k82, k33, k83, k34, k84, k35, k85, k36, k86, k37, k87, \
                  k91,   k42,   k92,  k93, k44, k94,  k45,  k95,   k46 \
 ) \

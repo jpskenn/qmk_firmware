@@ -170,13 +170,15 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
-void dynamic_macro_record_start_user(void) {
-    rgblight_blink_layer_repeat(8, 250, 3);
-}
+#ifndef RGB_MATRIX_ENABLE
+    void dynamic_macro_record_start_user(void) {
+        rgblight_blink_layer_repeat(8, 250, 3);
+    }
 
-void dynamic_macro_record_end_user(int8_t direction) {
-    rgblight_blink_layer_repeat(9, 250, 3);
-}
+    void dynamic_macro_record_end_user(int8_t direction) {
+        rgblight_blink_layer_repeat(9, 250, 3);
+    }
+#endif
 
 //------------------------------------------------------------------------------
 // RGB Light settings

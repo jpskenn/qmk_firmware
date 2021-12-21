@@ -40,18 +40,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 71
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
-  #define RGBLIGHT_DEFAULT_VAL 127 /* The default brightness level */
-  /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS
-  #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-  #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
-  #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_ANIMATIONS
-//   #define RGBLIGHT_EFFECT_TWINKLE
+
+  #ifdef RGB_MATRIX_ENABLE
+    #define DRIVER_LED_TOTAL 71
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+
+    #define RGB_MATRIX_HUE_STEP 8
+    #define RGB_MATRIX_SAT_STEP 8
+    #define RGB_MATRIX_VAL_STEP 8
+    #define RGB_MATRIX_SPD_STEP 8
+
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+    #define RGB_MATRIX_KEYPRESSES
+  #else
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+    #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
+    #define RGBLIGHT_DEFAULT_VAL 127 /* The default brightness level */
+    /*== Lighting Layers ==*/
+    #define RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
+    #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
+    #define RGBLIGHT_EFFECT_RGB_TEST
+    //   #define RGBLIGHT_ANIMATIONS
+    //   #define RGBLIGHT_EFFECT_TWINKLE
+  #endif
+
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
