@@ -164,6 +164,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------------------------------------------------------------------------------
 // Dynamic Macro settings
 //------------------------------------------------------------------------------
+//TODO ダイナミックマクロ記録開始時に現在のベースレイヤーを保存して、元に戻すのをやりたい
+// bool savedNumLayer = false; // Stored Num layer status
+
 void dynamic_macro_play_user(int8_t direction) {
     // Revert layer indicator, just after macro played.
     // It returns to base layer. WHY???
@@ -171,10 +174,20 @@ void dynamic_macro_play_user(int8_t direction) {
 }
 
 void dynamic_macro_record_start_user(void) {
+    //     // Before recording clears the layer status,
+    // // check Num layer to store its status.
+    // if (IS_LAYER_ON(_NUM)) {
+    //     savedNumLayer = true;
+    // }
     rgblight_blink_layer_repeat(8, 250, 3);
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
+    // // Restore Num layer status, if it was ON before recording.
+    // if (savedNumLayer) {
+    //     layer_on(_NUM);
+    //     savedNumLayer = false;
+    // }
     rgblight_blink_layer_repeat(9, 250, 3);
 }
 
