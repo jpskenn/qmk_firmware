@@ -51,7 +51,7 @@ enum custom_keycodes {
 #define SP_LO_J  LT(_LOWER_JP, KC_SPC)
 #define SP_LO_N  LT(_LOWER_NUM, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
+// #define SP_ADJ  LT(_ADJUST, KC_SPC)
 // #define SP_NLOW LT(_NUM_LOWER, KC_SPC)
 // #define BS_RAI  LT(_RAISE, KC_BSPC)
 // #define SP_NRAI LT(_NUM_LOWER, KC_SPC)
@@ -67,8 +67,8 @@ enum custom_keycodes {
 #define C_QUO   LCTL_T(KC_QUOT)
 #define A_GRV   LALT(KC_GRV)
 #define CA_SPC  LCA(KC_SPC)
-#define LOWER   MO(_LOWER)
-#define ADJUST  MO(_ADJUST)
+// #define LOWER   MO(_LOWER)
+// #define ADJUST  MO(_ADJUST)
 #define NUM     TG(_NUM)
 // #define HENKAN  LGUI(KC_GRV)
 #define GUI_JA  LGUI_T(KC_LANG1)
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,  JP_1,     JP_2,     JP_3,     JP_4,     JP_5,     KC_EQL,   JP_6,     JP_7,     KC_8,     KC_9,     KC_0,     KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,
            KC_TAB,     JP_Q,     JP_W,     JP_E,     JP_R,     JP_T,     JP_Y,     JP_U,     JP_I,     JP_O,     JP_P,       KC_BSPC,     KC_P7,    KC_P8,    KC_P9,
            C_ESC,      JP_A,     JP_S,     JP_D,     JP_F,     JP_G,     JP_H,     JP_J,     JP_K,     JP_L,     JP_MINS,    KC_ENT,      KC_P4,    KC_P5,    KC_P6,
-        KC_LSFT,  JP_Z,     JP_X,     JP_C,     JP_V,     JP_B,     XXXXXXX,  JP_N,     JP_M,     JP_COMM,  JP_DOT,   JP_SLSH,  KC_UP,    KC_P1,    KC_P2,    KC_P3,
+        KC_LSFT,  JP_Z,     JP_X,     JP_C,     JP_V,     JP_B,     KC_1,  JP_N,     JP_M,     JP_COMM,  JP_DOT,   JP_SLSH,  KC_UP,    KC_P1,    KC_P2,    KC_P3,
         DM_PLY1,  DM_PLY2,    KC_LOPT,     KC_LCMD,      SP_LO_J,             SP_RAI,         GUI_IME,    KC_ROPT,     KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_P0,    KC_PDOT
     ),
     [_NUM] = LAYOUT(
@@ -190,7 +190,7 @@ void dynamic_macro_record_start_user(void) {
     // if (IS_LAYER_ON(_NUM)) {
     //     savedNumLayer = true;
     // }
-    rgblight_blink_layer_repeat(8, 250, 3);
+    rgblight_blink_layer_repeat(10, 250, 3);
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
@@ -199,7 +199,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
     //     layer_on(_NUM);
     //     savedNumLayer = false;
     // }
-    rgblight_blink_layer_repeat(9, 250, 3);
+    rgblight_blink_layer_repeat(11, 250, 3);
 }
 
 //------------------------------------------------------------------------------
@@ -229,7 +229,15 @@ const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - LED_DIMMER_LEVEL}
 );
 
-const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_lower_us_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_lower_jp_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
+);
+
+const rgblight_segment_t PROGMEM my_lower_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
 );
 
@@ -259,7 +267,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_win_layer,
     my_num_layer,
     my_caps_layer,
-    my_lower_layer,
+    my_lower_us_layer,
+    my_lower_jp_layer,
+    my_lower_num_layer,
     my_raise_layer,
     my_num_lower_layer,
     my_adjust_layer,
@@ -271,25 +281,29 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Set the layer status
     // _LOWERと_NUM_LOWERは同時に押されないので、別々に判定する
-    if (state != update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST)) {
-        state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    if (state != update_tri_layer_state(state, _LOWER_US, _RAISE, _ADJUST)) {
+        state = update_tri_layer_state(state, _LOWER_US, _RAISE, _ADJUST);
+    } else if (state != update_tri_layer_state(state, _LOWER_JP, _RAISE, _ADJUST)) {
+        state = update_tri_layer_state(state, _LOWER_JP, _RAISE, _ADJUST);
     } else {
-        state = update_tri_layer_state(state, _NUM_LOWER, _RAISE, _ADJUST);
+        state = update_tri_layer_state(state, _LOWER_NUM, _RAISE, _ADJUST);
     }
 
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
-    rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
-    rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER_US));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER_JP));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER_NUM));
+    rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE));
+    // rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
+    rgblight_set_layer_state(9, layer_state_cmp(state, _ADJUST));
 
     return state;
 }
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    // rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
-    // rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _US));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _JP));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
 
     return state;

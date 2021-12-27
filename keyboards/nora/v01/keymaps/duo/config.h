@@ -23,10 +23,13 @@
 // #endif
 
 #define RGBLIGHT_LAYER_BLINK
-#define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
+#define RGBLIGHT_MAX_LAYERS 16 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
 
 // This "may" reduce firmware size.
 // #undef LOCKING_SUPPORT_ENABLE
 // #undef LOCKING_RESYNC_ENABLE
 // #define NO_ACTION_ONESHOT
 // #define LAYER_STATE_8BIT // limit layers up to 8
+
+#undef DYNAMIC_KEYMAP_LAYER_COUNT
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8 // keyboard's default:4
