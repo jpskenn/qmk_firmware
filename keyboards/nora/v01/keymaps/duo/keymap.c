@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,  JP_Z,     JP_X,     JP_C,     JP_V,     JP_B,     JP_BSLS,  JP_N,     JP_M,     JP_COMM,  JP_DOT,   JP_SLSH,  KC_UP,    KC_P1,    KC_P2,    KC_P3,
         DM_PLY1,  DM_PLY2,    KC_LOPT,     KC_LCMD,      SP_LO_J,             SP_RAI,         GUI_IME,    KC_ROPT,     KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_P0,    KC_PDOT
     ),
-    [_NUM] = LAYOUT(
+    [_NUM] = LAYOUT(//SP_LO_NUMはUSかJPのLOWERを見に行くようにできる？
         KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,  _______,  _______,  _______,
            _______,    _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,    _______,     _______,  _______,  _______,
            _______,    _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    XXXXXXX,    _______,     _______,  _______,  _______,
@@ -100,16 +100,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER_US] = LAYOUT(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
-           KC_GRV,     KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,    KC_INS,      _______,  _______,  _______,
-           _______,    _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,    KC_BSLS,     _______,  _______,  _______,
-        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
+           KC_GRV,     KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,    _______,     _______,  _______,  _______,
+           _______,    _______,  _______,  _______,  KC_GRV,   KC_EQL,   KC_BSLS,  KC_SCLN,  KC_QUOT,  KC_LBRC,  KC_RBRC,    KC_BSLS,     _______,  _______,  _______,
+        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TILD,  KC_PLUS,  KC_PIPE,  KC_COLN,  KC_DQUO,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
         _______,  _______,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
-    [_LOWER_JP] = LAYOUT(//TODO JPの記号をLower_JPに押し込む。変換、無変換とかも入れたい。MUTEを左へずらせば、そのすぐ右から全部入る？
+    [_LOWER_JP] = LAYOUT(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
-           JP_ZKHK,    JP_EXLM,  JP_DQUO,  JP_HASH,  JP_DLR,   JP_PERC,  JP_AMPR,  JP_QUOT,  JP_LPRN,  JP_RPRN,  XXXXXXX,    KC_INS,      _______,  _______,  _______,
-           _______,    _______,  _______,  _______,  _______,  _______,  JP_MINS,  JP_CIRC,  JP_YEN,   KC_LBRC,  KC_RBRC,    KC_BSLS,  _______,  _______,  _______,
-        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  JP_EQL,   JP_TILD,  JP_PIPE,    KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
+           JP_ZKHK,    JP_EXLM,  JP_DQUO,  JP_HASH,  JP_DLR,   JP_PERC,  JP_AMPR,  JP_QUOT,  JP_LPRN,  JP_RPRN,  XXXXXXX,    _______,     _______,  _______,  _______,
+           _______,    _______,  _______,  JP_CIRC,  JP_YEN,   JP_AT,    JP_SCLN,  JP_COLN,  JP_LBRC,  JP_RBRC,  JP_BSLS,    _______,     _______,  _______,  _______,
+        _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  JP_TILD,  JP_PIPE,  JP_GRV,   JP_PLUS,  JP_ASTR,  JP_LCBR,  JP_RCBR,  JP_UNDS,  _______,  _______,  _______,  _______,
         _______,  _______,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
     [_LOWER_NUM] = LAYOUT(
@@ -128,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-           _______,    US,       JP,       _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,   _______,     _______,  _______,  _______,
-           _______,    _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,    VERSION,     _______,  _______,  _______,
+           _______,    US,       JP,       _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,   KC_INS,      _______,  _______,  _______,
+           _______,    _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,    VERSION,     _______,  _______,  _______,
         KC_CAPS,  KC_CAPS,  _______,  _______,  _______,  _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         DM_REC1,  DM_REC2,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
