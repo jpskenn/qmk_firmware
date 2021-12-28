@@ -108,8 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER_JP] = LAYOUT(//TODO JPの記号をLower_JPに押し込む。変換、無変換とかも入れたい。MUTEを左へずらせば、そのすぐ右から全部入る？
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
            JP_ZKHK,    JP_EXLM,  JP_DQUO,  JP_HASH,  JP_DLR,   JP_PERC,  JP_AMPR,  JP_QUOT,  JP_LPRN,  JP_RPRN,  XXXXXXX,    KC_INS,      _______,  _______,  _______,
-           _______,    _______,  _______,  _______,  _______,  _______,  JP_MINS,  JP_CIRC,  JP_YEN,   KC_LBRC,  KC_RBRC,    KC_BSLS,  _______,  _______,  _______,
-        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  JP_EQL,   JP_TILD,  JP_PIPE,    KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
+           _______,    _______,  _______,  _______,  _______,  _______,  JP_MINS,  JP_CIRC,  JP_YEN,   KC_LBRC,  KC_RBRC,    KC_BSLS,     _______,  _______,  _______,
         _______,  _______,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
     [_LOWER_NUM] = LAYOUT(
