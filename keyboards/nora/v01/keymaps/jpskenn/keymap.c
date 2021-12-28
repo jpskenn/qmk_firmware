@@ -98,15 +98,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
            KC_ESC,     KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,    KC_INS,      _______,  _______,  _______,
            _______,    _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,     KC_LBRC,     KC_RBRC,  KC_BSLS,  _______,  _______,  _______,
-        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
+        _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
         _______,  _______,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
     [_RAISE] = LAYOUT(
         KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
            KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,       KC_DEL,      _______,  _______,  _______,
            _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,    KC_QUOT,     _______,  _______,  _______,
-        _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F11,   KC_F12,   _______,  _______,  _______,
-        _______,  _______,    _______,     _______,      _______,             _______,       _______,    _______,     _______,  _______,  _______,  _______,  _______
+        _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,  _______,  _______,  _______,
+        KC_F11,   KC_F12,     _______,     _______,      _______,             _______,       _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
     [_NUM_LOWER] = LAYOUT(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,   KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,
