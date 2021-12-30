@@ -37,3 +37,10 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
+
+// Reduce firmware size
+// this reduces about 500 bytes
+#undef LOCKING_SUPPORT_ENABLE // no size reduction
+#undef LOCKING_RESYNC_ENABLE    // no size reduction
+#define NO_ACTION_ONESHOT
+#define LAYER_STATE_8BIT    // no size reduction
