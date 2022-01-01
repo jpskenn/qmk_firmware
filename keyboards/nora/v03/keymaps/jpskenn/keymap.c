@@ -187,48 +187,48 @@ void dynamic_macro_play_user(int8_t direction) {
 
 // Indicator LED settings
 #define LED_INDICATOR_INDEX 0         // where to start indicator
-#define LED_INDICATOR_COUNT 2         // how many LEDs used for indicator
+#define LED_INDICATOR_COUNT 1         // how many LEDs used for indicator
 #define LED_INDICATOR_CHANGE_COUNT 1  // how many LEDs to change for temporally layer
-#define LED_DIMMER_LEVEL 150          // brightness dimmer
+// #define LED_DIMMER_LEVEL 150          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE}
 );
 const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_YELLOW - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_YELLOW}
 );
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA}
 );
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN}
 );
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN}
 );
 
 const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_RED - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_RED}
 );
 
 const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_ORANGE - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_ORANGE}
 );
 
 const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_PINK - LED_DIMMER_LEVEL}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_PINK}
 );
 
 // Define the array of layers. Later layers take precedence
