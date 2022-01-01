@@ -34,6 +34,7 @@ enum layer_number {
 #define BASE1  DF(_BASE1)
 #define BASE2  DF(_BASE2)
 #define BASE3  DF(_BASE3)
+#define FN      MO(_FN)
 #define ADJUST  MO(_ADJUST)
 
 
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,    _______,     _______,      _______,            _______,        _______,     _______,    _______,  _______,  _______,  _______,  _______
     ),
     [_LOWER] = LAYOUT(
-        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
+        FN,       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,
            KC_ESC,     KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,    KC_INS,      _______,  _______,  _______,
            _______,    _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,     KC_LBRC,     KC_RBRC,  KC_BSLS,  _______,  _______,  _______,
         _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,
@@ -84,26 +85,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
            _______,    BASE1,    BASE2,   BASE3,     _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,   _______,     _______,  _______,  _______,
-           _______,    KC_FN1,   _______,  _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,    _______,     _______,  _______,  _______,
+           _______,    _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,    _______,     _______,  _______,  _______,
         KC_CAPS,  KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,    _______,     _______,      _______,            _______,        _______,    _______,     _______,  _______,  _______,  _______,  _______
     ),
 };
-
-bool isBaseLayerIndicatorOn = true;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_FN1: // Toggle base layer indicator.
-            if (record->event.pressed) {
-                isBaseLayerIndicatorOn = !isBaseLayerIndicatorOn;
-            }
-            return false;
-        default:
-            break;
-    }
-    return true;
-}
 
 //------------------------------------------------------------------------------
 // RGB Light settings
@@ -151,7 +137,6 @@ const rgblight_segment_t PROGMEM my_blink_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_OFF}
 );
 
-
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_base1_layer,
@@ -161,13 +146,11 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_lower_layer,
     my_raise_layer,
     my_fn_layer,
-    my_adjust_layer,
-    my_blink_layer
+    my_adjust_layer
 );
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
-
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
     rgblight_set_layer_state(6, layer_state_cmp(state, _FN));
@@ -178,12 +161,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-
-    if (isBaseLayerIndicatorOn) {
-        rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
-        rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
-        rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
-    }
+    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
 
     return state;
 }
