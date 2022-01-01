@@ -1,4 +1,4 @@
-/* Copyright 2021 Takeshi Nishio
+/* Copyright 2022 Takeshi Nishio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

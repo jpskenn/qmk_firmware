@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT Nora
 
 /* key matrix size */
-// Same number for Round-Robin matrix.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 
@@ -43,9 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_LIMIT_VAL 240 /* The maximum brightness level */
   #define RGBLIGHT_DEFAULT_VAL 127 /* The default brightness level */
-  /*== Lighting Layers ==*/
+  /* Lighting Layers */
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
   #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
@@ -60,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* External EEPROM */
+/* External EEPROM & Dynamic keymap */
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64
 // Set MAX_ADDR to specify actual EEPROM size.
