@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
     #define RGBLIGHT_DEFAULT_VAL 127 /* The default brightness level */
-    /*== Lighting Layers ==*/
+    /* Lighting Layers */
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
     #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
