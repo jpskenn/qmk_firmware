@@ -19,7 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
 
-#if DRIVER_LED_TOTAL = 71 // "Full" layout
+#if DRIVER_LED_TOTAL == 71 // "Full" layout
 {
   // Key Matrix to LED Index
   {      0,      2,      4,      6,      8,     10,     12,     14 },

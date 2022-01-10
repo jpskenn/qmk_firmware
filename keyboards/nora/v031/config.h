@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_DI_PIN
 
   #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 61 // Fireless Wings & FW + Rotary Encoder: 64, Full: 71
+    #define DRIVER_LED_TOTAL 64 // Fireless Wings & FW + Rotary Encoder: 64, Full: 71
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
     #define RGB_MATRIX_HUE_STEP 8
     #define RGB_MATRIX_SAT_STEP 8
