@@ -131,13 +131,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_MAC);
+#ifndef RGB_MATRIX_ENABLE
                 rgblight_blink_layer_repeat(0, 400, 5);
+#endif
             }
             return false;
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
+#ifndef RGB_MATRIX_ENABLE
                 rgblight_blink_layer_repeat(1, 400, 5);
+#endif
             }
             return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
