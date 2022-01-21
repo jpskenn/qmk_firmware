@@ -131,16 +131,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_MAC);
+#ifdef RGBLIGHT_ENABLE
 #ifndef RGB_MATRIX_ENABLE
                 rgblight_blink_layer_repeat(0, 400, 5);
+#endif
 #endif
             }
             return false;
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
+#ifdef RGBLIGHT_ENABLE
 #ifndef RGB_MATRIX_ENABLE
                 rgblight_blink_layer_repeat(1, 400, 5);
+#endif
 #endif
             }
             return false;
@@ -176,6 +180,7 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
+#ifdef RGBLIGHT_ENABLE
 #ifndef RGB_MATRIX_ENABLE
     void dynamic_macro_record_start_user(void) {
         rgblight_blink_layer_repeat(8, 250, 3);
@@ -185,10 +190,12 @@ void dynamic_macro_play_user(int8_t direction) {
         rgblight_blink_layer_repeat(9, 250, 3);
     }
 #endif
+#endif
 
 //------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
+#ifdef RGBLIGHT_ENABLE
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
@@ -284,6 +291,7 @@ bool led_update_user(led_t led_state) {
 
     return true;
 }
+#endif
 #endif
 
 //------------------------------------------------------------------------------

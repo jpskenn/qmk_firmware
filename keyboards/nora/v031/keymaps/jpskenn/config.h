@@ -17,10 +17,10 @@
 #pragma once
 
 // Change LED count to actually installed.
-#ifdef RGB_DI_PIN
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 2
-#endif
+// #ifdef RGB_DI_PIN
+//     #undef RGBLED_NUM
+//     #define RGBLED_NUM 2
+// #endif
 
 #define RGBLIGHT_LAYER_BLINK
 #define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義

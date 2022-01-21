@@ -2,7 +2,7 @@ VIA_ENABLE = yes
 
 DYNAMIC_MACRO_ENABLE = yes
 
-AUDIO_ENABLE = yes
+AUDIO_ENABLE = no
 
 # Set "no" to reduce firmware size.
 # CONSOLE_ENABLE = no
