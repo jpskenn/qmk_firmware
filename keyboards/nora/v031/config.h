@@ -40,6 +40,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #define ENCODERS_PAD_A { B1 }
 #define ENCODERS_PAD_B { B2 }
+
+// Encoder triggers specific key matrix position,
+// when turn knob clockwise or counterclockwise.
+// This is handy to assign key codes by VIA.
+
+// Number of endoder
+#define ENCODERS 1
+
+// Mappings of encoder rotation to key position in key matrix.
+// --> k97, k47
+#define ENCODERS_CW_KEY  { { 7, 9 } }
+#define ENCODERS_CCW_KEY { { 7, 4 } }
+
 #endif
 
 /* Audio */
