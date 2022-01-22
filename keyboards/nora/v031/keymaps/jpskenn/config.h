@@ -22,8 +22,10 @@
 //     #define RGBLED_NUM 2
 // #endif
 
-#define RGBLIGHT_LAYER_BLINK
-#define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
+#ifdef RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYER_BLINK
+    #define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
+#endif
 
 // This "may" reduce firmware size.
 // #undef LOCKING_SUPPORT_ENABLE
