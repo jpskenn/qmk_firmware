@@ -202,7 +202,6 @@ void dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 // RGB Light settings
 //------------------------------------------------------------------------------
-#ifdef RGBLIGHT_ENABLE
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
@@ -264,6 +263,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_blink1_layer,
     my_blink2_layer
 );
+#endif
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -275,31 +275,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         state = update_tri_layer_state(state, _NUM_LOWER, _RAISE, _ADJUST);
     }
 
+#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
     rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
     rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
+#endif
 
     return state;
 }
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
+#ifdef RGBLIGHT_LAYERS
     // rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
     // rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
+#endif
 
     return state;
 }
 
 bool led_update_user(led_t led_state) {
+#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(3, led_state.caps_lock);
+#endif
 
     return true;
 }
-#endif
-#endif
 
 //------------------------------------------------------------------------------
 // Keyboard Initialization
