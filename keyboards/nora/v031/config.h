@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL 65 // Fireless Wings: 64, FW + Rotary Encoder: 65, Full: 71
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
     #define RGB_MATRIX_STARTUP_VAL 64
     #define RGB_MATRIX_HUE_STEP 8
     #define RGB_MATRIX_SAT_STEP 8
@@ -124,7 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
+    #define RGBLIGHT_LIMIT_VAL 128 /* The maximum brightness level */
     #define RGBLIGHT_DEFAULT_VAL 64 /* The default brightness level */
     /* Lighting Layers */
     #define RGBLIGHT_LAYERS
