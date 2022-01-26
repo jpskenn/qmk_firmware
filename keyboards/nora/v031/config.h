@@ -121,11 +121,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #else
     #define RGBLED_NUM 65
+    #define RGBLIGHT_LIMIT_VAL 128
+    #define RGBLIGHT_DEFAULT_VAL 64
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 128 /* The maximum brightness level */
-    #define RGBLIGHT_DEFAULT_VAL 64 /* The default brightness level */
     /* Lighting Layers */
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
