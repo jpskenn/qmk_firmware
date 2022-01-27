@@ -62,3 +62,27 @@ Merge two rows into single row to make 5x16 keyboard.
     { k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87   }, \
     { KC_NO, k91,   k92,   KC_NO, k94,   k95,   KC_NO, k97 }  \
 }
+
+
+// Indicator LED index
+#ifdef RGB_MATRIX_ENABLE
+    #if DRIVER_LED_TOTAL == 71 // "Full" layout
+
+        #define LED_INDEX_LSPC 58
+        #define LED_INDEX_RSPC 62
+
+    #else
+
+        #ifdef ENCODER_ENABLE // "FW + Rotary Encoder" layout
+
+            #define LED_INDEX_LSPC 58
+            #define LED_INDEX_RSPC 62
+
+        #else // "Fireless Wings" layout
+
+            #define LED_INDEX_LSPC 58
+            #define LED_INDEX_RSPC 61
+
+        #endif
+    #endif
+#endif

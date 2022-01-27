@@ -16,6 +16,10 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+void rgb_matrix_set_color_user(int, int, int, int, bool);
+
+bool is_led_indicator_enabled = true;
+
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
     // float song_caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
@@ -38,6 +42,7 @@ enum custom_keycodes {
   WIN,
   GUI_IME,
   VERSION,
+  IND_TOG,
 };
 
 // Key Macro
@@ -123,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,      KC_INS,
+        DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,  _______,  _______,  DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
                                  _______,       _______,     _______,    _______,  _______,  _______,    _______,     _______,    _______,
@@ -152,6 +157,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef RGB_MATRIX_ENABLE
                 rgblight_blink_layer_repeat(1, 400, 5);
 #endif
+#endif
+            }
+            return false;
+        case IND_TOG: // Toggle LED indicator.
+            if (record->event.pressed) {
+                is_led_indicator_enabled = !is_led_indicator_enabled;
+#ifdef RGBLIGHT_ENABLE
+                if( is_led_indicator_enabled ) {
+                    rgblight_layers = null;
+                } else {
+                    rgblight_layers = my_rgb_layers;
+                }
 #endif
             }
             return false;
@@ -197,6 +214,70 @@ void dynamic_macro_play_user(int8_t direction) {
         rgblight_blink_layer_repeat(9, 250, 3);
     }
 #endif
+#endif
+
+//------------------------------------------------------------------------------
+// RGB Matrix settings
+//------------------------------------------------------------------------------
+#ifdef RGB_MATRIX_ENABLE
+
+void rgb_matrix_indicators_user(void) {
+    // Indicator On / Off control
+    if(!is_led_indicator_enabled) {
+        return;
+    }
+
+    // Layers
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        // case _MAC:
+        //     rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_PINK, true);
+        //     rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_PINK, true);
+        //     break;
+        case _WIN:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_BLUE, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_BLUE, true);
+            break;
+        case _NUM:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_YELLOW, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_YELLOW, true);
+            break;
+        case _LOWER:
+        case _NUM_LOWER:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_GREEN, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_GREEN, true);
+            break;
+        case _RAISE:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_CYAN, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_CYAN, true);
+            break;
+        case _ADJUST:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_RED, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_RED, true);
+            break;
+        default:
+            // Do nothing to enable effect color.
+            break;
+    }
+
+    // CAPS
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_MAGENTA, true);
+    }
+}
+
+void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_brightness) {
+    HSV hsv = { h, s, v };
+
+    if (is_adjust_brightness) {
+        if (hsv.v > rgb_matrix_get_val()) {
+            // Adjust brightness to current value
+            hsv.v = rgb_matrix_get_val();
+        }
+    }
+
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
+}
 #endif
 
 //------------------------------------------------------------------------------
