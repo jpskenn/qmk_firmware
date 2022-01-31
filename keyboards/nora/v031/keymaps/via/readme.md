@@ -1,19 +1,30 @@
-# Keymap for Jones with VIA support
+# Keymap for "Nora, Fearless Wings" with VIA support
 
 VIA supported basic keymap with external EEPROM.
 
-## Layout
-
-Japanese style wide layout.
-
 ## Layers
 
-- Base #1
-- Base #2
-- Base #3
-- Lower
-- Raise
-- Adjust
+| Layer name | Base layer | Indicator color | Description |
+| :-- | :-: | :-- | :-- |
+| Base #1 | Yes | n/a<br>(RGB Matrix effect color) | US layout with Mac modifier |
+| Base #2 | Yes | Blue | US layout with Windows modifier |
+| Base #3 | Yes | Yellow | "SemiErgo" layout with Mac modifier |
+| Lower | No | Green | F-keys, Symbols & Audio |
+| Raise | No | Cyan | F-keys, Numbers & Cursor |
+| Func | No | White | (Blank) |
+| Adjust | No | Red | Switch default layer, Settings etc. |
+
+## Integrated Function
+
+Use `KC_FNx` keycodes to call integrated function.
+
+| Key | Description |
+| :-- | :-- |
+| `KC_FN0` | :information_source: Output build version of firmware as string. |
+| `KC_FN1` | Change default layer to "Base #1".<br>:floppy_disk: Save layer to EEPROM. |
+| `KC_FN2` | Change default layer to "Base #2".<br>:floppy_disk: Save layer to EEPROM. |
+| `KC_FN3` | Change default layer to "Base #3".<br>:floppy_disk: Save layer to EEPROM. |
+| `KC_FN4` | Toggle layer indicator.<br>Enjoy full RGB Matrix effects :smiley: |
 
 ## External EEPROM
 
@@ -21,13 +32,12 @@ I2C connected external EEPROM.
 
 ## LED lighting
 
-4 LEDs (2 for Left side and 2 for Right side.) for layer indicator.
+RGB Matrix
 
 ## Rotary encoder
 
-Supports up to 2 rotary encoders. (Left bottom and Right bottom.)  
+None
 
 ## Audio
 
-Supports monophonic audio.  
-"Music Mode" and "Audio Click" are enabled.
+Disabled
