@@ -16,6 +16,14 @@
 
 #pragma once
 
+// Change number of LEDs for "RE layout".
+#ifdef RGB_DI_PIN
+    #ifdef RGB_MATRIX_ENABLE
+        #undef DRIVER_LED_TOTAL
+        #define DRIVER_LED_TOTAL 65
+    #else
+        #undef RGBLED_NUM
+        #define RGBLED_NUM 65
     #endif
 #endif
 

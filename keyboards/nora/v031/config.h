@@ -65,7 +65,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_DI_PIN
 
   #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 65 // Fireless Wings: 64, FW + Rotary Encoder: 65, Full: 71
+    /* RGB Matrix */
+
+    // Fireless Wings:      64(default)
+    // FW + Rotary Encoder: 65
+    // Full:                71
+    #define DRIVER_LED_TOTAL 64
 
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
     #define RGB_MATRIX_STARTUP_VAL 40
@@ -124,7 +129,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #else
-    #define RGBLED_NUM 65
+    /* RGB Lighting */
+    #define RGBLED_NUM 64
+
     #define RGBLIGHT_LIMIT_VAL 128
     #define RGBLIGHT_DEFAULT_VAL 40
     #define RGBLIGHT_HUE_STEP 8

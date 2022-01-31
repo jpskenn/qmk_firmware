@@ -22,6 +22,10 @@
 //     #define RGBLED_NUM 2
 // #endif
 
+// #ifdef RGB_MATRIX_ENABLE
+//     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
+    // #define RGB_MATRIX_STARTUP_SPD 30
+    // #define RGB_MATRIX_STARTUP_HUE 169
 // #endif
 
 // This "may" reduce firmware size.
