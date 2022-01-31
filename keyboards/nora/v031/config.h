@@ -66,17 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL 65 // Fireless Wings: 64, FW + Rotary Encoder: 65, Full: 71
+
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
     #define RGB_MATRIX_STARTUP_VAL 40
     #define RGB_MATRIX_HUE_STEP 8
-    #define RGB_MATRIX_STARTUP_HUE 169
     #define RGB_MATRIX_SAT_STEP 8
     #define RGB_MATRIX_VAL_STEP 8
     #define RGB_MATRIX_SPD_STEP 8
-    #define RGB_MATRIX_STARTUP_SPD 30
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
+
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGB_MATRIX_KEYPRESSES
+
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
