@@ -163,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case IND_TOG: // Toggle LED indicator.
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_LAYERS
                 if( is_led_indicator_enabled ) {
                     rgblight_layers = null;
                 } else {
@@ -399,14 +399,12 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 
-#ifdef RGB_DI_PIN
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
-#endif
 #endif
 
 }

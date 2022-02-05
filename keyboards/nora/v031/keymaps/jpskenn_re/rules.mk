@@ -3,7 +3,7 @@ VIA_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 
 ENCODER_ENABLE = yes
-
+RGBLIGHT_ENABLE = yes
 # Set "no" to reduce firmware size.
 # CONSOLE_ENABLE = no
 # COMMAND_ENABLE = no
