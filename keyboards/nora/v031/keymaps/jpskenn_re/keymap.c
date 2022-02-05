@@ -143,27 +143,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_MAC);
-#ifdef RGBLIGHT_ENABLE
-#ifndef RGB_MATRIX_ENABLE
+#ifdef RGBLIGHT_LAYER_BLINK
                 rgblight_blink_layer_repeat(0, 400, 5);
-#endif
 #endif
             }
             return false;
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
-#ifdef RGBLIGHT_ENABLE
-#ifndef RGB_MATRIX_ENABLE
+#ifdef RGBLIGHT_LAYER_BLINK
                 rgblight_blink_layer_repeat(1, 400, 5);
-#endif
 #endif
             }
             return false;
         case IND_TOG: // Toggle LED indicator.
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_LAYERS
                 if( is_led_indicator_enabled ) {
                     rgblight_layers = null;
                 } else {
@@ -399,14 +395,12 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 
-#ifdef RGB_DI_PIN
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
-#endif
 #endif
 
 }
