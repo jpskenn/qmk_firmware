@@ -19,6 +19,8 @@
 void rgb_matrix_set_color_user(int, int, int, int, bool);
 
 bool is_led_indicator_enabled = true;
+bool is_dm_rec1 = false;
+bool is_dm_rec2 = false;
 
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
@@ -180,6 +182,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case DM_REC1: // Toggle recording status
+            if (record->event.pressed) {
+                is_dm_rec1 = true;
+            }
+            return true; // continue processing
+        case DM_REC2: // Toggle recording status
+            if (record->event.pressed) {
+                is_dm_rec2 = true;
+            }
+            return true; // continue processing
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
@@ -200,8 +212,14 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
-#ifdef RGBLIGHT_ENABLE
-#ifndef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE // RGB Matrix
+    // Set "false" to turn off recording indicator.
+    void dynamic_macro_record_end_user(int8_t direction) {
+        is_dm_rec1 = false;
+        is_dm_rec2 = false;
+    }
+#else // RGB Lighting
+    // Blink indicator when start / stop recorging.
     void dynamic_macro_record_start_user(void) {
         rgblight_blink_layer_repeat(8, 250, 3);
     }
@@ -209,7 +227,6 @@ void dynamic_macro_play_user(int8_t direction) {
     void dynamic_macro_record_end_user(int8_t direction) {
         rgblight_blink_layer_repeat(9, 250, 3);
     }
-#endif
 #endif
 
 //------------------------------------------------------------------------------
@@ -258,6 +275,14 @@ void rgb_matrix_indicators_user(void) {
     // CAPS
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_MAGENTA, true);
+    }
+
+    // DM_REC1 & DM_REC2
+    if (is_dm_rec1) {
+        rgb_matrix_set_color_user(LED_INDEX_R4_LEFT_INSIDE, HSV_RED, true);
+    }
+    if (is_dm_rec2) {
+        rgb_matrix_set_color_user(LED_INDEX_R4_RIGHT_INSIDE, HSV_RED, true);
     }
 }
 

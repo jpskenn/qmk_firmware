@@ -27,6 +27,9 @@
     // #define RGB_MATRIX_STARTUP_SPD 30
     // #define RGB_MATRIX_STARTUP_HUE 169
 // #endif
+#ifdef RGB_MATRIX_ENABLE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#endif
 
 // This "may" reduce firmware size.
 // #undef LOCKING_SUPPORT_ENABLE
