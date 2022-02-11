@@ -29,6 +29,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif
 
 // This "may" reduce firmware size.

@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                               _______,  _______
     ),
     [_ADJUST] = LAYOUT(
-        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        DM_RSTP,  KC_FN9,   KC_FN10,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,  _______,  _______,  DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
@@ -190,6 +190,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case DM_REC2: // Toggle recording status
             if (record->event.pressed) {
                 is_dm_rec2 = true;
+            }
+            return true; // continue processing
+        case KC_FN9:
+            if (record->event.pressed) {
+                rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
+            }
+            return true; // continue processing
+        case KC_FN10:
+            if (record->event.pressed) {
+                rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_TYPING_HEATMAP);
             }
             return true; // continue processing
         case VERSION: // Output firmware info.
