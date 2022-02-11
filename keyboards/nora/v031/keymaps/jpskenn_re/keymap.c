@@ -218,7 +218,8 @@ void dynamic_macro_play_user(int8_t direction) {
         is_dm_rec1 = false;
         is_dm_rec2 = false;
     }
-#else // RGB Lighting
+#endif
+#ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
     void dynamic_macro_record_start_user(void) {
         rgblight_blink_layer_repeat(8, 250, 3);
@@ -233,14 +234,6 @@ void dynamic_macro_play_user(int8_t direction) {
 // RGB Matrix settings
 //------------------------------------------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
-
-//TODO
-//インジケータだけ表示するモードの追加
-//カスタムキーコードを定義しておいて、トグルするような感じで
-//https://docs.qmk.fm/#/feature_rgb_matrix?id=indicators-without-rgb-matrix-effect
-
-//TODO
-//Dynamic Macroの記録開始、記録終了がわかるようなインジケータ
 
 void rgb_matrix_indicators_user(void) {
     // Indicator On / Off control
