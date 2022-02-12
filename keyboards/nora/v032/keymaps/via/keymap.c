@@ -164,7 +164,7 @@ void rgb_matrix_indicators_user(void) {
 
     // Layers
     switch(get_highest_layer(layer_state|default_layer_state)) {
-        // Disable indicator on BASE1. It's dazzling...
+        // Disable BASE1 indicator. It's dazzling...
         // case _BASE1:
         //     rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_PINK, true);
         //     rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_PINK, true);
