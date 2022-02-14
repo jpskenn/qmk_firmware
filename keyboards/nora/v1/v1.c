@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v032.h"
+#include "v1.h"
 
 #ifdef AUDIO_ENABLE
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
