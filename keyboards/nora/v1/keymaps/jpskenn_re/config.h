@@ -20,10 +20,10 @@
 #ifdef RGB_DI_PIN
     #ifdef RGB_MATRIX_ENABLE
         #undef DRIVER_LED_TOTAL
-        #define DRIVER_LED_TOTAL 65
+        #define DRIVER_LED_TOTAL 62
     #else
         #undef RGBLED_NUM
-        #define RGBLED_NUM 65
+        #define RGBLED_NUM 62
     #endif
 #endif
 
