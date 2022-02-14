@@ -2,8 +2,14 @@
 
 ![Nora](https://raw.githubusercontent.com/jpskenn/Nora/main/assets/Readme/_DSF1571.jpeg)
 
-Nora is a narrow pitch keyboard with Choc v1 low profile switches, designed for MBK or smaller keycaps.
+Nora is a narrow pitch keyboard with Choc v1 low profile switches, designed for MBK or smaller keycaps.  
 It can be used with GH60 and Poker compatible low profile cases or original bottom plate.
+
+Nora has 3 layouts.
+
+- Full: Full key. 65% style.
+- FW: Separated style.
+- RE: FW + Rotary Encoder
 
 Narrow pitch makes fingers easy to reach keys far from home position, "T" and "Y", R1 numerics and symbols.  
 It also reduces stretching fingers and reduces changing the position of wrist.  
@@ -11,7 +17,7 @@ You can continue tying without breaking the position of finger, wrist and elbow.
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
 * Hardware Supported: Nora PCB, Switch plate, Bottom plate
-* Hardware Availability: [GitHub](https://github.com/jpskenn/Nora)
+* Hardware Availability: [GitHub](https://github.com/jpskenn/Nora), [BOOTH](https://jpskenn.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
 
