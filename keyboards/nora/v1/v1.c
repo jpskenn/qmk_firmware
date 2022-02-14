@@ -30,7 +30,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
 
-#if DRIVER_LED_TOTAL == 71 // "Full" layout
+#if DRIVER_LED_TOTAL == 71 // Full layout
 {
   // Key Matrix to LED Index
   {      0,      2,      4,      6,      8,     10,     12,     14 },
@@ -58,7 +58,6 @@ led_config_t g_led_config = {
   1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
           1,  1,  9,  1, 1, 1,  9,  1,  1
 }
-
 #else
 #ifdef ENCODER_ENABLE // RE layout
 {
@@ -88,7 +87,7 @@ led_config_t g_led_config = {
   1, 4, 4, 4, 4, 4, 4,       4, 4, 4, 4, 4, 4, 1,
           1,  1,  9, 1,    1,  9,  1,  1
 }
-#else // "Fireless Wings" layout
+#else // FW layout
 {
   // Key Matrix to LED Index
   {      0,      2,      4,      6, NO_LED,      8,     10,     12 },
