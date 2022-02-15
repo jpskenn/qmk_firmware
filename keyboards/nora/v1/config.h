@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // Fireless Wings:      64(default)
     // FW + Rotary Encoder: 65
     // Full:                71
-    #define DRIVER_LED_TOTAL 64
+    #define DRIVER_LED_TOTAL 71
 
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
     #define RGB_MATRIX_STARTUP_VAL 40
@@ -134,7 +134,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #ifdef RGBLIGHT_ENABLE
         /* RGB Lighting */
-        #define RGBLED_NUM 64
+        #define RGBLED_NUM 71
 
         #define RGBLIGHT_LIMIT_VAL 128
         #define RGBLIGHT_DEFAULT_VAL 40

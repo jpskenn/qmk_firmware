@@ -64,12 +64,12 @@ led_config_t g_led_config = {
   // Key Matrix to LED Index
   {      0,      2,      4,      6, NO_LED,      8,     10,     12 },
   { NO_LED,     26,     24,     22, NO_LED,     19,     17,     15 },
-  { NO_LED,     29,     31,     33, NO_LED, NO_LED,     36,     38 },
+  { NO_LED,     29,     31,     33, NO_LED,     35,     36,     38 },
   {     54,     51,     49,     47, NO_LED,     45,     43,     41 },
   { NO_LED, NO_LED,     55,     57, NO_LED,     59,     61, NO_LED },
   {      1,      3,      5, NO_LED,      7,      9,     11,     13 },
   {     27,     25,     23,     21,     20,     18,     16,     14 },
-  {     28,     30,     32,     34, NO_LED,     35,     37,     39 },
+  {     28,     30,     32, NO_LED, NO_LED,     35,     37,     39 },
   {     52,     50,     49, NO_LED,     46,     44,     42,     40 },
   { NO_LED,     54,     56, NO_LED,     58,     60, NO_LED, NO_LED }
 }, {

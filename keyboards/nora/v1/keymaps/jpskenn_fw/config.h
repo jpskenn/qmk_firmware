@@ -31,6 +31,15 @@
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif
 
+#ifdef RGB_DI_PIN
+    #ifdef RGB_MATRIX_ENABLE
+        #undef DRIVER_LED_TOTAL
+        #define DRIVER_LED_TOTAL 64
+    #else
+        #undef RGBLED_NUM
+        #define RGBLED_NUM 64
+    #endif
+#endif
 // This "may" reduce firmware size.
 // #undef LOCKING_SUPPORT_ENABLE
 // #undef LOCKING_RESYNC_ENABLE
