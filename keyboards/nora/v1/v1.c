@@ -16,7 +16,7 @@
 
 #include "v1.h"
 
-#ifdef AUDIO_ENABLE
+#ifdef AUDIO_ENABLE //TODO レイアウト別に作る？
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
     45 ,46, 47, 48, 49, 59, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
     30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
