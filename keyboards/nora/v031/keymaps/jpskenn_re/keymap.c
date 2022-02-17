@@ -19,6 +19,7 @@
 void rgb_matrix_set_color_user(int, int, int, int, bool);
 
 bool is_led_indicator_enabled = true;
+bool is_led_indicator_for_base_enabled = true;
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
@@ -45,6 +46,7 @@ enum custom_keycodes {
   GUI_IME,
   VERSION,
   IND_TOG,
+  BIND_TOG,
 };
 
 // Key Macro
@@ -130,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
+        DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  BIND_TOG,      KC_INS,
         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,  _______,  _______,  DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
                                  _______,       _______,     _______,    _______,  _______,  _______,    _______,     _______,    _______,
@@ -168,6 +170,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgblight_layers = my_rgb_layers;
                 }
 #endif
+            }
+            return false;
+        case BIND_TOG: // Toggle LED indicator for Base layers.
+            if (record->event.pressed) {
+                is_led_indicator_for_base_enabled = !is_led_indicator_for_base_enabled;
             }
             return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
@@ -241,27 +248,40 @@ void rgb_matrix_indicators_user(void) {
         return;
     }
 
-    // Layers
+    // Base Layers
+    if(is_led_indicator_for_base_enabled) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            // case _MAC:
+            //     rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_PINK, true);
+            //     rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_PINK, true);
+            //     break;
+            case _WIN:
+                rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_BLUE, true);
+                rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_BLUE, true);
+                break;
+            case _NUM:
+                rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_YELLOW, true);
+                rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_YELLOW, true);
+                break;
+        }
+    }
+
+    // CAPS
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_MAGENTA, true);
+    }
+
+    // Temporally Layers
     switch(get_highest_layer(layer_state|default_layer_state)) {
-        // case _MAC:
-        //     rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_PINK, true);
-        //     rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_PINK, true);
-        //     break;
-        case _WIN:
-            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_BLUE, true);
-            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_BLUE, true);
-            break;
-        case _NUM:
-            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_YELLOW, true);
-            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_YELLOW, true);
-            break;
         case _LOWER:
         case _NUM_LOWER:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_GREEN, true);
-            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_GREEN, true);
+            // Lowerは左SPCなので、左だけ点灯させる
+            // rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_GREEN, true);
             break;
         case _RAISE:
-            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_CYAN, true);
+            // Raiseは右SPCなので、右だけ点灯させる
+            // rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_CYAN, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_CYAN, true);
             break;
         case _ADJUST:
@@ -271,11 +291,6 @@ void rgb_matrix_indicators_user(void) {
         default:
             // Do nothing to enable effect color.
             break;
-    }
-
-    // CAPS
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_MAGENTA, true);
     }
 
     // DM_REC1 & DM_REC2
