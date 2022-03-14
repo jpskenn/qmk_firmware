@@ -67,20 +67,19 @@ Merge two rows into single row to make 5x16 keyboard.
     k60,    k11, k61, k12, k62, k13, k63,      k64, k15, k65, k16, k66, k17,   k67, \
     k70,    k21, k71, k22, k72, k23, k73,      k74, k25, k75, k26, k76, k27,   k77, \
     k30, k80, k31, k81, k32, k82, k33,           k84, k35, k85, k36, k86, k37, k87, \
-                 k91,   k42,   k92,  k43,      k94,  k45,  k95,   k46, \
-                                       k47, k97 \
+                 k91,   k42,   k92,  k43,      k94,  k45,  k95,   k46 \
 ) \
 { \
     {   k00,   k01,   k02,   k03, KC_NO,   k05,   k06,   k07   }, \
     { KC_NO,   k11,   k12,   k13, KC_NO,   k15,   k16,   k17   }, \
     { KC_NO,   k21,   k22,   k23, KC_NO,   k25,   k26,   k27   }, \
     {   k30,   k31,   k32,   k33, KC_NO,   k35,   k36,   k37   }, \
-    { KC_NO, KC_NO,   k42,   k43, KC_NO,   k45,   k46,   k47   }, \
+    { KC_NO, KC_NO,   k42,   k43, KC_NO,   k45,   k46,   KC_NO }, \
     {   k50,   k51,   k52, KC_NO,   k54,   k55,   k56,   k57   }, \
     {   k60,   k61,   k62,   k63,   k64,   k65,   k66,   k67   }, \
     {   k70,   k71,   k72, KC_NO, KC_NO,   k75,   k76,   k77   }, \
     {   k80,   k81,   k82, KC_NO,   k84,   k85,   k86,   k87   }, \
-    { KC_NO,   k91,   k92, KC_NO,   k94,   k95,   KC_NO, k97   }  \
+    { KC_NO,   k91,   k92, KC_NO,   k94,   k95,   KC_NO, KC_NO }  \
 }
 
 #define LAYOUT_re( \
@@ -110,15 +109,15 @@ Merge two rows into single row to make 5x16 keyboard.
     // Left & Right space keys
     #if DRIVER_LED_TOTAL == 71 // "Full" layout
 
-        #define LED_INDEX_LSPC 58
-        #define LED_INDEX_RSPC 62
+        #define LED_INDEX_LSPC 64
+        #define LED_INDEX_RSPC 68
 
     #else
 
         #ifdef ENCODER_ENABLE // "FW + Rotary Encoder" layout
 
-            #define LED_INDEX_LSPC 58
-            #define LED_INDEX_RSPC 62
+            #define LED_INDEX_LSPC 56
+            #define LED_INDEX_RSPC 59
 
         #else // "Fireless Wings" layout
 
@@ -128,8 +127,9 @@ Merge two rows into single row to make 5x16 keyboard.
         #endif
     #endif
 
-    // R4 Inside keys
-    #define LED_INDEX_R4_RIGHT_INSIDE 48
-    #define LED_INDEX_R4_LEFT_INSIDE 49
+    // FW layout, R4 center keys
+    // NOTE: On R4, index order is right to left.
+    #define LED_INDEX_FW_R4_CENTER_RIGHT 48
+    #define LED_INDEX_FW_R4_CENTER_LEFT 49
 
 #endif
