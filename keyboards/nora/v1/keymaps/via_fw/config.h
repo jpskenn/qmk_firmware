@@ -15,3 +15,13 @@
  */
 
 #pragma once
+
+#ifdef RGB_DI_PIN
+    #ifdef RGB_MATRIX_ENABLE
+        #undef DRIVER_LED_TOTAL
+        #define DRIVER_LED_TOTAL 64
+    #else
+        #undef RGBLED_NUM
+        #define RGBLED_NUM 64
+    #endif
+#endif
