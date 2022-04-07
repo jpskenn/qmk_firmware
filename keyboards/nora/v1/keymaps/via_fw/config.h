@@ -25,3 +25,6 @@
         #define RGBLED_NUM 64
     #endif
 #endif
+
+#undef DYNAMIC_KEYMAP_LAYER_COUNT
+#define DYNAMIC_KEYMAP_LAYER_COUNT 11 // default:4 --> 7 --> 11
