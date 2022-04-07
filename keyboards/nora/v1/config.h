@@ -133,23 +133,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
 
   #ifdef RGBLIGHT_ENABLE
-        /* RGB Lighting */
-        #define RGBLED_NUM 71
+    /* RGB Lighting */
+    #define RGBLED_NUM 71
 
-        #define RGBLIGHT_LIMIT_VAL 128
-        #define RGBLIGHT_DEFAULT_VAL 40
-        #define RGBLIGHT_HUE_STEP 8
-        #define RGBLIGHT_SAT_STEP 8
-        #define RGBLIGHT_VAL_STEP 8
-        /* Lighting Layers */
-        #define RGBLIGHT_LAYERS
-        #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-        #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
-        #define RGBLIGHT_MAX_LAYERS 10 // default: 8
-        #define RGBLIGHT_LAYER_BLINK
-        /* Animations & Effects */
-        #define RGBLIGHT_ANIMATIONS
-        #define RGBLIGHT_EFFECT_TWINKLE
+    #define RGBLIGHT_LIMIT_VAL 128
+    #define RGBLIGHT_DEFAULT_VAL 40
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+    /* Lighting Layers */
+    #define RGBLIGHT_LAYERS
+    #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
+    #define RGBLIGHT_LAYERS_RETAIN_VAL // Keeps RGB values between lighting layer changes
+    #define RGBLIGHT_MAX_LAYERS 10 // default: 8
+    #define RGBLIGHT_LAYER_BLINK
+    /* Animations & Effects */
+    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_EFFECT_TWINKLE
   #endif
 
 #endif
