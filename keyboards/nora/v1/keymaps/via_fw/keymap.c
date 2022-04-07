@@ -17,9 +17,22 @@
 #include "version.h"
 #include "keymap_jp.h"
 
+// LED Indicator
 void rgb_matrix_set_color_user(int, int, int, int, bool);
-
 bool is_led_indicator_enabled = true;
+
+// Persistent Configuration (EEPROM)
+typedef union {
+    uint32_t raw;
+    struct {
+        bool    isModMac:1;
+    };
+} user_config_t;
+
+user_config_t user_config;
+
+// Modifier mode
+// bool isModMac;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
@@ -44,6 +57,7 @@ enum custom_keycodes {
   ADJUST,
   VERSION,
   IND_TOG,
+  MOD_TOG,
 };
 
 // Key Macro
@@ -135,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  KC_LWIN,       KC_LALT,     _______,    KC_BSPC,            KC_ENT,   ADJUST,     KC_RALT,    KC_APP
     ),
     [_ADJUST] = LAYOUT_fw(
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        MOD_TOG,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,       US,       JP,       _______,  _______,  _______,  _______,            RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,            RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  _______,                      _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
@@ -169,6 +183,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_FN4:
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
+            }
+            return false;
+        case MOD_TOG:
+            if (record->event.pressed) {
+                user_config.isModMac ^= 1 // Toggles the status
+                eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
             }
             return false;
         case VERSION: // Output firmware info.
@@ -255,4 +275,16 @@ void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_br
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+}
+
+//------------------------------------------------------------------------------
+// Default EEPROM config values
+// (when EEPROM is reset)
+//------------------------------------------------------------------------------
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    user_config.raw = 0;
+    user_config.isModMac = true;
+    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 }
