@@ -165,7 +165,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64
 // Set MAX_ADDR to specify actual EEPROM size.
-// If it's not set, the size will be set to ATmega32u4's 1023.
+// NOTE: If it's not set, the size will be set to ATmega32u4's 1023.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 // How many layers to use with VIA / Remap.
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10 // default:4
