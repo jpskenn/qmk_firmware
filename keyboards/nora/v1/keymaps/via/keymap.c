@@ -131,6 +131,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case VERSION: // Output firmware info.
+        case KC_FN0:
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
         case KC_FN1: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE1);
@@ -150,12 +156,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_FN4:
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
-            }
-            return false;
-        case VERSION: // Output firmware info.
-        case KC_FN0:
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
             }
             return false;
         default:
