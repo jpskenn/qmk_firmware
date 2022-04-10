@@ -136,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
             }
             return false;
-        case BASE1: // Change default ayer --> Write to EEPROM
+        case BASE1: // If "Shift" pressed, Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     set_single_persistent_default_layer(_BASE1);
@@ -144,7 +144,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
-        case BASE2: // Change default ayer --> Write to EEPROM
+        case BASE2: // If "Shift" pressed, Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     set_single_persistent_default_layer(_BASE2);
@@ -152,7 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
-        case BASE3: // Change default ayer --> Write to EEPROM
+        case BASE3: // If "Shift" pressed, Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     set_single_persistent_default_layer(_BASE3);
