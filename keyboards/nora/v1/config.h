@@ -64,13 +64,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB LED */
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
-
   #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix */
 
-    // Fireless Wings:      64(default)
-    // FW + Rotary Encoder: 65
-    // Full:                71
+    // LEDs
+    // Full: 71(default)
+    // FW :  64
+    // RE :  62
     #define DRIVER_LED_TOTAL 71
 
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
@@ -84,6 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGB_MATRIX_KEYPRESSES
 
+    // --- Effects ---
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -132,7 +133,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #endif
-
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -143,10 +143,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 
 /* External EEPROM */
-// Use 24LC64 EEPROM
+// Use 24LC64 type EEPROM
 #define EEPROM_I2C_24LC64
 // Set MAX_ADDR to specify actual EEPROM size.
-// NOTE: If it's not set, the size will be set to ATmega32u4's 1023.
+// NOTE: If it's not set, the size will be set to 1023 by default.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 // How many layers to use with VIA / Remap.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10 // default:4
