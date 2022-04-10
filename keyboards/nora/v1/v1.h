@@ -21,7 +21,7 @@
 /*
 References:
 
-FULL 10x8 MATRIX
+Full 10*8 matrix.
 { k00,   k01,   k02,   k03,   k04,   k05,   k06,   k07   }, \
 { k10,   k11,   k12,   k13,   k14,   k15,   k16,   k17   }, \
 { k20,   k21,   k22,   k23,   k24,   k25,   k26,   k27   }, \
@@ -33,7 +33,7 @@ FULL 10x8 MATRIX
 { k80,   k81,   k82,   k83,   k84,   k85,   k86,   k87   }, \
 { k90,   k91,   k92,   k93,   k94,   k95,   k96,   k97   }  \
 
-Merge two rows into single row to make 5x16 keyboard.
+Merge two rows into single row to make 5*16 matrix.
 { k00,   k50,   k01,   k51,   k02,   k52,   k03,   k53,   k04,   k54,   k05,   k55,   k06,   k56,   k07,   k57   }, \
 { k10,   k60,   k11,   k61,   k12,   k62,   k13,   k63,   k14,   k64,   k15,   k65,   k16,   k66,   k17,   k67   }, \
 { k20,   k70,   k21,   k71,   k22,   k72,   k23,   k73,   k24,   k74,   k25,   k75,   k26,   k76,   k27,   k77   }, \
@@ -103,33 +103,23 @@ Merge two rows into single row to make 5x16 keyboard.
     { KC_NO,   k91,   k92, KC_NO,   k94,   k95, KC_NO,   k97   }  \
 }
 
-// Indicator LED index
+// Indicator LED
 #ifdef RGB_MATRIX_ENABLE
 
-    // Left & Right space keys
+    // LED Index to left & right space keys
     #if DRIVER_LED_TOTAL == 71 // "Full" layout
-
         #define LED_INDEX_LSPC 64
         #define LED_INDEX_RSPC 68
-
-    #else
-
-        #ifdef ENCODER_ENABLE // "FW + Rotary Encoder" layout
-
-            #define LED_INDEX_LSPC 56
-            #define LED_INDEX_RSPC 59
-
-        #else // "Fireless Wings" layout
-
-            #define LED_INDEX_LSPC 58
-            #define LED_INDEX_RSPC 61
-
-        #endif
     #endif
 
-    // FW layout, R4 center keys
-    // NOTE: On R4, index order is right to left.
-    #define LED_INDEX_FW_R4_CENTER_RIGHT 48
-    #define LED_INDEX_FW_R4_CENTER_LEFT 49
+    #ifdef DRIVER_LED_TOTAL == 64 // FW layout
+        #define LED_INDEX_LSPC 58
+        #define LED_INDEX_RSPC 61
+    #endif
+
+    #ifdef DRIVER_LED_TOTAL == 62 // RE layout
+        #define LED_INDEX_LSPC 56
+        #define LED_INDEX_RSPC 59
+    #endif
 
 #endif
