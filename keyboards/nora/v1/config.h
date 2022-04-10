@@ -88,11 +88,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
     #define ENABLE_RGB_MATRIX_BREATHING
-    #define ENABLE_RGB_MATRIX_BAND_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_SAT
     #define ENABLE_RGB_MATRIX_BAND_VAL
-    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-    #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+    // #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
     #define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
     #define ENABLE_RGB_MATRIX_CYCLE_ALL
     #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
@@ -108,14 +108,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_RAINDROPS
     #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
     #define ENABLE_RGB_MATRIX_HUE_BREATHING
-    #define ENABLE_RGB_MATRIX_HUE_PENDULUM
-    #define ENABLE_RGB_MATRIX_HUE_WAVE
+    // #define ENABLE_RGB_MATRIX_HUE_PENDULUM
+    // #define ENABLE_RGB_MATRIX_HUE_WAVE
     #define ENABLE_RGB_MATRIX_PIXEL_RAIN
     #define ENABLE_RGB_MATRIX_PIXEL_FLOW
     #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+
     // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
     // #define ENABLE_RGB_MATRIX_TYPING_HEATMAP // Heatmap is not shown correctly with this keyboard's dual-row matrix.
     #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
     // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
