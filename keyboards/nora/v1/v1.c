@@ -49,7 +49,7 @@ led_config_t g_led_config = {
     }
     #endif
 
-    #ifdef DRIVER_LED_TOTAL == 64 // FW layout
+    #if DRIVER_LED_TOTAL == 64 // FW layout
     {
     // Key Matrix to LED Index
     {      0,      2,      4,      6, NO_LED,      8,     10,     12 },
@@ -79,7 +79,7 @@ led_config_t g_led_config = {
     }
     #endif
 
-    #ifdef DRIVER_LED_TOTAL == 62 // RE layout
+    #if DRIVER_LED_TOTAL == 62 // RE layout
     {
     // Key Matrix to LED Index
     {      0,      2,      4,      6, NO_LED,      8,     10,     12 },

@@ -112,12 +112,12 @@ Merge two rows into single row to make 5*16 matrix.
         #define LED_INDEX_RSPC 68
     #endif
 
-    #ifdef DRIVER_LED_TOTAL == 64 // FW layout
+    #if DRIVER_LED_TOTAL == 64 // FW layout
         #define LED_INDEX_LSPC 58
         #define LED_INDEX_RSPC 61
     #endif
 
-    #ifdef DRIVER_LED_TOTAL == 62 // RE layout
+    #if DRIVER_LED_TOTAL == 62 // RE layout
         #define LED_INDEX_LSPC 56
         #define LED_INDEX_RSPC 59
     #endif
