@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_CLICKY
 #endif
 
-/* RGBLIGHT */
+/* RGB LED */
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
 
