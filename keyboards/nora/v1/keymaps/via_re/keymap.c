@@ -143,20 +143,17 @@ uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case BASE1: // Change default ayer --> Write to EEPROM
-        case KC_FN1:
+        case KC_FN1: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE1);
             }
             return false;
-        case BASE2: // Change default ayer --> Write to EEPROM
-        case KC_FN2:
+        case KC_FN2: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE2);
             }
             return false;
-        case BASE3: // Change default ayer --> Write to EEPROM
-        case KC_FN3:
+        case KC_FN3: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE3);
             }
