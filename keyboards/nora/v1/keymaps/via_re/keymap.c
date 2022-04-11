@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-------+-------+-------+-------+-------+-------+--n/a--+-------+-------+-------+-------+-------+-------+-----------|
         C_ESC,      JP_A,   JP_S,   JP_D,   JP_F,   JP_G,           KC_MUTE,        JP_H,   JP_J,   JP_K,   JP_L,   JP_MINS,KC_ENT,
     // |-----------+-------+-------+-------+-------+-------+--n/a--+-------+--n/a--+-------+-------+-------+-------+-------+-----------|
-        KC_LSFT,KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,                   XXXXXXX,JP_N,   JP_M,   JP_COMM,JP_DOT, JP_SLSH,JP_BSLS,
+        KC_LSFT,KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,                   JP_SCLN,JP_N,   JP_M,   JP_COMM,JP_DOT, JP_SLSH,JP_BSLS,
     // |-------+-------+-------+-------+-------+-------+-------+--n/a--+--n/a--+-------+-------+-------+-------+-------+-------+-------|
                           KC_LWIN,    KC_LALT,SP_LOW,     KC_BSPC,            KC_ENT, SP_RAI,     KC_RALT,KC_APP,
     //                   |-----------+-------+-----------+-------+----n/a----+-------+-----------+-------+-----------|
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-------+-------+-------+-------+-------+-------+--n/a--+-------+-------+-------+-------+-------+-------+-----------|
         C_ESC,      JP_A,   JP_S,   JP_D,   JP_F,   JP_G,           KC_MUTE,        JP_H,   KC_P4,  KC_P5,  KC_P6,  JP_MINS,KC_ENT,
     // |-----------+-------+-------+-------+-------+-------+--n/a--+-------+--n/a--+-------+-------+-------+-------+-------+-----------|
-        KC_LSFT,KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,                   XXXXXXX,JP_N,   KC_P1,  KC_P2,  KC_P3,  JP_SLSH,JP_BSLS,
+        KC_LSFT,KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,                   JP_SCLN,JP_N,   KC_P1,  KC_P2,  KC_P3,  JP_SLSH,JP_BSLS,
     // |-------+-------+-------+-------+-------+-------+-------+--n/a--+--n/a--+-------+-------+-------+-------+-------+-------+-------|
                           KC_LWIN,    KC_LALT,SP_LOW,     KC_BSPC,            KC_ENT, SP_RAI,     KC_P0,  KC_PDOT,
     //                   |-----------+-------+-----------+-------+----n/a----+-------+-----------+-------+-----------|
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-------+-------+-------+-------+-------+-------+--n/a--+-------+-------+-------+-------+-------+-------+-----------|
         C_ESC,      JP_A,   JP_S,   JP_D,   JP_F,   JP_G,           KC_MUTE,        JP_H,   JP_J,   JP_K,   JP_L,   JP_MINS,KC_ENT,
     // |-----------+-------+-------+-------+-------+-------+--n/a--+-------+--n/a--+-------+-------+-------+-------+-------+-----------|
-        KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,   XXXXXXX,                XXXXXXX,JP_N,   JP_M,   JP_COMM,JP_DOT, JP_SLSH,JP_BSLS,
+        KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,   JP_COLN,                JP_SCLN,JP_N,   JP_M,   JP_COMM,JP_DOT, JP_SLSH,JP_BSLS,
     // |-------+-------+-------+-------+-------+-------+-------+--n/a--+--n/a--+-------+-------+-------+-------+-------+-------+-------|
                           KC_LWIN,    KC_LALT,SP_LOW,     KC_BSPC,            KC_ENT, SP_RAI,     KC_RALT,KC_APP,
     //                   |-----------+-------+-----------+-------+----n/a----+-------+-----------+-------+-----------|
