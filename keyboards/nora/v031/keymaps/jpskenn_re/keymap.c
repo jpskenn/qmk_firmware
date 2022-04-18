@@ -436,4 +436,8 @@ void keyboard_post_init_user(void) {
     layer_state_set(default_layer_state);
 #endif
 
+    // Set momentary blackout to prevent unintentional LED flash on bootup.
+    rgb_matrix_sethsv_noeeprom(HSV_BLACK);
+    wait_ms(200);
+    rgb_matrix_reload_from_eeprom();
 }
