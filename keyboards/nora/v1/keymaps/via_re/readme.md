@@ -7,15 +7,15 @@ Rotary encoder enabled.
 
 | Layer name | Base layer | Indicator color | Description |
 | :-- | :-: | :-- | :-- |
-| Base #1 | :white_check_mark: | n/a | JP layout with Windows modifier |
-| Base #2 | :white_check_mark: | Blue | Numeric pad at right hand |
-| Base #3 | :white_check_mark: | Yellow | JP "[SemiErgo](https://github.com/mtei/SemiErgo_Layout)" layout with Windows modifier |
-| Lower | | Green | F-keys, Symbols & Audio controls |
-| Raise | | Cyan | F-keys, Numbers & Cursor |
-| Func | | White | (Blank) |
-| Reserve #1 | | n/a | (Blank) |
-| Reserve #2 | | n/a | (Blank) |
-| Reserve #3 | | n/a | (Blank) |
+| Base #1 | :white_check_mark: | n/a | JP layout |
+| Base #2 | :white_check_mark: | Blue | US layout |
+| Base #3 | :white_check_mark: | Yellow | Numeric pad at right hand. Transparent over Base #1 or Base #2. |
+| Lower #1 | | Green | F-keys, Symbols & Audio controls for JP layout |
+| Lower #2 | | Chartreuse Green | F-keys, Symbols & Audio controls for US layout |
+| Lower #3 | | n/a | (Blank) |
+| Raise #1 | | Azure | F-keys, Numbers & Cursor for JP layout |
+| Raise #2 | | Cyan | F-keys, Numbers & Cursor for US layout |
+| Raise #3 | | n/a | (Blank) |
 | Adjust | | Red | Switch default layer, Settings etc. |
 
 NOTE: When CAPS lock is on, left indicator changes to Magenta.
