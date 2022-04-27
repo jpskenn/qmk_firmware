@@ -155,9 +155,10 @@ enum custom_keycodes {
 #define SP_RAI3  LT(_RAISE3, KC_SPC)
 #define SP_ADJ  LT(_ADJUST, KC_SPC)
 #define C_ESC   LCTL_T(KC_ESC)
-#define BASE1   DF(_BASE1)
-#define BASE2   DF(_BASE2)
-#define BASE3   DF(_BASE3)
+// #define BASE1   DF(_BASE1)
+// #define BASE2   DF(_BASE2)
+// #define BASE3   DF(_BASE3)
+#define BASE3   TG(_BASE3)
 #define ADJUST  MO(_ADJUST)
 
 // #define ESC_NUM TD(TD_ESC_NUM)
@@ -317,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
         KC_CAPS,    AU_TOG, MU_TOG, MU_MOD, MUV_DE, MUV_IN, _______,_______,RGB_SPD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,VERSION,
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
-        _______,CK_TOGG,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK,KC_PAUS,
+        _______,CK_TOGG,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,BASE3,  _______,_______,KC_PSCR,KC_SLCK,KC_PAUS,
     // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
                           _______,    _______,_______,    _______,_______,    _______,_______,    _______,_______
     //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
@@ -331,13 +332,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BASE1: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE1);
-                rgblight_blink_layer_repeat(0, 400, 5);
+                rgblight_blink_layer_repeat(0, 400, 3);
             }
             return false;
         case BASE2: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE2);
-                rgblight_blink_layer_repeat(1, 400, 5);
+                rgblight_blink_layer_repeat(1, 400, 3);
             }
             return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
@@ -394,31 +395,31 @@ void dynamic_macro_play_user(int8_t direction) {
 // #define LED_DIMMER_LEVEL 150          // brightness dimmer
 
 // for Default layer (= Base layer)
-const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE}
 );
-const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE}
 );
-const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_base3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_YELLOW}
 );
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA}
+    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_MAGENTA}
 );
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN}
+const rgblight_segment_t PROGMEM my_lower3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE}
 );
 
-const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD}
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -435,13 +436,13 @@ const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_mac_layer,
-    my_win_layer,
-    my_num_layer,
+    my_base1_layer,
+    my_base2_layer,
+    my_base3_layer,
     my_caps_layer,
     my_lower_layer,
+    my_lower3_layer,
     my_raise_layer,
-    my_num_lower_layer,
     my_adjust_layer,
     my_blink1_layer,
     my_blink2_layer
@@ -459,8 +460,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER1));
-    rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE1));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER3));
+    // rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER2));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER3));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _RAISE1));
+    // rgblight_set_layer_state(6, layer_state_cmp(state, _RAISE2));
+    // rgblight_set_layer_state(6, layer_state_cmp(state, _RAISE3));
     rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
 
     return state;
@@ -468,8 +472,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
+    // rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
+    // rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
     rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
 
     return state;
