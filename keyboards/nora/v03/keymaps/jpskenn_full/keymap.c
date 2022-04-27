@@ -23,6 +23,10 @@
     // float song_adjust[][2] = SONG(UNICODE_WINDOWS);
 #endif
 
+bool is_led_indicator_enabled = true;
+
+uint16_t key_timer;
+
 enum layer_number {
     _BASE1 = 0,
     _BASE2,
@@ -37,13 +41,42 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BASE1 = SAFE_RANGE,
-  BASE2,
-  BASE3,
-  ADJUST,
-  VERSION,
-  IND_TOG,
-  GUI_IME,
+#ifndef KC_FN0
+    /* NOTE
+     * 以下のプルリクエストによって、KC_FNxのキーコードが廃止されたが、VIAやRemapにはこれらのキーコードが残っている。
+     * それを使用するために、0xC0から始まるキーコードを再定義している。
+     * これは実験的であり、今後のQMKやVIA/Remapの変化がどうなるか不明なため、実験的なままとしておく。
+     */
+
+    /* Deprecated "Fn keys".
+     * https://github.com/qmk/qmk_firmware/commit/1d11ae3087f583c4f4756169802b33adea71ed94
+     * These keycodes are still exist on VIA / Remap.
+     */
+    KC_FN0 = 0xC0,
+    KC_FN1,
+    KC_FN2,
+    KC_FN3,
+    KC_FN4,
+    KC_FN5,
+    KC_FN6,
+    KC_FN7,
+    KC_FN8,
+    KC_FN9,
+    KC_FN10,
+    KC_FN11,
+    KC_FN12,
+    KC_FN13,
+    KC_FN14,
+    KC_FN15,
+#endif
+    /* Custom keys */
+    BASE1 = SAFE_RANGE,
+    BASE2,
+    BASE3,
+    ADJUST,
+    VERSION,
+    IND_TOG,
+    GUI_IME,
 };
 
 #define SP_LOW1  LT(_LOWER1, KC_SPC)
@@ -211,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------|
-        DM_RSTP,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        DM_RSTP,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_FN0,
     // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         _______,    BASE1,  BASE2,  BASE3,  _______,_______,_______,_______,RGB_SPI,RGB_HUI,RGB_SAI,RGB_VAI,IND_TOG,RGB_RMOD,KC_INS,
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
@@ -223,45 +256,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
 };
-
-uint16_t key_timer;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case BASE1: // Change default ayer --> Write to EEPROM
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_BASE1);
-                rgblight_blink_layer_repeat(0, 400, 3);
-            }
-            return false;
-        case BASE2: // Change default ayer --> Write to EEPROM
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_BASE2);
-                rgblight_blink_layer_repeat(1, 400, 3);
-            }
-            return false;
-        case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_RGUI);
-            } else {
-                unregister_code(KC_RGUI);
-
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
-                }
-            }
-            return false;
-        case VERSION: // Output firmware info.
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
-            }
-            return false;
-        default:
-            break;
-    }
-    return true;
-}
 
 //------------------------------------------------------------------------------
 // Dynamic Macro settings
@@ -400,4 +394,59 @@ void keyboard_post_init_user(void) {
 #endif
 #endif
 
+}
+
+//------------------------------------------------------------------------------
+// Process keycodes
+//------------------------------------------------------------------------------
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case BASE1: // Change default ayer --> Write to EEPROM
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE1);
+                rgblight_blink_layer_repeat(0, 400, 3);
+            }
+            return false;
+        case BASE2: // Change default ayer --> Write to EEPROM
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE2);
+                rgblight_blink_layer_repeat(1, 400, 3);
+            }
+            return false;
+        case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
+            if (record->event.pressed) {
+                key_timer = timer_read();
+                register_code(KC_RGUI);
+            } else {
+                unregister_code(KC_RGUI);
+
+                if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                    SEND_STRING(SS_LCMD(SS_LALT(SS_TAP(X_SPC))));
+                }
+            }
+            return false;
+        case KC_FN0:
+        case IND_TOG: // Toggle LED indicator.
+            if (record->event.pressed) {
+                // Invert status
+                is_led_indicator_enabled = !is_led_indicator_enabled;
+
+                // Toggle indicator by changing layer list.
+                if(is_led_indicator_enabled) {
+                    // Enable the LED layers.
+                    rgblight_layers = my_rgb_layers;
+                } else {
+                    rgblight_layers = NULL;
+                }
+            }
+            return false;
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+        default:
+            break;
+    }
+    return true;
 }
