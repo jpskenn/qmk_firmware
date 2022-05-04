@@ -168,7 +168,6 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
-
 static uint8_t  encoder_state[ENCODERS] = {0};
 static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
 static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
