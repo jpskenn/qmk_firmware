@@ -1,26 +1,22 @@
 # Jones
 
-![Jones, ](https://github.com/jpskenn/Jones/raw/master/assets/DSC_7440.jpeg)
+![Jones, "Wide" layout](https://raw.githubusercontent.com/jpskenn/Jones/master/assets/_DSF0714.jpeg)
 
-Jones is a 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row.  
-Symmetrical alpha-keys and nearby right side mod-keys provide natural typing position.  
-
-It has compact and light fingering which like 40% and 50% keyboards.
-And also, it has enough keys, no need to push numeric and symbol keys into layers.
-
-It can be used with GH60 and Poker compatible cases.
+A symmetrical 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless Row 2 - Row 3.  
+GH60 case compatible PCB and keyplate.  
+[More info](https://github.com/jpskenn/Jones)
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
-* Hardware Supported: Jones PCB, Keyplate
-* Hardware Availability: [GitHub](https://github.com/jpskenn/Jones), [BOOTH](https://jpskenn.booth.pm)
+* Hardware Supported: PCB, Key plate, Bottom plate
+* Hardware Availability: [GitHub](https://github.com/jpskenn/Jones), [BOOTH](https://jpskenn.booth.pm), [Yushakobo](https://yushakobo.jp)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jones:default
+    make jones/v1:default
 
 Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
-    make jones:default:flash
+    make jones/v1:default:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 

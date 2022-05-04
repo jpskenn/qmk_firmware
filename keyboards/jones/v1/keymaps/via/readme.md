@@ -4,7 +4,7 @@ VIA supported basic keymap with external EEPROM.
 
 ## Layout
 
-Japanese style wide layout.
+Japanese style "Wide" layout.
 
 ## Layers
 
@@ -21,11 +21,13 @@ I2C connected external EEPROM.
 
 ## LED lighting
 
-4 LEDs (2 for Left side and 2 for Right side.) for layer indicator.
+4 LEDsfor layer indicator.  
+2 for Left side and 2 for Right side.
 
 ## Rotary encoder
 
-Supports up to 2 rotary encoders. (Left bottom and Right bottom.)  
+Supports up to 2 rotary encoders.  
+Left bottom and Right bottom.
 
 ## Audio
 
