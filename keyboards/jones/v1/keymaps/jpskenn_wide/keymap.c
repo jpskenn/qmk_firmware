@@ -75,11 +75,11 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT(
-        ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   XXXXXXX,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
-           KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
-           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
-        KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-        XXXXXXX,  XXXXXXX,  KC_LOPT,     KC_LCMD,       SP_LOW,        DM_PLY1,  DM_PLY2,     SP_RAI,GUI_IME,       GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
+        ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_MINS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
+           KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
+           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_UP,    KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+        XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,        SP_LOW,        DM_PLY1,  DM_PLY2,     SP_RAI,GUI_JA,        GUI_JA,     KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
     [_WIN] = LAYOUT(
@@ -92,42 +92,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
         KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,
-           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,   _______,
-           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    XXXXXXX,   _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_TAB,   KC_P7,    KC_P8,    KC_P9,    KC_PPLS,   _______,
+           _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  S(KC_TAB),KC_P4,    KC_P5,    KC_P6,    XXXXXXX,   _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  _______,
         _______,  _______,  _______,     _______,       SP_NLOW,       _______,  _______,     _______,_______,      KC_P0,      KC_PDOT,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_LOWER] = LAYOUT(
-        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
+        KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F12,
             KC_ESC,     KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,  _______,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_INS,
             _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
-        _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
-        _______,  _______,  _______,     _______,        _______,      _______,  _______,     SP_ADJ,_______,      _______,     _______,  _______,  _______,
+        _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
+        _______,  _______,  _______,     _______,        _______,      _______,  _______,     ADJUST,_______,      _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_RAISE] = LAYOUT(
-        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
+        KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F12,
             KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,  _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
             _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
         _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F11,   KC_F12,
-        _______,  _______,  _______,     _______,        SP_ADJ,       _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
+        _______,  _______,  _______,     _______,        ADJUST,       _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_NUM_LOWER] = LAYOUT(
-        KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   XXXXXXX,   KC_BSLS,  KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,
-            KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-            C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  XXXXXXX,  KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_ENT,
-        KC_LSFT,  KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH,   KC_UP,
-        XXXXXXX,  XXXXXXX,  KC_LOPT,     KC_LCMD,       _______,       KC_ENT,   KC_BSPC,     SP_ADJ,GUI_IME,       GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
+        KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,   KC_MINS,  KC_6,    KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
+            KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+            C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_LCBR,  KC_RCBR,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_GRV,   XXXXXXX,  KC_BSLS,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH,   KC_UP,
+        XXXXXXX,  XXXXXXX,  KC_LOPT,     KC_LCMD,       _______,       KC_ENT,   KC_BSPC,     ADJUST,GUI_IME,       GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
     [_ADJUST] = LAYOUT(
-        DM_RSTP,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-            _______,    MAC,      WIN,      _______,  _______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
+        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+            _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      DM_REC1,  DM_REC2,     _______,_______,     _______,     _______,  _______,  _______,
+        _______,  _______,  _______,     AG_TOGG,        _______,      DM_REC1,   DM_REC2,   _______,_______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
 };
@@ -195,7 +195,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 #define JONES_LED_INDICATOR_INDEX 0         // where to start indicator
 #define JONES_LED_INDICATOR_COUNT 4         // how many leds used for indicator
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
-#define JONES_LED_DIMMER_LEVEL 150          // brightness dimmer
+#define JONES_LED_DIMMER_LEVEL 0          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -287,36 +287,43 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
+static uint8_t  encoder_state[ENCODERS] = {0};
+static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
 
-    // Both encoders hit specific key matrix position when turn knob clockwise or counterclockwise.
-
-    if (index == 0) { // First encoder, Left side : k85, k86
-        if (clockwise) {
-            key.row = 8;
-            key.col = 6;
-        } else {
-            key.row = 8;
-            key.col = 5;
-        }
-    } else if (index == 1) { // Second encoder, Right side : k95, k96
-        if (clockwise) {
-            key.row = 9;
-            key.col = 6;
-        } else {
-            key.row = 9;
-            key.col = 5;
+void encoder_action_unregister(void) {
+    for (int index = 0; index < ENCODERS; ++index) {
+        if (encoder_state[index]) {
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
+            action_exec(encoder_event);
         }
     }
-
-    uint8_t  layer   = layer_switch_get_layer(key);
-    uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-    tap_code16(keycode);
-
-    return true;
 }
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+}
+
+void matrix_scan_kb(void) {
+    encoder_action_unregister();
+    matrix_scan_user();
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    encoder_action_register(index, clockwise);
+    return true;
+};
 
 
 //------------------------------------------------------------------------------

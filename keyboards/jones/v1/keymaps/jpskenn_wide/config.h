@@ -26,6 +26,8 @@
 #define RGBLIGHT_LAYER_BLINK
 #define RGBLIGHT_MAX_LAYERS 10 // Blinkで2レイヤー追加すると、デフォルトの8レイヤーを超えてしまうため、ここで定義
 
+#define RGBLIGHT_LAYERS_RETAIN_VAL // set Lighting Layer brightness equals to Underglow's value
+
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64
 
@@ -33,4 +35,23 @@
 // If it's not set, EEPROM size will be set ATmega32u4's 1023.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
+#ifdef DYNAMIC_KEYMAP_LAYER_COUNT
+#undef DYNAMIC_KEYMAP_LAYER_COUNT
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4
+#endif
+
+//------------------------------------------------------------------------------
+// Rotary Encoder
+//------------------------------------------------------------------------------
+// Encoder triggers specific key matrix position,
+// when turn knob clockwise or counterclockwise.
+// This is handy to assign key codes by VIA.
+
+// Number of endoder
+#define ENCODERS 2
+
+// Mappings of encoder rotation to key position in key matrix.
+// First encoder,  Left side  : k85, k86
+// Second encoder, Right side : k95, k96
+#define ENCODERS_CW_KEY  { { 6, 8 }, { 6, 9 } }
+#define ENCODERS_CCW_KEY { { 5, 8 }, { 5, 9 } }
