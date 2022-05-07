@@ -76,9 +76,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT(
         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_MINS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
-           KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
-           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_UP,    KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+           KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_BTN2,  KC_BTN1,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
+           C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_MS_U,  KC_BTN3,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
         XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,        SP_LOW,        DM_PLY1,  DM_PLY2,     SP_RAI,GUI_JA,        GUI_JA,     KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
         _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_F11,   KC_F12,
         _______,  _______,  _______,     _______,        ADJUST,       _______,  _______,     _______,_______,     _______,     _______,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
+        KC_WH_D,  KC_WH_U,                                                                                                                _______,  _______
     ),
     [_NUM_LOWER] = LAYOUT(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,   KC_MINS,  KC_6,    KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
