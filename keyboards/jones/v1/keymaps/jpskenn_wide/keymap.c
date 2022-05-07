@@ -331,6 +331,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 
+    // Enable debug
+    debug_enable=true;
+    debug_matrix=true;
+
 #ifdef RGB_DI_PIN
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.

@@ -10,3 +10,7 @@ DYNAMIC_MACRO_ENABLE = yes
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
+
+# Debug
+CONSOLE_ENABLE = yes
+AUDIO_ENABLE = no # reduce firmware size
