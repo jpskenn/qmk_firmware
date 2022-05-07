@@ -403,4 +403,7 @@ void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_br
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
+    // Enable debug
+    debug_enable=true;
+    debug_matrix=true;
 }
