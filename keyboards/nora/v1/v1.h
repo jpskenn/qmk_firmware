@@ -78,7 +78,7 @@ Merge two rows into single row to make 5*16 matrix.
     { KC_NO, KC_NO,   k42,   k43, KC_NO,   k45,   k46,   KC_NO }, \
     {   k50,   k51,   k52, KC_NO,   k54,   k55,   k56,   k57   }, \
     {   k60,   k61,   k62,   k63,   k64,   k65,   k66,   k67   }, \
-    {   k70,   k71,   k72, KC_NO, KC_NO,   k75,   k76,   k77   }, \
+    {   k70,   k71,   k72,   k73,   k74,   k75,   k76,   k77   }, \
     {   k80,   k81,   k82, KC_NO,   k84,   k85,   k86,   k87   }, \
     { KC_NO,   k91,   k92, KC_NO,   k94,   k95,   KC_NO, KC_NO }  \
 }
