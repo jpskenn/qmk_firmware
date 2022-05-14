@@ -15,10 +15,12 @@
  */
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "keymap_jp.h"
 
 void rgb_matrix_set_color_user(int, int, int, int, bool);
 
 bool is_led_indicator_enabled = true;
+
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
@@ -28,39 +30,55 @@ bool is_dm_rec2 = false;
     // float song_adjust[][2] = SONG(UNICODE_WINDOWS);
 #endif
 
-// Defines names for use in layer keycodes and the keymap
 enum layer_number {
-    _MAC = 0,
-    _WIN,
-    _NUM,
-    _LOWER,
-    _RAISE,
-    _NUM_LOWER,
+    _BASE1 = 0,
+    _BASE2,
+    _BASE3,
+    _LOWER1,
+    _LOWER2,
+    _LOWER3,
+    _RAISE1,
+    _RAISE2,
+    _RAISE3,
     _ADJUST,
 };
 
 enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-  GUI_IME,
+  BASE1 = SAFE_RANGE,
+  BASE2,
+  BASE3,
+  ADJUST,
   VERSION,
   IND_TOG,
+  GUI_IME,
 };
 
-// Key Macro
+#define SP_LOW1  LT(_LOWER1, KC_SPC)
+#define SP_RAI1  LT(_RAISE1, KC_SPC)
+#define SP_LOW2  LT(_LOWER2, KC_SPC)
+#define SP_RAI2  LT(_RAISE2, KC_SPC)
+#define SP_LOW3  LT(_LOWER3, KC_SPC)
+#define SP_RAI3  LT(_RAISE3, KC_SPC)
+#define SP_ADJ  LT(_ADJUST, KC_SPC)
+#define C_ESC   LCTL_T(KC_ESC)
+#define BASE1   DF(_BASE1)
+#define BASE2   DF(_BASE2)
+#define BASE3   DF(_BASE3)
+#define ADJUST  MO(_ADJUST)
+
 // #define ESC_NUM TD(TD_ESC_NUM)
-#define ESC_NUM LT(_NUM, KC_ESC)
+#define ESC_NUM LT(_BASE3, KC_ESC)
 // #define GRV_NUM LT(_NUM, KC_GRV)
 // #define S_CAPS   TD(TD_LSFT_CAPS)
-#define SP_LOW  LT(_LOWER, KC_SPC)
-#define SP_RAI  LT(_RAISE, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
+// #define SP_LOW  LT(_LOWER, KC_SPC)
+// #define SP_RAI  LT(_RAISE, KC_SPC)
+// #define SP_ADJ  LT(_ADJUST, KC_SPC)
 #define SP_NLOW LT(_NUM_LOWER, KC_SPC)
 // #define BS_RAI  LT(_RAISE, KC_BSPC)
 // #define SP_NRAI LT(_NUM_LOWER, KC_SPC)
 // #define BS_NRAI LT(_NUM_LOWER, KC_BSPC)
 // #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define C_ESC   LCTL_T(KC_ESC)
+// #define C_ESC   LCTL_T(KC_ESC)
 // #define C_SPC   LCTL(KC_SPC)
 // #define C_SLSH  RCTL_T(KC_SLSH)
 #define S_SLSH  RSFT_T(KC_SLSH)
@@ -70,9 +88,9 @@ enum custom_keycodes {
 #define C_QUO   LCTL_T(KC_QUOT)
 #define A_GRV   LALT(KC_GRV)
 #define CA_SPC  LCA(KC_SPC)
-#define LOWER   MO(_LOWER)
-#define ADJUST  MO(_ADJUST)
-#define NUM     TG(_NUM)
+// #define LOWER   MO(_LOWER)
+// #define ADJUST  MO(_ADJUST)
+#define NUM     TG(_BASE3)
 // #define HENKAN  LGUI(KC_GRV)
 #define GUI_JA  LGUI_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -80,94 +98,246 @@ enum custom_keycodes {
 #define ALT_EN  LALT_T(KC_LANG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MAC] = LAYOUT_fw(
-        ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,                       KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
-        KC_TAB,        KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,            KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,          KC_BSPC,
-        C_ESC,         KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,            KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,       KC_ENT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,                      DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-                                 KC_LOPT,       KC_LCMD,     SP_LOW,     KC_BSPC,            KC_ENT,     SP_RAI,      GUI_IME,    KC_ROPT,
-                                                                              KC_VOLD,  KC_VOLU
+    [_BASE1] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_GRV,                 KC_BSLS,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,        KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        C_ESC,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_SCLN,        KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   DM_PLY1,                DM_PLY2,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          KC_LOPT,    GUI_EN, SP_LOW1,    KC_BSPC,            KC_ENT, SP_RAI1,    GUI_JA, KC_ROPT
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
-    [_WIN] = LAYOUT_fw(
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,       _______,
-        _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,       _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
-                                 KC_LWIN,       KC_LALT,     _______,    _______,            _______,    _______,     A_GRV,      KC_APP,
-                                                                              _______,  _______
+    [_BASE2] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        JP_ZKHK,JP_1,   JP_2,   JP_3,   JP_4,   JP_5,   JP_CIRC,                JP_YEN, JP_6,   JP_7,   JP_8,   JP_9,   JP_0,   JP_MINS,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_TAB,     JP_Q,   JP_W,   JP_E,   JP_R,   JP_T,   JP_SCLN,        JP_LBRC,JP_Y,   JP_U,   JP_I,   JP_O,   JP_P,   KC_BSPC,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        C_ESC,      JP_A,   JP_S,   JP_D,   JP_F,   JP_G,   JP_COLN,        JP_RBRC,JP_H,   JP_J,   JP_K,   JP_L,   JP_MINS,KC_ENT,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        KC_LSFT,KC_LSFT,JP_Z,   JP_X,   JP_C,   JP_V,   JP_B,                   JP_AT,  JP_N,   JP_M,   JP_COMM,JP_DOT, JP_SLSH,JP_BSLS,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          KC_LWIN,    KC_LALT,SP_LOW2,    KC_BSPC,            KC_ENT, SP_RAI2,    A_GRV,  KC_APP
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
-    [_NUM] = LAYOUT_fw(
-        KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,                      _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,
-        _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,       _______,
-        _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_P4,    KC_P5,    KC_P6,    XXXXXXX,       _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  _______,
-                                 _______,       _______,     SP_NLOW,    _______,            _______,    _______,     KC_P0,      KC_PDOT,
-                                                                              _______,  _______
+    [_BASE3] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        _______,_______,_______,_______,_______,_______,_______,                _______,KC_PSLS,KC_PSLS,KC_PAST,KC_PMNS,_______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PPLS,_______,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,_______,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,_______,_______,_______,_______,_______,_______,                _______,_______,KC_P1,  KC_P2,  KC_P3,  _______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,SP_LOW3,    _______,            _______,_______,    KC_P0,  KC_PDOT
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
-    [_LOWER] = LAYOUT_fw(
-        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,                      KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-        KC_ESC,        KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,            _______,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,       _______,
-        _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,       KC_BSLS,
-        _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,                      _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
-                                 _______,       _______,     _______,    _______,            _______,    _______,     _______,    _______,
-                                                                              _______,  _______
+    [_LOWER1] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,                KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_ESC,     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_TILD,        KC_PIPE,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,KC_BSLS,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,                _______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,_______,    _______,            _______,ADJUST,     _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
-    [_RAISE] = LAYOUT_fw(
-        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,                      KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-        KC_ESC,        KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,            _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,          KC_DEL,
-        _______,       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,            _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,       KC_QUOT,
-        _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,                       _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,
-                                 _______,       _______,     _______,    KC_F12,             _______,    _______,     _______,    _______,
-                                                                              _______,  _______
+    [_LOWER2] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,                KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_ESC,     JP_EXLM,JP_DQUO,JP_HASH,JP_DLR, JP_PERC,JP_TILD,        JP_PIPE,JP_AMPR,JP_QUOT,JP_LPRN,JP_RPRN,_______,JP_EQL,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,JP_AT,  JP_SCLN,JP_COLN,JP_LBRC,JP_RBRC,JP_BSLS,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,                _______,JP_GRV, JP_PLUS,JP_ASTR,JP_LCBR,JP_RCBR,JP_UNDS,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,_______,    _______,            _______,ADJUST,     _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
-    [_NUM_LOWER] = LAYOUT_fw(
-        KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,                        KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
-        KC_TAB,        KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,            KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,          KC_BSPC,
-        C_ESC,         KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,            KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,       KC_ENT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,                      DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-                                 KC_LOPT,       KC_LCMD,     _______,    KC_BSPC,            KC_ENT,     _______,     GUI_IME,    KC_ROPT,
-                                                                              _______,  _______
+    [_LOWER3] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_GRV,                 KC_BSLS,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,        KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        C_ESC,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_SCLN,        KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,KC_ENT,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   DM_PLY1,                DM_PLY2,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          KC_LOPT,    KC_LCMD,_______,    KC_BSPC,            KC_ENT, ADJUST,     GUI_IME,KC_ROPT
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
+    ),
+    // [_RAISE1] = LAYOUT_fw(
+    // // |-------------------------------------------------------------------------------------------------------------------------------|
+    //     KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,                KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
+    // // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    //     KC_ESC,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,        _______,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_DEL,
+    // // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+    //     _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,        _______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_QUOT,
+    // // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+    //     _______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,                 _______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, _______,_______,
+    // // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    //                       _______,    _______,ADJUST,     KC_F12,             _______,_______,    _______,_______
+    // //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
+    // ),
+    [_RAISE1] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,                KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_ESC,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,        KC_BTN2,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_BTN1,   KC_DEL,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,        KC_BTN3,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_QUOT,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,                 KC_WH_U,KC_HOME,KC_PGDN,KC_PGUP,KC_END, _______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,ADJUST,     KC_F12,             KC_WH_D,_______,    _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
+    ),
+    [_RAISE2] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,                KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_ESC,     JP_1,   JP_2,   JP_3,   JP_4,   JP_5,   _______,        _______,JP_6,   JP_7,   JP_8,   JP_9,   JP_0,   KC_DEL,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,        _______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,JP_SCLN,JP_COLN,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,                 _______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, _______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,ADJUST,     KC_F12,             _______,_______,    _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
+    ),
+    [_RAISE3] = LAYOUT_fw(
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        _______,_______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______,_______,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,    _______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______,_______,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,_______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,ADJUST,     _______,            _______,_______,    _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
     [_ADJUST] = LAYOUT_fw(
-        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,            RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
-        KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,            RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
-        _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,                      DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-                                 _______,       _______,     _______,    _______,            _______,    _______,     _______,    _______,
-                                                                              _______,  _______
+    // |-------------------------------------------------------------------------------------------------------------------------------|
+        DM_RSTP,_______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        _______,    BASE1,  BASE2,  BASE3,  _______,_______,_______,        RGB_SPI,RGB_HUI,RGB_SAI,RGB_VAI,IND_TOG,RGB_RMOD,KC_INS,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        KC_CAPS,    AU_TOG, MU_TOG, MU_MOD, MUV_DE, MUV_IN, _______,        RGB_SPD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,VERSION,
+    // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
+        _______,CK_TOGG,CK_RST, CK_DOWN,CK_UP,  _______,DM_REC1,                DM_REC2,_______,_______,_______,KC_PSCR,KC_SLCK,KC_PAUS,
+    // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+                          _______,    _______,_______,    _______,            _______,_______,    _______,_______
+    //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
     ),
 };
+
+// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+//     [_MAC] = LAYOUT_fw(
+//         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,                       KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
+//         KC_TAB,        KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,            KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,          KC_BSPC,
+//         C_ESC,         KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,            KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,       KC_ENT,
+//         KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,                      DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+//                                  KC_LOPT,       KC_LCMD,     SP_LOW,     KC_BSPC,            KC_ENT,     SP_RAI,      GUI_IME,    KC_ROPT,
+//                                                                               KC_VOLD,  KC_VOLU
+//     ),
+//     [_WIN] = LAYOUT_fw(
+//         _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
+//         _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,       _______,
+//         _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,       _______,
+//         _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
+//                                  KC_LWIN,       KC_LALT,     _______,    _______,            _______,    _______,     A_GRV,      KC_APP,
+//                                                                               _______,  _______
+//     ),
+//     [_NUM] = LAYOUT_fw(
+//         KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,                      _______,  KC_PSLS,  KC_PSLS,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,
+//         _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,       _______,
+//         _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_P4,    KC_P5,    KC_P6,    XXXXXXX,       _______,
+//         _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  KC_P1,    KC_P2,    KC_P3,    XXXXXXX,  _______,
+//                                  _______,       _______,     SP_NLOW,    _______,            _______,    _______,     KC_P0,      KC_PDOT,
+//                                                                               _______,  _______
+//     ),
+//     [_LOWER] = LAYOUT_fw(
+//         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,                      KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
+//         KC_ESC,        KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,            _______,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,       _______,
+//         _______,       _______,  _______,  _______,  _______,  _______,  _______,            _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,       KC_BSLS,
+//         _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,                      _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
+//                                  _______,       _______,     _______,    _______,            _______,    _______,     _______,    _______,
+//                                                                               _______,  _______
+//     ),
+//     [_RAISE] = LAYOUT_fw(
+//         KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,                      KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
+//         KC_ESC,        KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,            _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,          KC_DEL,
+//         _______,       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,            _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,       KC_QUOT,
+//         _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,                       _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,
+//                                  _______,       _______,     _______,    KC_F12,             _______,    _______,     _______,    _______,
+//                                                                               _______,  _______
+//     ),
+//     [_NUM_LOWER] = LAYOUT_fw(
+//         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,                        KC_BSLS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
+//         KC_TAB,        KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,            KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,          KC_BSPC,
+//         C_ESC,         KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,            KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,       KC_ENT,
+//         KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,                      DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+//                                  KC_LOPT,       KC_LCMD,     _______,    KC_BSPC,            KC_ENT,     _______,     GUI_IME,    KC_ROPT,
+//                                                                               _______,  _______
+//     ),
+//     [_ADJUST] = LAYOUT_fw(
+//         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
+//         DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,            RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
+//         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,            RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
+//         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,                      DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+//                                  _______,       _______,     _______,    _______,            _______,    _______,     _______,    _______,
+//                                                                               _______,  _______
+//     ),
+// };
 
 uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MAC: // Change default ayer --> Write to EEPROM
+        case VERSION: // Output firmware info.
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_MAC);
-#ifdef RGBLIGHT_LAYER_BLINK
-                rgblight_blink_layer_repeat(0, 400, 5);
-#endif
+                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
             }
             return false;
-        case WIN: // Change default ayer --> Write to EEPROM
+        case BASE1: // If "Shift" pressed, Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_WIN);
-#ifdef RGBLIGHT_LAYER_BLINK
-                rgblight_blink_layer_repeat(1, 400, 5);
-#endif
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(_BASE1);
+                    return false;
+                }
             }
-            return false;
+            return true;
+        case BASE2: // If "Shift" pressed, Change default ayer --> Write to EEPROM
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(_BASE2);
+                    return false;
+                }
+            }
+            return true;
+        case BASE3: // If "Shift" pressed, Change default ayer --> Write to EEPROM
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(_BASE3);
+                    return false;
+                }
+            }
+            return true;
         case IND_TOG: // Toggle LED indicator.
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
-#ifdef RGBLIGHT_LAYERS
-                if( is_led_indicator_enabled ) {
-                    rgblight_layers = null;
-                } else {
-                    rgblight_layers = my_rgb_layers;
-                }
-#endif
             }
             return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
@@ -192,11 +362,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 is_dm_rec2 = true;
             }
             return true; // continue processing
-        case VERSION: // Output firmware info.
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
-            }
-            return false;
         default:
             break;
     }
@@ -243,33 +408,45 @@ void rgb_matrix_indicators_user(void) {
 
     // Layers
     switch(get_highest_layer(layer_state|default_layer_state)) {
-        // case _MAC:
+        // Disable BASE1 indicator. It's dazzling...
+        // case _BASE1:
         //     rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_PINK, true);
         //     rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_PINK, true);
         //     break;
-        case _WIN:
+        case _BASE2:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_BLUE, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_BLUE, true);
             break;
-        case _NUM:
+        case _BASE3:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_YELLOW, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_YELLOW, true);
             break;
-        case _LOWER:
-        case _NUM_LOWER:
+        case _LOWER1:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_GREEN, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_GREEN, true);
             break;
-        case _RAISE:
+        case _RAISE1:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_AZURE, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_AZURE, true);
+            break;
+        case _LOWER2:
+            rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_CHARTREUSE, true);
+            rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_CHARTREUSE, true);
+            break;
+        case _RAISE2:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_CYAN, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_CYAN, true);
             break;
+        // No Indicator for Reserved layers.
+        // case _LOWER3:
+        // case _RAISE3:
+        //     break;
         case _ADJUST:
             rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_RED, true);
             rgb_matrix_set_color_user(LED_INDEX_RSPC, HSV_RED, true);
             break;
         default:
-            // Do nothing to enable effect color.
+            // No indicator to show effect / animation color.
             break;
     }
 
@@ -277,15 +454,13 @@ void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color_user(LED_INDEX_LSPC, HSV_MAGENTA, true);
     }
-
     // DM_REC1 & DM_REC2
     if (is_dm_rec1) {
         rgb_matrix_set_color_user(LED_INDEX_R4_LEFT_INSIDE, HSV_RED, true);
     }
     if (is_dm_rec2) {
         rgb_matrix_set_color_user(LED_INDEX_R4_RIGHT_INSIDE, HSV_RED, true);
-    }
-}
+    }}
 
 void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_brightness) {
     HSV hsv = { h, s, v };
@@ -303,122 +478,7 @@ void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_br
 #endif
 
 //------------------------------------------------------------------------------
-// RGB Light settings
-//------------------------------------------------------------------------------
-#ifdef RGBLIGHT_LAYERS
-
-// Indicator LED settings
-#define LED_INDICATOR_INDEX 0         // where to start indicator
-#define LED_INDICATOR_COUNT 1         // how many LEDs used for indicator
-#define LED_INDICATOR_CHANGE_COUNT 1  // how many LEDs to change for temporally layer
-// #define LED_DIMMER_LEVEL 150          // brightness dimmer
-
-// for Default layer (= Base layer)
-const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_WHITE}
-);
-const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_BLUE}
-);
-const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_YELLOW}
-);
-
-// for temporal layer
-const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA}
-);
-
-const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_CYAN}
-);
-
-const rgblight_segment_t PROGMEM my_num_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_GOLD}
-);
-
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_CHANGE_COUNT, HSV_RED}
-);
-
-const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_ORANGE}
-);
-
-const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {LED_INDICATOR_INDEX , LED_INDICATOR_COUNT, HSV_PINK}
-);
-
-// Define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_mac_layer,
-    my_win_layer,
-    my_num_layer,
-    my_caps_layer,
-    my_lower_layer,
-    my_raise_layer,
-    my_num_lower_layer,
-    my_adjust_layer,
-    my_blink1_layer,
-    my_blink2_layer
-);
-#endif
-
-// Enabling and disabling lighting layers
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Set the layer status
-    // _LOWERと_NUM_LOWERは同時に押されないので、別々に判定する
-    if (state != update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST)) {
-        state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    } else {
-        state = update_tri_layer_state(state, _NUM_LOWER, _RAISE, _ADJUST);
-    }
-
-#ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER));
-    rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _NUM_LOWER));
-    rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
-#endif
-
-    return state;
-}
-
-// Enabling and disabling lighting layers for default layer
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-#ifdef RGBLIGHT_LAYERS
-    // rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
-    // rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-#endif
-
-    return state;
-}
-
-bool led_update_user(led_t led_state) {
-#ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(3, led_state.caps_lock);
-#endif
-
-    return true;
-}
-
-//------------------------------------------------------------------------------
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-
-#ifdef RGBLIGHT_LAYERS
-    // Enable the LED layers.
-    rgblight_layers = my_rgb_layers;
-
-    // prevent RGB light overrides layer indicator.
-    layer_state_set(default_layer_state);
-#endif
-
 }

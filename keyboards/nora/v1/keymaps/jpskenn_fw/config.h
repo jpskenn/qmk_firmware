@@ -39,6 +39,11 @@
         #undef RGBLED_NUM
         #define RGBLED_NUM 64
     #endif
+
+    // LED index for DM_RECx indicator
+    // NOTE: LED on R4 is connected from right to left. So, the index is inverted.
+    #define LED_INDEX_R4_LEFT_INSIDE 49
+    #define LED_INDEX_R4_RIGHT_INSIDE 48
 #endif
 // This "may" reduce firmware size.
 // #undef LOCKING_SUPPORT_ENABLE
