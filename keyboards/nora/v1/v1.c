@@ -164,4 +164,22 @@ void keyboard_post_init_kb(void) {
     rgb_matrix_sethsv_noeeprom(HSV_BLACK);
     wait_ms(250);
     rgb_matrix_reload_from_eeprom();
+
+    // エフェクト見えてるか判定するフラグを、キーボード起動時のエフェクト状態で初期化
+    isRgbMatrixEffectVisible = rgb_matrix_is_enabled();
+}
+
+//------------------------------------------------------------------------------
+// Function
+//------------------------------------------------------------------------------
+void rgb_matrix_toggle_visibility() {
+    if (isRgbMatrixEffectVisible) {
+        // Use SOLID mode with BLACK color to imitate Effect OFF.
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+        rgb_matrix_sethsv_noeeprom(HSV_OFF);
+    } else {
+        rgb_matrix_reload_from_eeprom();
+    }
+
+    isRgbMatrixEffectVisible = !isRgbMatrixEffectVisible;
 }

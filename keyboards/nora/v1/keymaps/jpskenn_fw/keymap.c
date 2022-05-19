@@ -51,6 +51,7 @@ enum custom_keycodes {
   VERSION,
   IND_TOG,
   GUI_IME,
+  EFF_TOG,
 };
 
 #define SP_LOW1  LT(_LOWER1, KC_SPC)
@@ -232,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------|
         DM_RSTP,_______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,_______,
     // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        _______,    BASE1,  BASE2,  BASE3,  _______,_______,_______,        RGB_SPI,RGB_HUI,RGB_SAI,RGB_VAI,IND_TOG,RGB_RMOD,KC_INS,
+        _______,    BASE1,  BASE2,  BASE3,  _______,_______,EFF_TOG,        RGB_SPI,RGB_HUI,RGB_SAI,RGB_VAI,IND_TOG,RGB_RMOD,KC_INS,
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
         KC_CAPS,    AU_TOG, MU_TOG, MU_MOD, MUV_DE, MUV_IN, _______,        RGB_SPD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,VERSION,
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
@@ -340,6 +341,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
             }
             return false;
+        case EFF_TOG: // Toggle RGB Matrix Effect visibility.
+            if (record->event.pressed) {
+                rgb_matrix_toggle_visibility();
+            }
+            return false;
+        case RGB_TOG: // Toggle RGB.
+            // NOTE: RGB_TOG is processed when key-up.
+            if (!record->event.pressed) {
+                // Ignore key press while effect invisible.
+                // NOTE: To prevent EEPROM written with SOLID mode with BLACK.
+                if (isRgbMatrixEffectVisible == false) {
+                    return false;
+                }
+            }
+            return true;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
             if (record->event.pressed) {
                 key_timer = timer_read();
@@ -465,9 +481,12 @@ void rgb_matrix_indicators_user(void) {
 void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_brightness) {
     HSV hsv = { h, s, v };
 
+    // Match indicator brightness to effect.
     if (is_adjust_brightness) {
-        if (hsv.v > rgb_matrix_get_val()) {
-            // Adjust brightness to current value
+        if (rgb_matrix_get_val() == 0) {
+            // When effect is toggled to invisible.
+            hsv.v = 15;
+        } else {
             hsv.v = rgb_matrix_get_val();
         }
     }

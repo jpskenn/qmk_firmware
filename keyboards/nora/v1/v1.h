@@ -124,3 +124,7 @@ Merge two rows into single row to make 5*16 matrix.
     #endif
 
 #endif
+
+bool isRgbMatrixEffectVisible;
+
+void rgb_matrix_toggle_visibility(void);
