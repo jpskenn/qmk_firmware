@@ -466,8 +466,10 @@ void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_br
     HSV hsv = { h, s, v };
 
     if (is_adjust_brightness) {
-        if (hsv.v > rgb_matrix_get_val()) {
-            // Adjust brightness to current value
+        if (rgb_matrix_get_val() == 0) {
+            // When effect is toggled to invisible.
+            hsv.v = 15;
+        } else {
             hsv.v = rgb_matrix_get_val();
         }
     }
