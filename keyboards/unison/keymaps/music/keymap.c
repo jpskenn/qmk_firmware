@@ -191,8 +191,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
                 rgblight_reload_from_eeprom();
-                // Change default layer
-                default_layer_set(1UL << _MIDI);
+                // Change default layer --> Write to EEPROM
+                set_single_persistent_default_layer(_MIDI);
             }
             return false;
             break;
