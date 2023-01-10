@@ -43,5 +43,5 @@
 // rules.mk にも防止設定を追加している
 #ifdef DEBOUNCE
 #undef DEBOUNCE
-#define DEBOUNCE 50
+#define DEBOUNCE 80
 #endif
