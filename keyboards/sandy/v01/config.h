@@ -73,7 +73,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Use 24LC64 type EEPROM
 #define EEPROM_I2C_24LC64
 // Set MAX_ADDR to specify actual EEPROM size.
-// NOTE: If it's not set, the size will be set to 1023 by default.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 // How many layers to use with VIA / Remap.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10 // default:4
+
+//NOTE
+// ProMicroへテスト書き込みする際は、EEPROMサイズが足りないので、レイヤー2個とかで、とりあえず動作確認だけする
+// rules.mkのEEPROMドライバはコメントアウトしてください
+//#define DYNAMIC_KEYMAP_LAYER_COUNT 2 // default:4
+//#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
