@@ -61,13 +61,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+    #define RGBLIGHT_DEFAULT_VAL 128
     /*== Lighting Layers ==*/
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
+    #define RGBLIGHT_LAYERS_RETAIN_VAL // set layer brightness to RGB Light's value (as returned by rgblight_get_val())
+    #define RGBLIGHT_LAYER_BLINK // Enable Blink function
+    #define RGBLIGHT_MAX_LAYERS 10 // LAYER_BLINK uses 2 more layers. We need more layers to use.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+// チャタリング防止設定
+// 参考：　https://25keys.com/2022/02/10/debounce/
+// rules.mk にも防止設定を追加している
+// #ifdef DEBOUNCE
+// #undef DEBOUNCE
+// #define DEBOUNCE 80
+// #endif
 
 /* External EEPROM */
 // Use 24LC64 type EEPROM

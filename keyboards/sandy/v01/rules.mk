@@ -15,10 +15,15 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no          # Audio output
-ENCODER_ENABLE = no        # Rotary Encoder
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
+ENCODER_ENABLE = yes        # Rotary Encoder
 LTO_ENABLE = yes
 
 # Use I2C connected External EEPROM
 EEPROM_DRIVER = i2c
+
+# チャタリング防止設定
+# https://25keys.com/2022/02/10/debounce/
+# config.hにも防止設定を追加している
+#DEBOUNCE_TYPE = sym_eager_pk
