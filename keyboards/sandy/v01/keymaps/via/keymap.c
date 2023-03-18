@@ -23,12 +23,6 @@ bool is_led_indicator_enabled = true;
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
-#ifdef AUDIO_ENABLE
-    // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
-    // float song_caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-    // float song_adjust[][2] = SONG(UNICODE_WINDOWS);
-#endif
-
 enum layer_number {
     _BASE1 = 0,
     _BASE2,
