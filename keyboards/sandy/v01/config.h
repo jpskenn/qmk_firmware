@@ -70,6 +70,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_MAX_LAYERS 10 // LAYER_BLINK uses 2 more layers. We need more layers to use.
 #endif
 
+/* Dynamic Macro */
+#define DYNAMIC_MACRO_DELAY 50 // Sets the waiting time (ms unit) when sending each key.
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 // チャタリング防止設定
