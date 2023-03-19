@@ -80,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define DEBOUNCE 80
 // #endif
 
-/* External EEPROM */
+/* External EEPROM for Dynamic keymap (VIA / Remap) */
 // Use 24LC64 type EEPROM
 #define EEPROM_I2C_24LC64
 // Set MAX_ADDR to specify actual EEPROM size.
