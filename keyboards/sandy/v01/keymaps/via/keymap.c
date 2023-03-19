@@ -44,6 +44,7 @@ enum custom_keycodes {
   VERSION,
   IND_TOG,
   GUI_IME,
+  KEY_WAIT,
 };
 
 #define SP_LOW1  LT(_LOWER1, KC_SPC)
@@ -267,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------------------------------------------------------------------------------------------------------------------------------------------------|
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        _______,       BASE1,    BASE2,    BASE3,    _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,  KC_INS,
+        KEY_WAIT,      BASE1,    BASE2,    BASE3,    _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,  KC_INS,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
         KC_CAPS,       _______,  _______,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
@@ -283,9 +284,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------------------------------------------------------------------------------------------------------------------------------------------------|
     ),
 };
-//TODO DM_RECしてるとき、wait入れる方法？
-// http://www.neko.ne.jp/~freewing/hardware/qmk_keyboard_dynamic_macro/
-// wait入れるプルリク出されたり、情報多め
 
 uint16_t key_timer;
 
@@ -350,6 +348,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 is_dm_rec2 = true;
             }
             return true; // continue processing
+        case KEY_WAIT: // Just wait specific time. Nice to use with Dynamic Macro.
+            if (record->event.pressed) {
+                _delay_ms(250);
+            }
+            return false;
         default:
             break;
     }
