@@ -414,6 +414,14 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX + 2, ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED}
 );
 
+const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK}
+);
+
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_base1_layer,
@@ -422,7 +430,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_caps_layer,
     my_lower_layer,
     my_raise_layer,
-    my_adjust_layer
+    my_adjust_layer,
+    my_blink1_layer,
+    my_blink2_layer
 );
 
 // Enabling and disabling lighting layers
@@ -458,4 +468,9 @@ bool led_update_user(led_t led_state) {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
+    // Enable the LED layers.
+    rgblight_layers = my_rgb_layers;
+
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
 }
