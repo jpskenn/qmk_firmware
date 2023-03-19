@@ -38,6 +38,7 @@ enum custom_keycodes {
   WIN,
   GUI_IME,
   VERSION,
+  KEY_WAIT,
 };
 
 // Key Macro
@@ -124,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
-            _______,    MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
+            KEY_WAIT,   MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
             _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   MUV_IN,   _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     AG_TOGG,        _______,      DM_REC1,   DM_REC2,   _______,_______,     _______,     _______,  _______,  _______,
@@ -165,6 +166,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+         case KEY_WAIT: // Just wait specific time. Nice to use with Dynamic Macro.
+            if (record->event.pressed) {
+                _delay_ms(250);
             }
             return false;
         default:

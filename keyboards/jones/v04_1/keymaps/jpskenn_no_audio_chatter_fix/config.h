@@ -45,3 +45,6 @@
 #undef DEBOUNCE
 #define DEBOUNCE 80
 #endif
+
+/* Dynamic Macro */
+#define DYNAMIC_MACRO_DELAY 50 // Sets the waiting time (ms unit) when sending each key.
