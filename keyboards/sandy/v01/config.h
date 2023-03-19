@@ -96,3 +96,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // rules.mkのEEPROMドライバはコメントアウトしてください
 //#define DYNAMIC_KEYMAP_LAYER_COUNT 2 // default:4
 //#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
+
+/* Mouse Keys */
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_TIME_TO_MAX 60
