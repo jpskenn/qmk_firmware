@@ -48,3 +48,8 @@
 
 /* Dynamic Macro */
 #define DYNAMIC_MACRO_DELAY 50 // Sets the waiting time (ms unit) when sending each key.
+
+/* Mouse Keys */
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_TIME_TO_MAX 60
