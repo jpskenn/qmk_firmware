@@ -73,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 // チャタリング防止設定
-// 参考：　https://25keys.com/2022/02/10/debounce/
+// 参考： https://25keys.com/2022/02/10/debounce/
 // rules.mk にも防止設定を追加している
 // #ifdef DEBOUNCE
 // #undef DEBOUNCE
