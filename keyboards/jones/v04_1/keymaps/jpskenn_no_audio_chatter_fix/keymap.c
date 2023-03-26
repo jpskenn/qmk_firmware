@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,  KC_MINS,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
            KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_BSPC,
            C_ESC,      KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_LCBR,  KC_RCBR,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,    KC_ENT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,   XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,   XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  KC_LOPT,     GUI_EN,        SP_LOW,        KC_LSFT,  KC_LSFT,     SP_RAI,GUI_JA,         GUI_JA,     KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
@@ -127,15 +127,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_GRV,   KC_BSLS,   KC_MINS,  KC_6,    KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,
             KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
             C_ESC,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_LCBR,  KC_RCBR,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,   XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH,   KC_UP,
+        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,   XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   S_SLSH,   XXXXXXX,
         XXXXXXX,  XXXXXXX,  KC_LOPT,     KC_LCMD,       _______,       KC_LSFT,  KC_LSFT,     _______,GUI_IME,       GUI_IME,    KC_ROPT,  XXXXXXX,  XXXXXXX,
         KC_VOLD,  KC_VOLU,                                                                                                                KC_PGDN,  KC_PGUP
     ),
     [_ADJUST] = LAYOUT(
         DM_RSTP,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
             KEY_WAIT,   MAC,      WIN,      _______,  RESET,    _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
-            _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
-        KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   DM_REC1,  _______,  DM_REC2,  NUM,      _______,  _______,  _______,  _______,  _______,
+            KC_CAPS,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   VERSION,
+        XXXXXXX,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    MUV_DE,   DM_REC1,  _______,  DM_REC2,  NUM,      _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     AG_TOGG,        _______,      _______,   _______,   _______,_______,     _______,     _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
     ),
