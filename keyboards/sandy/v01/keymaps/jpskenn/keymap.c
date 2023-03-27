@@ -62,7 +62,6 @@ enum custom_keycodes {
 #define BASE1   DF(_BASE1)
 #define BASE2   DF(_BASE2)
 #define BASE3   DF(_BASE3)
-#define ADJUST  MO(_ADJUST)
 #define NUMERIC TG(_LOWER2)
 
 // #define ALT_GRV   LALT(KC_GRV)
@@ -85,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
         XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        XXXXXXX,  XXXXXXX,  KC_LOPT,    GUI_LANG2,  SP_SFT,         SP_LOW1,  KC_BTN1,  KC_BTN2,  SP_RAI1,        GUI_LANG1,  KC_ROPT,    XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  KC_LOPT,    GUI_LANG2,  SP_SFT,         SP_LOW1,  KC_BTN1,  BS_SFT,   SP_RAI1,        GUI_LANG1,  KC_ROPT,    XXXXXXX,  XXXXXXX,
     // |---------+---------+-----------+-----------+---------------+---------+---------+---------+---------------+-----------+-----------+---------+---------|
         KC_VOLD,  KC_VOLU,                                                    KC_MS_U,                                                    KC_VOLD,  KC_VOLU,
     // |---------+---------+-------------------------------------------------+---------+-------------------------------------------------+---------+---------|
@@ -353,14 +352,14 @@ void dynamic_macro_play_user(int8_t direction) {
 #ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
     void dynamic_macro_record_start_user(void) {
-        // rgblight_blink_layer_repeat(7, 250, 3);
+        rgblight_blink_layer_repeat(7, 250, 3);
     }
 
     void dynamic_macro_record_end_user(int8_t direction) {
         //TODO is_dm_rec1,2を使って、ダイナミックマクロ記録中に、ずっとBlinkさせたりできないか？
         is_dm_rec1 = false;
         is_dm_rec2 = false;
-        // rgblight_blink_layer_repeat(8, 250, 3);
+        rgblight_blink_layer_repeat(8, 250, 3);
     }
 #endif
 
@@ -437,6 +436,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         state = update_tri_layer_state(state, _LOWER2, _RAISE1, _ADJUST);
     }
 
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER1));
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER2));
     // rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER3));
@@ -451,30 +451,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
-    // rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
-    // rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
 
     return state;
 }
 
 bool led_update_user(led_t led_state) {
-    // rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
 
     return true;
 }
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Keyboard Initialization
-//------------------------------------------------------------------------------
-// void keyboard_post_init_user(void) {
-//     // Enable the LED layers.
-//     rgblight_layers = my_rgb_layers;
-
-//     // prevent RGB light overrides layer indicator.
-//     // layer_state_set(default_layer_state);
-// }
-
+// ------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
+    // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
+
+    // prevent RGB light overrides layer indicator.
+    // layer_state_set(default_layer_state);
 }
