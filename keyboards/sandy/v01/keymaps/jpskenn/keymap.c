@@ -17,9 +17,6 @@
 #include "version.h"
 #include "keymap_japanese.h"
 
-
-bool is_led_indicator_enabled = true;
-
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
@@ -42,7 +39,6 @@ enum custom_keycodes {
   BASE3,
   ADJUST,
   VERSION,
-  IND_TOG,
   GUI_IME,
   KEY_WAIT,
 };
@@ -248,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------------------------------------------------------------------------------------------------------------------------------------------------|
         DM_RSTP,  MAC_SLP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        KEY_WAIT,      BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT,      BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD, KC_INS,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
         KC_CAPS,       _______,  _______,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
@@ -301,16 +297,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         }
         //     }
         //     return true;
-        case IND_TOG: // Toggle LED indicator ON/OFF.
-            if (record->event.pressed) {
-                is_led_indicator_enabled = !is_led_indicator_enabled;
-                // if (is_led_indicator_enabled) {
-                //     rgblight_layers = my_rgb_layers;
-                // } else {
-                //     rgblight_layers = null;
-                // }
-            }
-            return false;
         case GUI_IME: // Toggle IME, my Mac IME shortcut key dependent.
             if (record->event.pressed) {
                 key_timer = timer_read();
