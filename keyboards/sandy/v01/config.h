@@ -37,8 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Rotary Encoder */
 #ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { F4, B5 }
-#define ENCODERS_PAD_B { F1, B6 }
+#define ENCODERS_PAD_A { F1, B6 }
+#define ENCODERS_PAD_B { F4, B5 }
 
 // Encoder triggers specific key matrix position,
 // when turn knob clockwise or counterclockwise.
