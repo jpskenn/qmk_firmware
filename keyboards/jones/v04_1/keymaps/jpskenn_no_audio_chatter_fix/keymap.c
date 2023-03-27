@@ -73,7 +73,7 @@ enum custom_keycodes {
 #define GUI_EN  LGUI_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define ALT_EN  LALT_T(KC_LANG2)
-#define MAC_SLP LAG_T(KC_EJCT)
+#define MAC_SLP LAG(KC_EJCT)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
