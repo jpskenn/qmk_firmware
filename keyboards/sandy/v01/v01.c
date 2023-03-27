@@ -65,4 +65,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_kb(void) {
+    keyboard_post_init_user();
 }
