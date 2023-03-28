@@ -67,21 +67,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
     #define RGBLIGHT_LAYERS_RETAIN_VAL // set layer brightness to RGB Light's value (as returned by rgblight_get_val())
     #define RGBLIGHT_LAYER_BLINK // Enable Blink function
-    #define RGBLIGHT_MAX_LAYERS 10 // LAYER_BLINK uses 2 more layers. We need more layers to use.
+    #define RGBLIGHT_MAX_LAYERS 10 // Default 8.
 #endif
-
-/* Dynamic Macro */
-#define DYNAMIC_MACRO_DELAY 50 // Sets the waiting time (ms unit) when sending each key.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-// チャタリング防止設定
-// 参考： https://25keys.com/2022/02/10/debounce/
-// rules.mk にも防止設定を追加している
-// #ifdef DEBOUNCE
-// #undef DEBOUNCE
-// #define DEBOUNCE 80
-// #endif
 
 /* External EEPROM for Dynamic keymap (VIA / Remap) */
 // Use 24LC64 type EEPROM
@@ -89,15 +79,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Set MAX_ADDR to specify actual EEPROM size.
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 // How many layers to use with VIA / Remap.
-#define DYNAMIC_KEYMAP_LAYER_COUNT 10 // default:4
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8 // default:4
 
 //NOTE
-// ProMicroへテスト書き込みする際は、EEPROMサイズが足りないので、レイヤー2個とかで、とりあえず動作確認だけする
-// rules.mkのEEPROMドライバはコメントアウトしてください
+// ProMicroへテスト書き込みする際は、
+// EEPROMサイズが足りないので、レイヤー2個で、とりあえず動作確認だけする
+//   - rules.mkのEEPROMドライバをコメントアウトする
+//   - 下の2行のコメント外す
 //#define DYNAMIC_KEYMAP_LAYER_COUNT 2 // default:4
 //#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
-
-/* Mouse Keys */
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_MAX_SPEED 5
-#define MOUSEKEY_TIME_TO_MAX 60

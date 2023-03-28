@@ -22,10 +22,3 @@ LTO_ENABLE = yes
 
 # Use I2C connected External EEPROM
 EEPROM_DRIVER = i2c
-
-DYNAMIC_MACRO_ENABLE = yes  # Dynamic Macros
-
-# チャタリング防止設定
-# https://25keys.com/2022/02/10/debounce/
-# config.hにも防止設定を追加している
-#DEBOUNCE_TYPE = sym_eager_pk
