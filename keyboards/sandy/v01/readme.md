@@ -1,18 +1,14 @@
 # Sandy
 
-![Sandy](https://raw.githubusercontent.com/jpskenn/Sandy/main/assets/Readme/XXXXX.jpeg)
+![Sandy](https://raw.githubusercontent.com/jpskenn/Sandy/main/assets/README/DSC_7893.jpeg)
 
-Sandy is a Keyboard with key height optimization
+Sandy is a Keyboard with key height optimization.
 
-Layered PCB will make height differences for each key. This covers the lack of optimization to physical key layout that only adjust vertical and horizontal in a plane.
+Layered PCB will make height differences for each key. This covers the lack of optimization to physical key layout that only adjust x-y direction in a plane.
 
-For comfortable typing. Easy to type keys far from home position.
+Sandyは、スイッチの配置を立体的にして高さ方向への最適化を加えた、左右対称レイアウトの60%キーボードです。
 
-Ex.
-
-- "T" and "Y"
-- R1 row, Numerics and Symbols
-- R2 Mod keys
+平面上のキーレイアウトだけでは最適化しきれない部分を、キーの位置に応じてスイッチを配置する高さを変えることで補っています。
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
 * Hardware Supported: PCBs
@@ -20,11 +16,11 @@ Ex.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make nora:default
+    make sandy:default
 
 Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
-    make nora:default:flash
+    make sandy:default:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
