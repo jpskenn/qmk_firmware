@@ -16,6 +16,22 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+// List of lighting layers
+const rgblight_segment_t* const PROGMEM my_rgb_layers[];            // Both
+const rgblight_segment_t* const PROGMEM my_rgb_layers_left_side[];  // Left side only
+const rgblight_segment_t* const PROGMEM my_rgb_layers_right_side[]; // Right side only
+
+// Data to store EEPROM
+typedef union {
+    uint32_t raw;
+    struct {
+        // Layer indicator state
+        int8_t indicator_state :3; // 0 off, 1 left only, 2 right only, 3 both
+    };
+} user_config_t;
+
+user_config_t user_config;
+
 enum layer_number {
     _BASE1 = 0,
     _BASE2,
@@ -33,6 +49,7 @@ enum custom_keycodes {
   BASE3,
   ADJUST,
   VERSION,
+  IND_TOG,
 };
 
 #define BASE1   DF(_BASE1)
@@ -182,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------------------------------------------------------------------------------------------------------------------------------------------------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        _______,       BASE1,    BASE2,    BASE3,    _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD, _______,
+        _______,       BASE1,    BASE2,    BASE3,    _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, _______,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
         KC_CAPS,       _______,  _______,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
@@ -235,6 +252,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
+        case IND_TOG: // Toggle LED indicator status
+            if (record->event.pressed) {
+                switch (user_config.indicator_state) {
+                    case 0: // off --> left
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_left_side;
+                        break;
+                    case 1: // left --> right
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_right_side;
+                        break;
+                    case 2: // right --> both
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers;
+                        break;
+                    case 3: // both --> off
+                        user_config.indicator_state = 0;
+                        rgblight_layers = NULL;
+                        break;
+                }
+                eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+            }
+            return false;
         default:
             break;
     }
@@ -246,6 +286,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------------------------------------------------------------------------------
 #ifdef RGBLIGHT_LAYERS
 
+// --- Both side ---
 // Indicator LED settings
 #define ONBOARD_LED_INDICATOR_INDEX 0         // Where to start indicator.
 #define ONBOARD_LED_INDICATOR_COUNT 4         // How many LEDs used for indicator.
@@ -308,6 +349,118 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_adjust_layer
 );
 
+// --- Left side ---
+// Indicator LED settings
+#define ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE 0         // Where to start indicator.
+#define ONBOARD_LED_INDICATOR_COUNT_LEFT_SIDE 2         // How many LEDs used for indicator.
+
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_COUNT_LEFT_SIDE, HSV_WHITE}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_COUNT_LEFT_SIDE, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_COUNT_LEFT_SIDE, HSV_YELLOW}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_caps_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE + 1 , 1, HSV_MAGENTA}
+);
+
+const rgblight_segment_t PROGMEM my_lower1_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_PINK}
+);
+
+const rgblight_segment_t PROGMEM my_raise1_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_CYAN}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_RED}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_left_side[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_left_side,
+    my_base2_layer_left_side,
+    my_base3_layer_left_side,
+    my_caps_layer_left_side,
+    my_lower1_layer_left_side,
+    my_lower2_layer_left_side,
+    my_raise1_layer_left_side,
+    my_raise2_layer_left_side,
+    my_adjust_layer_left_side
+);
+
+// --- Right side ---
+// Indicator LED settings
+#define ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE 2         // Where to start indicator.
+#define ONBOARD_LED_INDICATOR_COUNT_RIGHT_SIDE 2         // How many LEDs used for indicator.
+
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_COUNT_RIGHT_SIDE, HSV_WHITE}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_COUNT_RIGHT_SIDE, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_COUNT_RIGHT_SIDE, HSV_YELLOW}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_caps_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE + 1 , 1, HSV_MAGENTA}
+);
+
+const rgblight_segment_t PROGMEM my_lower1_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_PINK}
+);
+
+const rgblight_segment_t PROGMEM my_raise1_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_CYAN}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_RED}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_right_side[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_right_side,
+    my_base2_layer_right_side,
+    my_base3_layer_right_side,
+    my_caps_layer_right_side,
+    my_lower1_layer_right_side,
+    my_lower2_layer_right_side,
+    my_raise1_layer_right_side,
+    my_raise2_layer_right_side,
+    my_adjust_layer_right_side
+);
+
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER1));
@@ -335,13 +488,43 @@ bool led_update_user(led_t led_state) {
 }
 #endif
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Keyboard Initialization
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-    // Enable the LED layers.
-    rgblight_layers = my_rgb_layers;
+    // Turn effect range LEDs off (not written to EEPROM)
+    rgblight_disable_noeeprom();
+
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+
+    // Enable the LED layers as stored state
+    switch (user_config.indicator_state) {
+        case 0: // off
+            rgblight_layers = NULL;
+            break;
+        case 1: // left
+            rgblight_layers = my_rgb_layers_left_side;
+            break;
+            break;
+        case 2: // right
+            rgblight_layers = my_rgb_layers_right_side;
+            break;
+        case 3: // both
+            rgblight_layers = my_rgb_layers;
+            break;
+    }
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
+}
+
+// ------------------------------------------------------------------------------
+// EEPROM Initialization, EEPROM is getting reset!
+// ------------------------------------------------------------------------------
+void eeconfig_init_user(void) {
+    // write user configuration to EEPROM
+    user_config.raw = 0;
+    user_config.indicator_state = 3; // Layer indicator LED state: 3 = Both side
+    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 }
