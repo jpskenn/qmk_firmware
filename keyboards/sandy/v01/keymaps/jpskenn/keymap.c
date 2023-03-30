@@ -36,7 +36,6 @@ typedef union {
 
 user_config_t user_config;
 
-
 enum layer_number {
     _BASE1 = 0,
     _BASE2,
