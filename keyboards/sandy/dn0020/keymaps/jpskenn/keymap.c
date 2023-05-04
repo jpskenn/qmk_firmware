@@ -17,15 +17,16 @@
 #include "version.h"
 #include "keymap_japanese.h"
 
+// recording status flags for "Dynamic Macro"
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
-// List of lighting layers
+// list of lighting layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[];            // Both
 const rgblight_segment_t* const PROGMEM my_rgb_layers_left_side[];  // Left side only
 const rgblight_segment_t* const PROGMEM my_rgb_layers_right_side[]; // Right side only
 
-// Data to store EEPROM
+// data to store EEPROM
 typedef union {
     uint32_t raw;
     struct {
@@ -36,6 +37,7 @@ typedef union {
 
 user_config_t user_config;
 
+// layers
 enum layer_number {
     _BASE1 = 0,
     _BASE2,
@@ -49,6 +51,7 @@ enum layer_number {
     _ADJUST,
 };
 
+// custom key codes
 enum custom_keycodes {
   BASE1 = SAFE_RANGE,
   BASE2,
@@ -60,6 +63,7 @@ enum custom_keycodes {
   IND_TOG,
 };
 
+// key code macros
 #define ESC_BASE3 LT(_BASE3, KC_ESC)
 #define ZH_BASE3 LT(_BASE3, JP_ZKHK)
 #define SP_LOW1  LT(_LOWER1, KC_SPC)
