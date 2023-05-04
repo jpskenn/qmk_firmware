@@ -305,12 +305,18 @@ const rgblight_segment_t PROGMEM my_base3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW}
 );
 
-// for temporal layer
+// for locking status
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA},
     {ONBOARD_LED_INDICATOR_INDEX + 1 + 2 , 1, HSV_MAGENTA}
 );
 
+const rgblight_segment_t PROGMEM my_scroll_lock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED},
+    {ONBOARD_LED_INDICATOR_INDEX + 1 + 2 , 1, HSV_RED}
+);
+
+// for temporal layer
 const rgblight_segment_t PROGMEM my_lower1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN},
     {ONBOARD_LED_INDICATOR_INDEX + 2, ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN}
@@ -342,6 +348,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_base2_layer,
     my_base3_layer,
     my_caps_layer,
+    my_scroll_lock_layer,
     my_lower1_layer,
     my_lower2_layer,
     my_raise1_layer,
@@ -367,11 +374,16 @@ const rgblight_segment_t PROGMEM my_base3_layer_left_side[] = RGBLIGHT_LAYER_SEG
     {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_COUNT_LEFT_SIDE, HSV_YELLOW}
 );
 
-// for temporal layer
+// for locking status
 const rgblight_segment_t PROGMEM my_caps_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE + 1 , 1, HSV_MAGENTA}
 );
 
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE + 1 , 1, HSV_RED}
+);
+
+// for temporal layer
 const rgblight_segment_t PROGMEM my_lower1_layer_left_side[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX_LEFT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN}
 );
@@ -398,6 +410,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_left_side[] = RGBLIGHT_LAY
     my_base2_layer_left_side,
     my_base3_layer_left_side,
     my_caps_layer_left_side,
+    my_scroll_lock_layer_left_side,
     my_lower1_layer_left_side,
     my_lower2_layer_left_side,
     my_raise1_layer_left_side,
@@ -423,11 +436,16 @@ const rgblight_segment_t PROGMEM my_base3_layer_right_side[] = RGBLIGHT_LAYER_SE
     {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_COUNT_RIGHT_SIDE, HSV_YELLOW}
 );
 
-// for temporal layer
+// for locking status
 const rgblight_segment_t PROGMEM my_caps_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE + 1 , 1, HSV_MAGENTA}
 );
 
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE + 1 , 1, HSV_RED}
+);
+
+// for temporal layer
 const rgblight_segment_t PROGMEM my_lower1_layer_right_side[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX_RIGHT_SIDE , ONBOARD_LED_INDICATOR_TEMPORALLY_CHANGE_COUNT, HSV_GREEN}
 );
@@ -454,6 +472,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_right_side[] = RGBLIGHT_LA
     my_base2_layer_right_side,
     my_base3_layer_right_side,
     my_caps_layer_right_side,
+    my_scroll_lock_layer_right_side,
     my_lower1_layer_right_side,
     my_lower2_layer_right_side,
     my_raise1_layer_right_side,
@@ -463,11 +482,11 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_right_side[] = RGBLIGHT_LA
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER1));
-    rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER2));
-    rgblight_set_layer_state(6, layer_state_cmp(state, _RAISE1));
-    rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE2));
-    rgblight_set_layer_state(8, layer_state_cmp(state, _ADJUST));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER1));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER2));
+    rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE1));
+    rgblight_set_layer_state(8, layer_state_cmp(state, _RAISE2));
+    rgblight_set_layer_state(9, layer_state_cmp(state, _ADJUST));
 
     return state;
 }
@@ -482,7 +501,8 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, led_state.caps_lock);
+    rgblight_set_layer_state(4, led_state.scroll_lock);
 
     return true;
 }
