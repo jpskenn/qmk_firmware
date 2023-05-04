@@ -640,7 +640,6 @@ void keyboard_post_init_user(void) {
         case 1: // left
             rgblight_layers = my_rgb_layers_left_side;
             break;
-            break;
         case 2: // right
             rgblight_layers = my_rgb_layers_right_side;
             break;
