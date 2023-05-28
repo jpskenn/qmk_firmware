@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dn0030.h"
 
-
 #ifdef ENCODER_ENABLE
 //------------------------------------------------------------------------------
 // Rotary Encoder with VIA
@@ -65,5 +64,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_kb(void) {
+    // set effect range, range = after LED indicator(from 0 to 1)
+    rgblight_set_effect_range(2, 16);
+
     keyboard_post_init_user();
 }
