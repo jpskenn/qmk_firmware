@@ -391,7 +391,6 @@ void dynamic_macro_play_user(int8_t direction) {
 // RGB Light settings
 //------------------------------------------------------------------------------
 
-// --- Both side ---
 // Indicator LED settings
 #define ONBOARD_LED_INDICATOR_INDEX 0         // where to start indicator
 #define ONBOARD_LED_INDICATOR_COUNT 2         // how many leds used for indicator
