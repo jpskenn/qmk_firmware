@@ -370,9 +370,6 @@ bool led_update_user(led_t led_state) {
 // Keyboard Initialization
 // ------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-    // Turn effect range LEDs off (not written to EEPROM)
-    rgblight_disable_noeeprom();
-
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
 
