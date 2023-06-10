@@ -71,7 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     /*== Lighting Layers ==*/
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-    #define RGBLIGHT_LAYERS_RETAIN_VAL // set layer brightness to RGB Light's value (as returned by rgblight_get_val())
     #define RGBLIGHT_LAYER_BLINK // Enable Blink function
     #define RGBLIGHT_MAX_LAYERS 11 // Default 8.
 #endif
