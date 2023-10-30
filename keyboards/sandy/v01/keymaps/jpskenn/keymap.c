@@ -77,10 +77,10 @@ enum custom_keycodes {
 #define NUMERIC TG(_BASE3)
 
 // #define ALT_GRV   LALT(KC_GRV)
-#define GUI_LANG1  LGUI_T(KC_LANG1)
-#define GUI_LANG2  LGUI_T(KC_LANG2)
-#define ALT_LANG1  LALT_T(KC_LANG1)
-#define ALT_LANG2  LALT_T(KC_LANG2)
+#define GUI_LANG1  LGUI_T(KC_LNG1)
+#define GUI_LANG2  LGUI_T(KC_LNG2)
+#define ALT_LANG1  LALT_T(KC_LNG1)
+#define ALT_LANG2  LALT_T(KC_LNG2)
 
 #define MAC_SLP LAG(KC_EJCT)
 
@@ -259,7 +259,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ),
     [_ADJUST] = LAYOUT(
     // |-----------------------------------------------------------------------------------------------------------------------------------------------------|
-        DM_RSTP,  MAC_SLP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+        DM_RSTP,  MAC_SLP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KEY_WAIT,      BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
