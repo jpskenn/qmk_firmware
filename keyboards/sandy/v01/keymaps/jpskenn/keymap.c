@@ -381,7 +381,7 @@ void dynamic_macro_play_user(int8_t direction) {
 
 #ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
-    void dynamic_macro_record_start_user(void) {
+    void dynamic_macro_record_start_user(int8_t direction) {
         rgblight_blink_layer_repeat(8, 250, 3);//TODO マクロ記録中、ずっとブリンクならんの？
     }
 
@@ -617,7 +617,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, host_keyboard_led_state().caps_lock);
 
     return true;
 }
