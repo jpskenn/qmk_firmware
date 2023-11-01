@@ -83,10 +83,10 @@ enum custom_keycodes {
 #define NUMERIC TG(_BASE3)
 
 // #define ALT_GRV   LALT(KC_GRV)
-#define GUI_LANG1  LGUI_T(KC_LNG1)
-#define GUI_LANG2  LGUI_T(KC_LNG2)
-#define ALT_LANG1  LALT_T(KC_LNG1)
-#define ALT_LANG2  LALT_T(KC_LNG2)
+#define GUI_LANG1  LGUI_T(KC_LANG1)
+#define GUI_LANG2  LGUI_T(KC_LANG2)
+#define ALT_LANG1  LALT_T(KC_LANG1)
+#define ALT_LANG2  LALT_T(KC_LANG2)
 
 #define MAC_SLP LAG(KC_EJCT)
 
