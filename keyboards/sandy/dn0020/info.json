@@ -2,6 +2,11 @@
     "keyboard_name": "Sandy",
     "url": "https://github.com/jpskenn/Sandy",
     "maintainer": "jpskenn",
+    "usb": {
+        "vid": "0xB9DD",
+        "pid": "0x3344",
+        "device_version": "0.2.0"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
