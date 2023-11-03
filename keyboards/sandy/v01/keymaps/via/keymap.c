@@ -220,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Rotary Encoder with VIA
 //------------------------------------------------------------------------------
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE1] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD), ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [_BASE2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [_BASE3] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
