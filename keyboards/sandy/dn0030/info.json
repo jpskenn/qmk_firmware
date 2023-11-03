@@ -16,6 +16,9 @@
     "ws2812": {
         "pin": "B7"
     },
+    "rgblight": {
+        "led_count": 18
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F1", "pin_b": "F4"},
