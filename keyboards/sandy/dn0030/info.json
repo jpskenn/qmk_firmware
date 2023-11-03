@@ -19,7 +19,14 @@
     "rgblight": {
         "led_count": 18,
         "saturation_steps": 8,
-        "brightness_steps": 8
+        "brightness_steps": 8,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "encoder": {
         "rotary": [
