@@ -24,11 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Number of encoder
 #define ENCODERS 2
 
-// Mappings of encoder rotation to key position in key matrix.
-// --> {k57, k97}, {k42, k45}
-#define ENCODERS_CW_KEY  { { 7, 5 }, { 2, 4} }
-#define ENCODERS_CCW_KEY { { 7, 9 }, { 5, 4} }
-
 /* RGB LED */
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
