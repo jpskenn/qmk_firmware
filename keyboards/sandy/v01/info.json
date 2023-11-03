@@ -13,6 +13,9 @@
         "rows": ["D6", "F7", "E6", "C7", "F5", "D7", "B4", "F0", "C6", "F6"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "B7"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F1", "pin_b": "F4"},
