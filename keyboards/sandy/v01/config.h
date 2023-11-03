@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // when turn knob clockwise or counterclockwise.
 // This is handy to assign key codes by VIA.
 
-// Number of encoder
-#define ENCODERS 2
-
 /* RGB LED */
     #define RGBLIGHT_DEFAULT_VAL 80
     /*== Lighting Layers ==*/
