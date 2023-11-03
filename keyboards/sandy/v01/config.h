@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// "10row * 8col" represents "5row * 16col" matrix.
-#define MATRIX_ROW_PINS { D6, F7, E6, C7, F5, D7, B4, F0, C6, F6 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, D2, D5, D3, D4 }
-#define DIODE_DIRECTION COL2ROW
-
 // Encoder triggers specific key matrix position,
 // when turn knob clockwise or counterclockwise.
 // This is handy to assign key codes by VIA.
