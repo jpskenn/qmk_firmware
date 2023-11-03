@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB LED */
 #define WS2812_DI_PIN B7
-#ifdef WS2812_DI_PIN
     #define RGBLED_NUM 4 // Left(2) + Right(2)
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -44,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LAYERS_RETAIN_VAL // set layer brightness to RGB Light's value (as returned by rgblight_get_val())
     #define RGBLIGHT_LAYER_BLINK // Enable Blink function
     #define RGBLIGHT_MAX_LAYERS 10 // Default 8.
-#endif
 
 /* External EEPROM for Dynamic keymap (VIA / Remap) */
 // Use 24LC64 type EEPROM
