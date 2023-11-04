@@ -119,10 +119,10 @@ enum custom_keycodes {
 // #define ADJUST  MO(_ADJUST)
 #define NUM     TG(_BASE3)
 // #define HENKAN  LGUI(KC_GRV)
-#define GUI_JA  LGUI_T(KC_LANG1)
-#define GUI_EN  LGUI_T(KC_LANG2)
-#define ALT_JA  LALT_T(KC_LANG1)
-#define ALT_EN  LALT_T(KC_LANG2)
+#define GUI_JA  LGUI_T(KC_LNG1)
+#define GUI_EN  LGUI_T(KC_LNG2)
+#define ALT_JA  LALT_T(KC_LNG1)
+#define ALT_EN  LALT_T(KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE1] = LAYOUT(
