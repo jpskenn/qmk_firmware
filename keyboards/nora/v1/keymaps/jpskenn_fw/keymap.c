@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
         KC_CAPS,    AU_TOG, MU_TOG, MU_MOD, MUV_DE, MUV_IN, _______,        RGB_SPD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,VERSION,
     // |-----------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-----------|
-        _______,CK_TOGG,CK_RST, CK_DOWN,CK_UP,  _______,DM_REC1,                DM_REC2,_______,_______,_______,KC_PSCR,KC_SLCK,KC_PAUS,
+        _______,CK_TOGG,CK_RST, CK_DOWN,CK_UP,  _______,DM_REC1,                DM_REC2,_______,_______,_______,KC_PSCR,KC_SCRL,KC_PAUS,
     // |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
                           _______,    _______,_______,    _______,            _______,_______,    _______,_______
     //                   |-----------+-------+-----------+-------+-----------+-------+-----------+-------+-----------|
@@ -296,7 +296,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,  _______,
 //         DM_RSTP,       MAC,      WIN,      NUM,      _______,  _______,  _______,            RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,      KC_INS,
 //         KC_CAPS,       AU_TOG,   MU_TOG,   MU_MOD,   MUV_DE,   MUV_IN,   _______,            RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,       VERSION,
-//         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,                      DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+//         _______,  CK_TOGG,  CK_RST,   CK_DOWN,  CK_UP,    _______,  DM_REC1,                      DM_REC2,  NUM,      _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
 //                                  _______,       _______,     _______,    _______,            _______,    _______,     _______,    _______,
 //                                                                               _______,  _______
 //     ),

@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_VOLD,  KC_VOLU,    KC_LOPT,     KC_LCMD,      _______,            _______,        GUI_IME,    KC_ROPT,     KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_P0,    KC_PDOT
     ),
     [_ADJUST] = LAYOUT(
-        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+        DM_RSTP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
            _______,    MAC,      WIN,      _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,   _______,     _______,  _______,  _______,
            _______,    _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,    VERSION,     _______,  _______,  _______,
         KC_CAPS,  KC_CAPS,  _______,  _______,  _______,  _______,  _______,  NUM,      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
