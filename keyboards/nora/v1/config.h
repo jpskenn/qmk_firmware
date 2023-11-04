@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xB9DD
-#define PRODUCT_ID 0xC9D7
-#define DEVICE_VER 0x0032
-#define MANUFACTURER jpskenn
-#define PRODUCT Nora
-
 /* key matrix size */
 // Same number for Round-Robin matrix.
 #define MATRIX_ROWS 10

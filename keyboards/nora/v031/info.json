@@ -2,6 +2,12 @@
     "keyboard_name": "Nora",
     "url": "https://github.com/jpskenn/Nora",
     "maintainer": "jpskenn",
+    "manufacturer": "jpskenn",
+    "usb": {
+        "vid": "0xB9DD",
+        "pid": "0xC9D7",
+        "device_version": "0.3.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
