@@ -68,7 +68,7 @@ Merge two rows into single row to make 5x16 keyboard.
 #ifdef RGB_MATRIX_ENABLE
 
     // Left & Right space keys
-    #if DRIVER_LED_TOTAL == 71 // "Full" layout
+    #if RGB_MATRIX_LED_COUNT == 71 // "Full" layout
 
         #define LED_INDEX_LSPC 58
         #define LED_INDEX_RSPC 62

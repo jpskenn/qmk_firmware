@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Change number of LEDs for "RE layout".
 #ifdef WS2812_DI_PIN
     #ifdef RGB_MATRIX_ENABLE
-        #undef DRIVER_LED_TOTAL
-        #define DRIVER_LED_TOTAL 62
+        #undef RGB_MATRIX_LED_COUNT
+        #define RGB_MATRIX_LED_COUNT 62
     #else
         #undef RGBLED_NUM
         #define RGBLED_NUM 62

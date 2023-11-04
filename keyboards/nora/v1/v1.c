@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
 
-    #if DRIVER_LED_TOTAL == 71 // Full layout
+    #if RGB_MATRIX_LED_COUNT == 71 // Full layout
     {
     // Key Matrix to LED Index
     {      0,      2,      4,      6,      8,     10,     12,     14 },
@@ -50,7 +50,7 @@ led_config_t g_led_config = {
     }
     #endif
 
-    #if DRIVER_LED_TOTAL == 64 // FW layout
+    #if RGB_MATRIX_LED_COUNT == 64 // FW layout
     {
     // Key Matrix to LED Index
     {      0,      2,      4,      6, NO_LED,      8,     10,     12 },
@@ -80,7 +80,7 @@ led_config_t g_led_config = {
     }
     #endif
 
-    #if DRIVER_LED_TOTAL == 62 // RE layout
+    #if RGB_MATRIX_LED_COUNT == 62 // RE layout
     {
     // Key Matrix to LED Index
     {      0,      2,      4,      6, NO_LED,      8,     10,     12 },

@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // Full: 71(default)
   // FW :  64
   // RE :  62
-  #define DRIVER_LED_TOTAL 71
+  #define RGB_MATRIX_LED_COUNT 71
 
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
   #define RGB_MATRIX_STARTUP_VAL 40

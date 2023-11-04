@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGBLIGHT */
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 71
+  #define RGB_MATRIX_LED_COUNT 71
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
   #define RGB_MATRIX_HUE_STEP 8
   #define RGB_MATRIX_SAT_STEP 8

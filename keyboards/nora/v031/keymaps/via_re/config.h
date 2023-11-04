@@ -19,8 +19,8 @@
 // Change number of LEDs for "RE layout".
 #ifdef WS2812_DI_PIN
     #ifdef RGB_MATRIX_ENABLE
-        #undef DRIVER_LED_TOTAL
-        #define DRIVER_LED_TOTAL 65
+        #undef RGB_MATRIX_LED_COUNT
+        #define RGB_MATRIX_LED_COUNT 65
     #else
         #undef RGBLED_NUM
         #define RGBLED_NUM 65

@@ -108,17 +108,17 @@ Merge two rows into single row to make 5*16 matrix.
 #ifdef RGB_MATRIX_ENABLE
 
     // LED Index to left & right space keys
-    #if DRIVER_LED_TOTAL == 71 // "Full" layout
+    #if RGB_MATRIX_LED_COUNT == 71 // "Full" layout
         #define LED_INDEX_LSPC 64
         #define LED_INDEX_RSPC 68
     #endif
 
-    #if DRIVER_LED_TOTAL == 64 // FW layout
+    #if RGB_MATRIX_LED_COUNT == 64 // FW layout
         #define LED_INDEX_LSPC 58
         #define LED_INDEX_RSPC 61
     #endif
 
-    #if DRIVER_LED_TOTAL == 62 // RE layout
+    #if RGB_MATRIX_LED_COUNT == 62 // RE layout
         #define LED_INDEX_LSPC 56
         #define LED_INDEX_RSPC 59
     #endif
