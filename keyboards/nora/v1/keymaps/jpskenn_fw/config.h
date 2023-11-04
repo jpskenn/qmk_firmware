@@ -20,17 +20,15 @@
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif
 
-#ifdef WS2812_DI_PIN
-    #ifdef RGB_MATRIX_ENABLE
-        #undef RGB_MATRIX_LED_COUNT
-        #define RGB_MATRIX_LED_COUNT 64
-    #else
-        #undef RGBLED_NUM
-        #define RGBLED_NUM 64
-    #endif
-
-    // LED index for DM_RECx indicator
-    // NOTE: LED on R4 is connected from right to left. So, the index is inverted.
-    #define LED_INDEX_R4_LEFT_INSIDE 49
-    #define LED_INDEX_R4_RIGHT_INSIDE 48
+#ifdef RGB_MATRIX_ENABLE
+    #undef RGB_MATRIX_LED_COUNT
+    #define RGB_MATRIX_LED_COUNT 64
+#else
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 64
 #endif
+
+// LED index for DM_RECx indicator
+// NOTE: LED on R4 is connected from right to left. So, the index is inverted.
+#define LED_INDEX_R4_LEFT_INSIDE 49
+#define LED_INDEX_R4_RIGHT_INSIDE 48

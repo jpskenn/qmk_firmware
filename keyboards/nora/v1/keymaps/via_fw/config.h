@@ -17,12 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef WS2812_DI_PIN
-    #ifdef RGB_MATRIX_ENABLE
-        #undef RGB_MATRIX_LED_COUNT
-        #define RGB_MATRIX_LED_COUNT 64
-    #else
-        #undef RGBLED_NUM
-        #define RGBLED_NUM 64
-    #endif
+#ifdef RGB_MATRIX_ENABLE
+    #undef RGB_MATRIX_LED_COUNT
+    #define RGB_MATRIX_LED_COUNT 64
+#else
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 64
 #endif

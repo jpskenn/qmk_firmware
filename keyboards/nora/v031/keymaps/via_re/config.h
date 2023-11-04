@@ -17,12 +17,10 @@
 #pragma once
 
 // Change number of LEDs for "RE layout".
-#ifdef WS2812_DI_PIN
-    #ifdef RGB_MATRIX_ENABLE
-        #undef RGB_MATRIX_LED_COUNT
-        #define RGB_MATRIX_LED_COUNT 65
-    #else
-        #undef RGBLED_NUM
-        #define RGBLED_NUM 65
-    #endif
+#ifdef RGB_MATRIX_ENABLE
+    #undef RGB_MATRIX_LED_COUNT
+    #define RGB_MATRIX_LED_COUNT 65
+#else
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 65
 #endif
