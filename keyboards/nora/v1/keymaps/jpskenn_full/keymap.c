@@ -328,7 +328,7 @@ void dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
 
-bool void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     // Indicator On / Off control
     if(!is_led_indicator_enabled) {
         return false;

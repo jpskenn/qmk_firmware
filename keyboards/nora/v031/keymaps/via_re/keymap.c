@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------------------------------------------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
 
-bool void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     // Indicator On / Off control
     if(!is_led_indicator_enabled) {
         return false;
