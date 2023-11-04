@@ -13,6 +13,11 @@
     "ws2812": {
         "pin": "E6"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B2"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
