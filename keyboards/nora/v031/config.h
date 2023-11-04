@@ -145,9 +145,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* External EEPROM */
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64
