@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "version.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 #ifdef AUDIO_ENABLE
     // float song_caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);

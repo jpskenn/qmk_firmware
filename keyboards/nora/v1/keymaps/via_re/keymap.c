@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "version.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 void rgb_matrix_set_color_user(int, int, int, int, bool);
 
