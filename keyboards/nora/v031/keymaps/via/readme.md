@@ -14,18 +14,6 @@ VIA supported basic keymap with external EEPROM.
 | Func | No | White | (Blank) |
 | Adjust | No | Red | Switch default layer, Settings etc. |
 
-## Integrated Function
-
-Use `KC_FNx` keycodes to call integrated function.
-
-| Key | Description |
-| :-- | :-- |
-| `KC_FN0` | :information_source: Output build version of firmware as string. |
-| `KC_FN1` | Change default layer to "Base #1".<br>:floppy_disk: Save layer to EEPROM. |
-| `KC_FN2` | Change default layer to "Base #2".<br>:floppy_disk: Save layer to EEPROM. |
-| `KC_FN3` | Change default layer to "Base #3".<br>:floppy_disk: Save layer to EEPROM. |
-| `KC_FN4` | Toggle layer indicator.<br>Enjoy full RGB Matrix effects :smiley: |
-
 ## External EEPROM
 
 I2C connected external EEPROM.

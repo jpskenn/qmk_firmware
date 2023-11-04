@@ -116,31 +116,26 @@ uint16_t key_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case BASE1: // Change default ayer --> Write to EEPROM
-        case KC_FN1:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE1);
             }
             return false;
         case BASE2: // Change default ayer --> Write to EEPROM
-        case KC_FN2:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE2);
             }
             return false;
         case BASE3: // Change default ayer --> Write to EEPROM
-        case KC_FN3:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BASE3);
             }
             return false;
         case IND_TOG: // Toggle LED indicator.
-        case KC_FN4:
             if (record->event.pressed) {
                 is_led_indicator_enabled = !is_led_indicator_enabled;
             }
             return false;
         case VERSION: // Output firmware info.
-        case KC_FN0:
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
             }
