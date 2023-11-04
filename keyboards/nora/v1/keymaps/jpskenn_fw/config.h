@@ -45,8 +45,3 @@
     #define LED_INDEX_R4_LEFT_INSIDE 49
     #define LED_INDEX_R4_RIGHT_INSIDE 48
 #endif
-// This "may" reduce firmware size.
-// #undef LOCKING_SUPPORT_ENABLE
-// #undef LOCKING_RESYNC_ENABLE
-// #define NO_ACTION_ONESHOT
-// #define LAYER_STATE_8BIT // limit layers up to 8

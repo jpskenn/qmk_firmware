@@ -24,9 +24,3 @@
 // #ifdef RGB_MATRIX_ENABLE
 //     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 // #endif
-
-// This "may" reduce firmware size.
-// #undef LOCKING_SUPPORT_ENABLE
-// #undef LOCKING_RESYNC_ENABLE
-// #define NO_ACTION_ONESHOT
-// #define LAYER_STATE_8BIT // limit layers up to 8
