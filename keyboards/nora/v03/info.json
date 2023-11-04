@@ -18,6 +18,12 @@
     "ws2812": {
         "pin": "E6"
     },
+    "rgb_matrix": {
+        "max_brightness": 150
+    },
+    "rgblight": {
+        "max_brightness": 150
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

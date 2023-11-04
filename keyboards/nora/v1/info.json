@@ -18,6 +18,9 @@
     "ws2812": {
         "pin": "E6"
     },
+    "rgb_matrix": {
+        "max_brightness": 128
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B1", "pin_b": "B2"}

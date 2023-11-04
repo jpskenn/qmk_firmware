@@ -18,10 +18,12 @@
     "ws2812": {
         "pin": "E6"
     },
+    "rgblight": {
+        "max_brightness": 240
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-
                 {"label": "", "matrix": [0, 0], "x":0, "y":0},
                 {"label": "", "matrix": [5, 0], "x":1, "y":0},
                 {"label": "", "matrix": [0, 1], "x":2, "y":0},
