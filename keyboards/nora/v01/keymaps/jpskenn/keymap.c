@@ -296,7 +296,7 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 
-#ifdef RGB_DI_PIN
+#ifdef WS2812_DI_PIN
 #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;

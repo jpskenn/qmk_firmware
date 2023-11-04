@@ -16,22 +16,11 @@
 
 #pragma once
 
-// Change LED count to actually installed.
-// #ifdef RGB_DI_PIN
-//     #undef RGBLED_NUM
-//     #define RGBLED_NUM 2
-// #endif
-
-// #ifdef RGB_MATRIX_ENABLE
-//     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
-    // #define RGB_MATRIX_STARTUP_SPD 30
-    // #define RGB_MATRIX_STARTUP_HUE 169
-// #endif
 #ifdef RGB_MATRIX_ENABLE
     #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif
 
-#ifdef RGB_DI_PIN
+#ifdef WS2812_DI_PIN
     #ifdef RGB_MATRIX_ENABLE
         #undef DRIVER_LED_TOTAL
         #define DRIVER_LED_TOTAL 64

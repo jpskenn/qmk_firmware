@@ -17,7 +17,7 @@
 #pragma once
 
 // Change LED count to actually installed.
-#ifdef RGB_DI_PIN
+#ifdef WS2812_DI_PIN
     #undef RGBLED_NUM
     #define RGBLED_NUM 2
 #endif

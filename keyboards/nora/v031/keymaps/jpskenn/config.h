@@ -16,12 +16,6 @@
 
 #pragma once
 
-// Change LED count to actually installed.
-// #ifdef RGB_DI_PIN
-//     #undef RGBLED_NUM
-//     #define RGBLED_NUM 2
-// #endif
-
 // #ifdef RGB_MATRIX_ENABLE
 //     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
     // #define RGB_MATRIX_STARTUP_SPD 30
