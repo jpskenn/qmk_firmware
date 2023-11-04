@@ -341,10 +341,10 @@ void dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
 
-void rgb_matrix_indicators_user(void) {
+bool void rgb_matrix_indicators_user(void) {
     // Indicator On / Off control
     if(!is_led_indicator_enabled) {
-        return;
+        return false;
     }
 
     // Layers
@@ -401,7 +401,10 @@ void rgb_matrix_indicators_user(void) {
     }
     if (is_dm_rec2) {
         rgb_matrix_set_color_user(LED_INDEX_R4_RIGHT_INSIDE, HSV_RED, true);
-    }}
+    }
+
+    return true;
+}
 
 void rgb_matrix_set_color_user(int index, int h, int s, int v, bool is_adjust_brightness) {
     HSV hsv = { h, s, v };
