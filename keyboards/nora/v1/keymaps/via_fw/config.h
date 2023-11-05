@@ -17,10 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-    #undef RGB_MATRIX_LED_COUNT
-    #define RGB_MATRIX_LED_COUNT 64
-#else
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 64
-#endif
+#undef RGB_MATRIX_LED_COUNT
+#define RGB_MATRIX_LED_COUNT 64

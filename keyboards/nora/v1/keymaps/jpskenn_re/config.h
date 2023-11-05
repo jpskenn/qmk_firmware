@@ -17,14 +17,12 @@
 #pragma once
 
 // Change number of LEDs for "RE layout".
-#ifdef RGB_MATRIX_ENABLE
-    #undef RGB_MATRIX_LED_COUNT
-    #define RGB_MATRIX_LED_COUNT 62
-#else
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 62
-#endif
+#undef RGB_MATRIX_LED_COUNT
+#define RGB_MATRIX_LED_COUNT 62
 
-#ifdef RGB_MATRIX_ENABLE
-    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#endif
+#undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+
+// LED index for DM_RECx indicator
+// NOTE: LED on R4 is connected from right to left. So, the index is inverted.
+#define LED_INDEX_R4_LEFT_INSIDE 49
+#define LED_INDEX_R4_RIGHT_INSIDE 48

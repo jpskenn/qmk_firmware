@@ -22,9 +22,6 @@
         "driver": "ws2812",
         "max_brightness": 128
     },
-    "rgblight": {
-        "max_brightness": 128
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "B1", "pin_b": "B2"}

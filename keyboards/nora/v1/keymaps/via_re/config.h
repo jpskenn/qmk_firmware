@@ -18,10 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // Change number of LEDs for "RE layout".
-#ifdef RGB_MATRIX_ENABLE
-    #undef RGB_MATRIX_LED_COUNT
-    #define RGB_MATRIX_LED_COUNT 62
-#else
-    #undef RGBLED_NUM
-    #define RGBLED_NUM 62
-#endif
+#undef RGB_MATRIX_LED_COUNT
+#define RGB_MATRIX_LED_COUNT 62

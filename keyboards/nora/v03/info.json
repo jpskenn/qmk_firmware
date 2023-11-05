@@ -23,6 +23,7 @@
         "max_brightness": 150
     },
     "rgblight": {
+        "led_count": 71,
         "max_brightness": 150
     },
     "layouts": {
