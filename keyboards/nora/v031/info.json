@@ -20,6 +20,10 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "hue_steps": 4,
+        "sat_steps": 8,
+        "speed_steps": 8,
+        "val_steps": 8,
         "max_brightness": 128
     },
     "encoder": {

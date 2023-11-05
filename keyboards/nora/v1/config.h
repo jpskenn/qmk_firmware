@@ -34,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGB_MATRIX_LED_COUNT 71
 
   #define RGB_MATRIX_STARTUP_VAL 40
-  #define RGB_MATRIX_HUE_STEP 4
-  #define RGB_MATRIX_SAT_STEP 8
-  #define RGB_MATRIX_VAL_STEP 8
-  #define RGB_MATRIX_SPD_STEP 8
 
   #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
   #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

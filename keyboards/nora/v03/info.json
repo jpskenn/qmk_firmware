@@ -20,11 +20,16 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "sat_steps": 8,
+        "speed_steps": 8,
+        "val_steps": 8,
         "max_brightness": 150
     },
     "rgblight": {
         "led_count": 71,
-        "max_brightness": 150
+        "max_brightness": 150,
+        "saturation_steps": 8,
+        "brightness_steps": 8
     },
     "layouts": {
         "LAYOUT": {

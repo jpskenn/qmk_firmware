@@ -20,17 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGBLIGHT */
 #ifdef RGB_MATRIX_ENABLE
   #define RGB_MATRIX_LED_COUNT 71
-  #define RGB_MATRIX_HUE_STEP 8
-  #define RGB_MATRIX_SAT_STEP 8
-  #define RGB_MATRIX_VAL_STEP 8
-  #define RGB_MATRIX_SPD_STEP 8
   #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
   #define RGB_MATRIX_KEYPRESSES
 
 #else
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_DEFAULT_VAL 127 /* The default brightness level */
   /* Lighting Layers */
   #define RGBLIGHT_LAYERS
