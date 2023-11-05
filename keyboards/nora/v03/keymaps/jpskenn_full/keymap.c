@@ -239,7 +239,7 @@ void dynamic_macro_play_user(int8_t direction) {
 }
 
 #ifndef RGB_MATRIX_ENABLE
-    void dynamic_macro_record_start_user(void) {
+    void dynamic_macro_record_start_user(int8_t direction) {
         rgblight_blink_layer_repeat(8, 250, 3);
     }
 

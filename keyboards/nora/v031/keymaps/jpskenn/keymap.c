@@ -221,7 +221,7 @@ void dynamic_macro_play_user(int8_t direction) {
 #endif
 #ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
-    void dynamic_macro_record_start_user(void) {
+    void dynamic_macro_record_start_user(int8_t direction) {
         rgblight_blink_layer_repeat(8, 250, 3);
     }
 

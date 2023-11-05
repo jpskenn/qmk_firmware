@@ -173,7 +173,7 @@ void dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
 }
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     //     // Before recording clears the layer status,
     // // check Num layer to store its status.
     // if (IS_LAYER_ON(_NUM)) {
