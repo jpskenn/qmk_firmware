@@ -23,13 +23,15 @@
         "sat_steps": 8,
         "speed_steps": 8,
         "val_steps": 8,
-        "max_brightness": 150
     },
     "rgblight": {
         "led_count": 71,
         "max_brightness": 150,
         "saturation_steps": 8,
-        "brightness_steps": 8
+        "brightness_steps": 8,
+        "animations": {
+            "tgb_test": true
+        }
     },
     "layouts": {
         "LAYOUT": {
