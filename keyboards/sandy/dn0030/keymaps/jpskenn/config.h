@@ -29,3 +29,6 @@
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_MAX_SPEED 5
 #define MOUSEKEY_TIME_TO_MAX 60
+
+/* Adjustment for better behaviour on mod-tap key */
+#define HOLD_ON_OTHER_KEY_PRESS
