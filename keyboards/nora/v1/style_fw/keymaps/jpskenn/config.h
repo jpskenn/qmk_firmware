@@ -16,13 +16,6 @@
 
 #pragma once
 
-#undef RGB_MATRIX_LED_COUNT
-#define RGB_MATRIX_LED_COUNT 64
-
-#undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-
 // LED index for DM_RECx indicator
 // NOTE: LED on R4 is connected from right to left. So, the index is inverted.
 #define LED_INDEX_R4_LEFT_INSIDE 49

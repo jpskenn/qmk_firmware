@@ -18,24 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-
-// Indicator LED
-#ifdef RGB_MATRIX_ENABLE
-
-    // LED Index to left & right space keys
-    #if RGB_MATRIX_LED_COUNT == 71 // "Full" layout
-        #define LED_INDEX_LSPC 64
-        #define LED_INDEX_RSPC 68
-    #endif
-
-    #if RGB_MATRIX_LED_COUNT == 64 // FW layout
-        #define LED_INDEX_LSPC 58
-        #define LED_INDEX_RSPC 61
-    #endif
-
-    #if RGB_MATRIX_LED_COUNT == 62 // RE layout
-        #define LED_INDEX_LSPC 56
-        #define LED_INDEX_RSPC 59
-    #endif
-
-#endif
