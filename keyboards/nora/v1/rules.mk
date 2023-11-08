@@ -9,6 +9,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio output
 ENCODER_ENABLE = no        # Rotary Encoder
+
+# Firmware size reduction & optimize
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
 LTO_ENABLE = yes
 
 # Use I2C connected External EEPROM
