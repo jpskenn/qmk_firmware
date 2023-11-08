@@ -189,6 +189,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+//------------------------------------------------------------------------------
+// Rotary Encoder with VIA
+//------------------------------------------------------------------------------
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_BASE1] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+    [_BASE2] = { ENCODER_CCW_CW(_______, _______) },
+    [_BASE3] = { ENCODER_CCW_CW(_______, _______) },
+    [_LOWER1] = { ENCODER_CCW_CW(_______, _______) },
+    [_LOWER2] = { ENCODER_CCW_CW(_______, _______) },
+    [_LOWER3] = { ENCODER_CCW_CW(_______, _______) },
+    [_RAISE1] = { ENCODER_CCW_CW(_______, _______) },
+    [_RAISE2] = { ENCODER_CCW_CW(_______, _______) },
+    [_RAISE3] = { ENCODER_CCW_CW(_______, _______) },
+    [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VERSION: // Output firmware info.
