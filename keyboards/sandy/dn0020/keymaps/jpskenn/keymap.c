@@ -85,6 +85,7 @@ enum custom_keycodes {
 #define GUI_LANG2  LGUI_T(KC_LNG2)
 #define ALT_LANG1  LALT_T(KC_LNG1)
 #define ALT_LANG2  LALT_T(KC_LNG2)
+#define CTL_LANG2  LCTL_T(KC_LNG2)
 
 #define MAC_SLP LAG(KC_EJCT)
 
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |--------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+--------------|
         XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        XXXXXXX,  XXXXXXX,  KC_LWIN,    ALT_LANG2,  SP_SFT,         SP_LOW1,  KC_BTN1,  BS_SFT,   SP_RAI1,        ALT_LANG1,  KC_APP,     XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  KC_LALT,    CTL_LANG2,  SP_SFT,         SP_LOW1,  KC_BTN1,  BS_SFT,   SP_RAI1,        GUI_LANG1,  KC_LCTL,    XXXXXXX,  XXXXXXX,
     // |---------+---------+-----------+-----------+---------------+---------+---------+---------+---------------+-----------+-----------+---------+---------|
                                                                               KC_MS_U,
     // |---------+---------+-------------------------------------------------+---------+-------------------------------------------------+---------+---------|
