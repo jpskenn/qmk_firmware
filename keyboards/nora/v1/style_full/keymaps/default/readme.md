@@ -1,4 +1,4 @@
-# Defalut keymap for Jones
+# Defalut keymap for Nora
 
 Simple keymap.
 
