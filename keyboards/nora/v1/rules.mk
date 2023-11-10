@@ -13,7 +13,6 @@ ENCODER_ENABLE = no        # Rotary Encoder
 # Firmware size reduction & optimization
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
-LTO_ENABLE = yes
 
 # Use I2C connected External EEPROM
 EEPROM_DRIVER = i2c
