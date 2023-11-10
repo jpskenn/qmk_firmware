@@ -1,4 +1,20 @@
 {
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "command": false,
+        "console": false,
+        "encoder": false,
+        "extrakey": true,
+        "grave_esc": false,
+        "lto": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": true,
+        "rgblight": false,
+        "space_cadet": false,
+        "via": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

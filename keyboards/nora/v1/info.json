@@ -28,5 +28,12 @@
         "rotary": [
             {"pin_a": "B1", "pin_b": "B2"}
         ]
+    },
+    "eeprom": {
+        "driver": "i2c"
+    },
+    "dynamic_keymap": {
+        "eeprom_max_addr": 8191,
+        "layer_count": 10
     }
 }
