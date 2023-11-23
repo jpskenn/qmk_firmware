@@ -1,4 +1,4 @@
-# Keymap for "Nora, Fearless Wings" with VIA support
+# Keymap for "Nora, Full layout" with VIA support
 
 For `Full layout`, VIA supported basic keymap with external EEPROM.
 
