@@ -1,4 +1,4 @@
-# Keymap for "Nora, Fearless Wings" with VIA support
+# Keymap for "Nora, RE" with VIA support
 
 For `RE layout`, VIA supported basic keymap with external EEPROM.
 Rotary encoder enabled.
