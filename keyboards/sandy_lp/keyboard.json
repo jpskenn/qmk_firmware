@@ -10,11 +10,17 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["GP15", "GP4", "GP6", "GP5", "GP7", "GP2", "GP3"],
         "rows": ["GP0", "GP8", "GP17", "GP13", "GP1", "GP9", "GP16", "GP14"]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP11", "pin_b": "GP10", "resolution": 2}
+        ]
     },
     "processor": "RP2040",
     "url": "https://github.com/jpskenn/SandyLP",
