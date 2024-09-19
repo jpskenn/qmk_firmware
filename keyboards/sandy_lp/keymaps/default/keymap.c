@@ -2,6 +2,29 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "version.h"
+
+// recording status flags for "Dynamic Macro"
+bool is_dm_rec1 = false;
+bool is_dm_rec2 = false;
+
+// // list of lighting layers
+// const rgblight_segment_t* const PROGMEM my_rgb_layers[];
+// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_low[];
+// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_middle[];
+// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_high[];
+// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_max[];
+
+// data to store EEPROM
+typedef union {
+    uint32_t raw;
+    struct {
+        // Layer indicator state
+        int8_t indicator_state :4;
+    };
+} user_config_t;
+
+user_config_t user_config;
 
 // layers
 enum layer_number {
@@ -21,7 +44,6 @@ enum custom_keycodes {
   BASE3,
   ADJUST,
   VERSION,
-  GUI_IME,
   KEY_WAIT,
   IND_TOG,
 };
@@ -154,9 +176,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KEY_WAIT, BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
+        KC_CAPS,  _______,  MAC_SLP,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             _______,  _______,  _______,  _______,  _______,  DM_REC1,  _______,  DM_REC2,  NUMERIC,  _______,  _______,  _______,  _______,
+             _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_RSTP,  DM_REC2,  NUMERIC,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -176,4 +198,108 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_RAISE1] = { ENCODER_CCW_CW(_______, _______) },
     [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
 };
+#endif
+
+//------------------------------------------------------------------------------
+// Handle key codes
+//------------------------------------------------------------------------------
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+        case BASE1: // Change default layer. If pressed with "Shift", write default layer to EEPROM.
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(_BASE1);
+                    return false;
+                }
+            }
+            return true;
+        case BASE2: // Change default layer. If pressed with "Shift", write default layer to EEPROM.
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(_BASE2);
+                    return false;
+                }
+            }
+            return true;
+        case DM_REC1: // Toggle recording status
+            if (record->event.pressed) {
+                is_dm_rec1 = true;
+            }
+            return true; // continue processing
+        case DM_REC2: // Toggle recording status
+            if (record->event.pressed) {
+                is_dm_rec2 = true;
+            }
+            return true; // continue processing
+        case KEY_WAIT: // Just wait specific time. Nice to use with Dynamic Macro.
+            if (record->event.pressed) {
+                wait_ms(250);
+            }
+            return false;
+        // case IND_TOG: // Toggle LED indicator status
+        //     if (record->event.pressed) {
+        //         switch (user_config.indicator_state) {
+        //             case 0: // off --> on(Brightness High)
+        //                 user_config.indicator_state++;
+        //                 rgblight_layers = my_rgb_layers;
+        //                 break;
+        //             case 1: // change brightness from High to Slightly
+        //                 user_config.indicator_state++;
+        //                 rgblight_layers = my_rgb_layers_dimmer_low;
+        //                 break;
+        //             case 2: // change brightness from Slightly to Middle
+        //                 user_config.indicator_state++;
+        //                 rgblight_layers = my_rgb_layers_dimmer_middle;
+        //                 break;
+        //             case 3: // change brightness from Middle to Low
+        //                 user_config.indicator_state++;
+        //                 rgblight_layers = my_rgb_layers_dimmer_high;
+        //                 break;
+        //             case 4: // change brightness from Low to Darkest
+        //                 user_config.indicator_state++;
+        //                 rgblight_layers = my_rgb_layers_dimmer_max;
+        //                 break;
+        //             case 5: // Darkest --> off
+        //                 user_config.indicator_state = 0;
+        //                 rgblight_layers = NULL;
+        //                 rgblight_sethsv_range(HSV_BLACK, 0, 2);
+        //                 break;
+        //         }
+        //         eeconfig_update_user(user_config.raw); // Write the new status to EEPROM
+        //     }
+        //     return false;
+        default:
+            break;
+    }
+    return true;
+}
+
+//------------------------------------------------------------------------------
+// Dynamic Macro
+//------------------------------------------------------------------------------
+bool dynamic_macro_play_user(int8_t direction) {
+    // Revert layer indicator, just after macro played.
+    // It returns to base layer. WHY???
+    layer_state_set_user(layer_state);
+    return true;
+}
+
+#ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
+    // Blink indicator when start / stop recorging.
+    bool dynamic_macro_record_start_user(int8_t direction) {
+        rgblight_blink_layer_repeat(9, 250, 3);//TODO マクロ記録中、ずっとブリンクならんの？
+        return true;
+    }
+
+    void dynamic_macro_record_end_user(int8_t direction) {
+        //TODO is_dm_rec1,2を使って、ダイナミックマクロ記録中に、ずっとBlinkさせたりできないか？
+        is_dm_rec1 = false;
+        is_dm_rec2 = false;
+        rgblight_blink_layer_repeat(10, 250, 3);
+    }
 #endif
