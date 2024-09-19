@@ -8,12 +8,12 @@
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
-// // list of lighting layers
-// const rgblight_segment_t* const PROGMEM my_rgb_layers[];
-// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_low[];
-// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_middle[];
-// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_high[];
-// const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_max[];
+// list of lighting layers
+const rgblight_segment_t* const PROGMEM my_rgb_layers[];
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_low[];
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_middle[];
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_high[];
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_max[];
 
 // data to store EEPROM
 typedef union {
@@ -296,10 +296,377 @@ bool dynamic_macro_play_user(int8_t direction) {
         return true;
     }
 
-    void dynamic_macro_record_end_user(int8_t direction) {
+    bool dynamic_macro_record_end_user(int8_t direction) {
         //TODO is_dm_rec1,2を使って、ダイナミックマクロ記録中に、ずっとBlinkさせたりできないか？
         is_dm_rec1 = false;
         is_dm_rec2 = false;
         rgblight_blink_layer_repeat(10, 250, 3);
+        return true;
     }
 #endif
+
+//------------------------------------------------------------------------------
+// RGB Light
+//------------------------------------------------------------------------------
+
+// Indicator LED settings
+#define ONBOARD_LED_INDICATOR_INDEX 0         // where to start indicator
+#define ONBOARD_LED_INDICATOR_COUNT 2         // how many leds used for indicator
+#define ONBOARD_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change for temporally layer
+#define ONBOARD_LED_INDICATOR_DIMMER_MIN 104     // dimmer level minimum(=default), default, high brightness
+#define ONBOARD_LED_INDICATOR_DIMMER_LOW 136     // dimmer level low, slightly bright
+#define ONBOARD_LED_INDICATOR_DIMMER_MIDDLE 168 // dimmer level middle, moderate
+#define ONBOARD_LED_INDICATOR_DIMMER_HIGH 200   // dimmer level high, darker
+#define ONBOARD_LED_INDICATOR_DIMMER_MAX 232    // dimmer level max, darkest
+
+// ---------- Brightness: High ---------
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_WHITE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_BLUE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+// for locking status
+const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_scroll_lock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_lower1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer,
+    my_base2_layer,
+    my_base3_layer,
+    my_caps_layer,
+    my_scroll_lock_layer,
+    my_lower1_layer,
+    my_lower2_layer,
+    my_raise_layer,
+    my_adjust_layer,
+    my_blink1_layer,
+    my_blink2_layer
+);
+
+// ---------- Brightness: Slightly Bright ---------
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_WHITE - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_BLUE - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+// for locking status
+const rgblight_segment_t PROGMEM my_caps_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_lower1_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_low[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_dimmer_low,
+    my_base2_layer_dimmer_low,
+    my_base3_layer_dimmer_low,
+    my_caps_layer_dimmer_low,
+    my_scroll_lock_layer_dimmer_low,
+    my_lower1_layer_dimmer_low,
+    my_lower2_layer_dimmer_low,
+    my_raise_layer_dimmer_low,
+    my_adjust_layer_dimmer_low,
+    my_blink1_layer_dimmer_low,
+    my_blink2_layer_dimmer_low
+);
+
+// ---------- Brightness: Middle ---------
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_WHITE - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_BLUE - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+// for locking status
+const rgblight_segment_t PROGMEM my_caps_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_lower1_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_middle[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_dimmer_middle,
+    my_base2_layer_dimmer_middle,
+    my_base3_layer_dimmer_middle,
+    my_caps_layer_dimmer_middle,
+    my_scroll_lock_layer_dimmer_middle,
+    my_lower1_layer_dimmer_middle,
+    my_lower2_layer_dimmer_middle,
+    my_raise_layer_dimmer_middle,
+    my_adjust_layer_dimmer_middle,
+    my_blink1_layer_dimmer_middle,
+    my_blink2_layer_dimmer_middle
+);
+
+// ---------- Brightness: Low ---------
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_WHITE - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_BLUE - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+// for locking status
+const rgblight_segment_t PROGMEM my_caps_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_lower1_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_high[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_dimmer_high,
+    my_base2_layer_dimmer_high,
+    my_base3_layer_dimmer_high,
+    my_caps_layer_dimmer_high,
+    my_scroll_lock_layer_dimmer_high,
+    my_lower1_layer_dimmer_high,
+    my_lower2_layer_dimmer_high,
+    my_raise_layer_dimmer_high,
+    my_adjust_layer_dimmer_high,
+    my_blink1_layer_dimmer_high,
+    my_blink2_layer_dimmer_high
+);
+
+// ---------- Brightness: Darkest ---------
+// for Default layer (= Base layer)
+const rgblight_segment_t PROGMEM my_base1_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_WHITE - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_base2_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_BLUE - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_base3_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_YELLOW - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+// for locking status
+const rgblight_segment_t PROGMEM my_caps_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_MAGENTA - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_scroll_lock_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX + 1 , 1, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+// for temporal layer
+const rgblight_segment_t PROGMEM my_lower1_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_GREEN - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_raise_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_RED - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_blink1_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_blink2_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_COUNT, HSV_PINK - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+// Define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_max[] = RGBLIGHT_LAYERS_LIST(
+    my_base1_layer_dimmer_max,
+    my_base2_layer_dimmer_max,
+    my_base3_layer_dimmer_max,
+    my_caps_layer_dimmer_max,
+    my_scroll_lock_layer_dimmer_max,
+    my_lower1_layer_dimmer_max,
+    my_lower2_layer_dimmer_max,
+    my_raise_layer_dimmer_max,
+    my_adjust_layer_dimmer_max,
+    my_blink1_layer_dimmer_max,
+    my_blink2_layer_dimmer_max
+);
+
+// Enabling and disabling lighting layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Set the layer status
+    if (state != update_tri_layer_state(state, _LOWER1, _RAISE1, _ADJUST)) {
+        state = update_tri_layer_state(state, _LOWER1, _RAISE1, _ADJUST);
+    } else {
+        state = update_tri_layer_state(state, _LOWER2, _RAISE1, _ADJUST);
+    }
+
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER1));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER2));
+    // rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER3));
+    rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE1));
+    // rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE2));
+    // rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE3));
+    rgblight_set_layer_state(8, layer_state_cmp(state, _ADJUST));
+
+    return state;
+}
+
+// Enabling and disabling lighting layers for default layer
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));//光らない。テンポラリはOK
+
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, led_state.caps_lock);
+    rgblight_set_layer_state(4, led_state.scroll_lock);
+
+    return true;
+}

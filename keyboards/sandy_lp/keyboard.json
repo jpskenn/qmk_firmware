@@ -11,7 +11,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true
+        "encoder": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP15", "GP4", "GP6", "GP5", "GP7", "GP2", "GP3"],
@@ -22,6 +23,25 @@
             {"pin_a": "GP11", "pin_b": "GP10", "resolution": 2}
         ]
     },
+    "rgblight": {
+        "led_count": 6,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true
+        },
+        "default": {
+            "val": 80
+        },
+        "layers": {
+            "blink": true,
+            "enabled": true,
+            "max": 11
+        }
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP19"
+    }
     "processor": "RP2040",
     "url": "https://github.com/jpskenn/SandyLP",
     "usb": {
