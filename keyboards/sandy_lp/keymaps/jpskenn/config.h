@@ -17,5 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* RGB Lighting */
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+/* Dynamic Keymap */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 7 // default:4

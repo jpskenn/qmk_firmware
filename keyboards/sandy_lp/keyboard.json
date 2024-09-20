@@ -41,13 +41,13 @@
     "ws2812": {
         "driver": "vendor",
         "pin": "GP19"
-    }
+    },
     "processor": "RP2040",
     "url": "https://github.com/jpskenn/SandyLP",
     "usb": {
         "device_version": "0.1.0",
-        "pid": "0xB9DD",
-        "vid": "0x4C50"
+        "pid": "0x4C50",
+        "vid": "0xB9DD"
     },
     "layouts": {
         "LAYOUT": {
