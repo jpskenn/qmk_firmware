@@ -241,38 +241,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 wait_ms(250);
             }
             return false;
-        // case IND_TOG: // Toggle LED indicator status
-        //     if (record->event.pressed) {
-        //         switch (user_config.indicator_state) {
-        //             case 0: // off --> on(Brightness High)
-        //                 user_config.indicator_state++;
-        //                 rgblight_layers = my_rgb_layers;
-        //                 break;
-        //             case 1: // change brightness from High to Slightly
-        //                 user_config.indicator_state++;
-        //                 rgblight_layers = my_rgb_layers_dimmer_low;
-        //                 break;
-        //             case 2: // change brightness from Slightly to Middle
-        //                 user_config.indicator_state++;
-        //                 rgblight_layers = my_rgb_layers_dimmer_middle;
-        //                 break;
-        //             case 3: // change brightness from Middle to Low
-        //                 user_config.indicator_state++;
-        //                 rgblight_layers = my_rgb_layers_dimmer_high;
-        //                 break;
-        //             case 4: // change brightness from Low to Darkest
-        //                 user_config.indicator_state++;
-        //                 rgblight_layers = my_rgb_layers_dimmer_max;
-        //                 break;
-        //             case 5: // Darkest --> off
-        //                 user_config.indicator_state = 0;
-        //                 rgblight_layers = NULL;
-        //                 rgblight_sethsv_range(HSV_BLACK, 0, 2);
-        //                 break;
-        //         }
-        //         eeconfig_update_user(user_config.raw); // Write the new status to EEPROM
-        //     }
-        //     return false;
+        case IND_TOG: // Toggle LED indicator status
+            if (record->event.pressed) {
+                switch (user_config.indicator_state) {
+                    case 0: // off --> on(Brightness High)
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers;
+                        break;
+                    case 1: // change brightness from High to Slightly
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_dimmer_low;
+                        break;
+                    case 2: // change brightness from Slightly to Middle
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_dimmer_middle;
+                        break;
+                    case 3: // change brightness from Middle to Low
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_dimmer_high;
+                        break;
+                    case 4: // change brightness from Low to Darkest
+                        user_config.indicator_state++;
+                        rgblight_layers = my_rgb_layers_dimmer_max;
+                        break;
+                    case 5: // Darkest --> off
+                        user_config.indicator_state = 0;
+                        rgblight_layers = NULL;
+                        rgblight_sethsv_range(HSV_BLACK, 0, 2);
+                        break;
+                }
+                eeconfig_update_user(user_config.raw); // Write the new status to EEPROM
+            }
+            return false;
         default:
             break;
     }
@@ -669,4 +669,47 @@ bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(4, led_state.scroll_lock);
 
     return true;
+}
+// ------------------------------------------------------------------------------
+// Keyboard Initialization
+// ------------------------------------------------------------------------------
+void keyboard_post_init_user(void) {
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+
+    // Enable the LED layers as stored state
+    switch (user_config.indicator_state) {
+        case 0: // off
+            rgblight_layers = NULL;
+            rgblight_sethsv_range(HSV_BLACK, 0, 2);
+            break;
+        case 1: // Brightness: High
+            rgblight_layers = my_rgb_layers;
+            break;
+        case 2: // Brightness: Slightly
+            rgblight_layers = my_rgb_layers_dimmer_low;
+            break;
+        case 3: // Brightness: Middle
+            rgblight_layers = my_rgb_layers_dimmer_middle;
+            break;
+        case 4: // Brightness: Low
+            rgblight_layers = my_rgb_layers_dimmer_high;
+            break;
+        case 5: // Brightness: Darkest
+            rgblight_layers = my_rgb_layers_dimmer_max;
+            break;
+    }
+
+    // prevent RGB light overrides layer indicator.
+    layer_state_set(default_layer_state);
+}
+
+// ------------------------------------------------------------------------------
+// EEPROM Initialization, EEPROM is getting reset!
+// ------------------------------------------------------------------------------
+void eeconfig_init_user(void) {
+    // write user configuration to EEPROM
+    user_config.raw = 0;
+    user_config.indicator_state = 1; // Layer indicator LED state: 0 = on(brightness = high)
+    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 }
