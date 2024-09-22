@@ -34,6 +34,7 @@ enum layer_number {
     _LOWER1,
     _LOWER2,
     _RAISE1,
+    _RAISE2,
     _ADJUST,
 };
 
@@ -74,7 +75,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE1] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_BASE2] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
@@ -96,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_BASE3] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_LOWER1] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KC_TILD,  KC_EXLM,   KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_TILD,  KC_PIPE,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
@@ -118,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_LOWER2] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
@@ -128,19 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LOPT,  GUI_LANG2,SP_SFT,     _______,  KC_BTN1,  KC_BTN2,  SP_RAI1,    GUI_LANG1,KC_ROPT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
-    // [_LOWER3] = LAYOUT(
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-    //          _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-    //                       _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
-    // // |-------------------------------------------------------------------------------------------------------------------------------------------|
-    // ),
     [_RAISE1] = LAYOUT(
-    // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,  _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  KC_GRV,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
@@ -150,30 +140,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    KC_VOLD,  KC_VOLU
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
-    // [_RAISE2] = LAYOUT(
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     KC_ESC,   JP_1,     JP_2,     JP_3,     JP_4,     JP_5,     _______,  _______,  JP_6,     JP_7,     JP_8,     JP_9,     JP_0,     KC_DEL,
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,   _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
-    // // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-    //          KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F12,   _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,
-    // //|-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-    //                      _______,  _______,  _______,    KC_DEL,   _______,  _______,  _______,    _______,  _______
-    // // |-------------------------------------------------------------------------------------------------------------------------------------------|
-    // ),
-    // [_RAISE3] = LAYOUT(
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-    //     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-    //          _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    // // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-    //                       _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
-    // // |-------------------------------------------------------------------------------------------------------------------------------------------|
-    // ),
-    [_ADJUST] = LAYOUT(
+    [_RAISE2] = LAYOUT(
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
+             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
+                         _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
+    ),
+    [_ADJUST] = LAYOUT(
+    // |-------------------------------------------------------------------------------------------------------------------------------------------|
         KEY_WAIT, BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KC_CAPS,  _______,  MAC_SLP,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
@@ -196,6 +175,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LOWER1] = { ENCODER_CCW_CW(_______, _______) },
     [_LOWER2] = { ENCODER_CCW_CW(_______, _______) },
     [_RAISE1] = { ENCODER_CCW_CW(_______, _______) },
+    [_RAISE2] = { ENCODER_CCW_CW(_______, _______) },
     [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
 };
 #endif
@@ -351,8 +331,12 @@ const rgblight_segment_t PROGMEM my_lower2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_raise1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MIN}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -376,7 +360,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_scroll_lock_layer,
     my_lower1_layer,
     my_lower2_layer,
-    my_raise_layer,
+    my_raise1_layer,
+    my_raise2_layer,
     my_adjust_layer,
     my_blink1_layer,
     my_blink2_layer
@@ -414,8 +399,12 @@ const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_low[] = RGBLIGHT_LAYER_S
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_LOW}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_raise1_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_LOW}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_low[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -439,7 +428,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_low[] = RGBLIGHT_LA
     my_scroll_lock_layer_dimmer_low,
     my_lower1_layer_dimmer_low,
     my_lower2_layer_dimmer_low,
-    my_raise_layer_dimmer_low,
+    my_raise1_layer_dimmer_low,
+    my_raise2_layer_dimmer_low,
     my_adjust_layer_dimmer_low,
     my_blink1_layer_dimmer_low,
     my_blink2_layer_dimmer_low
@@ -477,8 +467,12 @@ const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_middle[] = RGBLIGHT_LAYE
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_raise1_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MIDDLE}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_middle[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -502,7 +496,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_middle[] = RGBLIGHT
     my_scroll_lock_layer_dimmer_middle,
     my_lower1_layer_dimmer_middle,
     my_lower2_layer_dimmer_middle,
-    my_raise_layer_dimmer_middle,
+    my_raise1_layer_dimmer_low,
+    my_raise2_layer_dimmer_middle,
     my_adjust_layer_dimmer_middle,
     my_blink1_layer_dimmer_middle,
     my_blink2_layer_dimmer_middle
@@ -540,8 +535,12 @@ const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_high[] = RGBLIGHT_LAYER_
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_raise1_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_HIGH}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_high[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -565,7 +564,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_high[] = RGBLIGHT_L
     my_scroll_lock_layer_dimmer_high,
     my_lower1_layer_dimmer_high,
     my_lower2_layer_dimmer_high,
-    my_raise_layer_dimmer_high,
+    my_raise1_layer_dimmer_low,
+    my_raise2_layer_dimmer_high,
     my_adjust_layer_dimmer_high,
     my_blink1_layer_dimmer_high,
     my_blink2_layer_dimmer_high
@@ -603,8 +603,12 @@ const rgblight_segment_t PROGMEM my_lower2_layer_dimmer_max[] = RGBLIGHT_LAYER_S
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - ONBOARD_LED_INDICATOR_DIMMER_MAX}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM my_raise1_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_CYAN - ONBOARD_LED_INDICATOR_DIMMER_MAX}
+);
+
+const rgblight_segment_t PROGMEM my_raise2_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDICATOR_INDEX , ONBOARD_LED_INDICATOR_CHANGE_COUNT, HSV_ORANGE - ONBOARD_LED_INDICATOR_DIMMER_MIN}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_dimmer_max[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -628,7 +632,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_dimmer_max[] = RGBLIGHT_LA
     my_scroll_lock_layer_dimmer_max,
     my_lower1_layer_dimmer_max,
     my_lower2_layer_dimmer_max,
-    my_raise_layer_dimmer_max,
+    my_raise1_layer_dimmer_low,
+    my_raise2_layer_dimmer_max,
     my_adjust_layer_dimmer_max,
     my_blink1_layer_dimmer_max,
     my_blink2_layer_dimmer_max
@@ -646,11 +651,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
     rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER1));
     rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER2));
-    // rgblight_set_layer_state(4, layer_state_cmp(state, _LOWER3));
     rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE1));
-    // rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE2));
-    // rgblight_set_layer_state(5, layer_state_cmp(state, _RAISE3));
-    rgblight_set_layer_state(8, layer_state_cmp(state, _ADJUST));
+    rgblight_set_layer_state(8, layer_state_cmp(state, _RAISE2));
+    rgblight_set_layer_state(9, layer_state_cmp(state, _ADJUST));
 
     return state;
 }
