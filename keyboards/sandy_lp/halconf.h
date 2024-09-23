@@ -17,12 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Dynamic Keymap */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8 // default:4
+#include_next <halconf.h>
 
-/* Audio */
-#define AUDIO_PIN GP18
-#define AUDIO_PWM_DRIVER PWMD1
-#define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
-#define AUDIO_INIT_DELAY
-#define AUDIO_CLICKY
+#undef HAL_USE_PWM
+#define HAL_USE_PWM TRUE
