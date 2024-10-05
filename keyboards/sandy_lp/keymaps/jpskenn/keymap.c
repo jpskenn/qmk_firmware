@@ -18,6 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+// PROTOTYPE
+void update_led_counter(void);
+bool update_led_color(int *);
+bool update_color(int *, int);
+
+// LED counter
+int led_0_color[3] = {0, 0, 0};
+int led_1_color[3] = {0, 0, 0};
+int led_2_color[3] = {0, 0, 0};
+
 // recording status flags for "Dynamic Macro"
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
@@ -66,6 +76,7 @@ enum custom_keycodes {
   VERSION,
   KEY_WAIT,
   IND_TOG,
+  LED_RST,
 };
 
 // key code macros
@@ -178,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    LED_RST,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
@@ -219,7 +230,18 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 // Handle key codes
 //------------------------------------------------------------------------------
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        update_led_counter(); // 何かキーが押されたら、LEDカウンタを更新。
+    }
     switch (keycode) {
+        case LED_RST: // Reset LED counter to Zero.
+            if (record->event.pressed) {
+                rgblight_setrgb_range(0, 0, 0, 0, 2);
+                for(int i=0; i < 3; i++) {led_0_color[i] = 0;}
+                for(int i=0; i < 3; i++) {led_1_color[i] = 0;}
+                for(int i=0; i < 3; i++) {led_2_color[i] = 0;}
+            }
+            return false;
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
@@ -313,7 +335,49 @@ bool dynamic_macro_play_user(int8_t direction) {
 #endif
 
 //------------------------------------------------------------------------------
-// RGB Light
+// RGB Light: LED Counter
+//------------------------------------------------------------------------------
+void update_led_counter() {
+    // LED色を表示（左右3個ずつペア）
+    rgblight_setrgb_at(led_0_color[0], led_0_color[1], led_0_color[2], 0);
+    rgblight_setrgb_at(led_1_color[0], led_1_color[1], led_1_color[2], 1);
+    rgblight_setrgb_at(led_2_color[0], led_2_color[1], led_2_color[2], 2);
+
+    rgblight_setrgb_at(led_0_color[0], led_0_color[1], led_0_color[2], 3);
+    rgblight_setrgb_at(led_1_color[0], led_1_color[1], led_1_color[2], 4);
+    rgblight_setrgb_at(led_2_color[0], led_2_color[1], led_2_color[2], 5);
+
+    // LED色を更新し、LED色が一周した場合のみ次のLED色を更新する。
+    if(update_led_color(led_0_color)) {
+        if(update_led_color(led_1_color)) {
+            update_led_color(led_2_color);
+        }
+    }
+}
+
+bool update_led_color(int led_color[]) {
+    if(update_color(led_color, 0)){             // R
+        if(update_color(led_color, 1)) {        // G
+            if(update_color(led_color, 2)) {    // B
+                return true; // LED色が1周したときtrue
+            }
+        }
+    }
+    return false;
+}
+
+bool update_color(int led_color[], int index) {
+    if(led_color[index] == 0) { // 取りうる値は、0 または 現在のLEDの明るさ のみ。
+        led_color[index] = rgblight_get_val(); // 現在のLEDの明るさをLED色としてセットする。
+        return false;
+    } else {
+        led_color[index] = 0;
+        return true;
+    }
+}
+
+//------------------------------------------------------------------------------
+// RGB Light: Lighting Layers
 //------------------------------------------------------------------------------
 
 // ---------- Both side ---------
