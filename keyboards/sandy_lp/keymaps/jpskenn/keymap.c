@@ -1,5 +1,19 @@
-// Copyright 2023 QMK
-// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+Copyright 2024 Takeshi Nishio
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include QMK_KEYBOARD_H
 #include "version.h"
@@ -87,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  ESC_BASE3,KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         CTL_TAB,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  MAC_PSCR, KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
-    //  CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+    //  CTL_TAB,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  KC_ESC,   DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
@@ -99,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
     //  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  WIN_PSCR, _______,  _______,  _______,  _______,  _______,  _______,
     //  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
              _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -120,11 +134,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KC_TILD,  KC_EXLM,   KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_TILD,  KC_PIPE,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,
+        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,   KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  
+             KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  _______,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,    _______
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -168,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  BASE3,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
+             AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  BASE3,  KC_NUM,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -344,8 +358,8 @@ const rgblight_segment_t PROGMEM my_raise1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM my_raise2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_SECOND, 1, HSV_ORANGE},
-    {ONBOARD_LED_INDEX_SECOND + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_ORANGE}
+    {ONBOARD_LED_INDEX_SECOND, 1, HSV_PURPLE},
+    {ONBOARD_LED_INDEX_SECOND + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_PURPLE}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -415,7 +429,7 @@ const rgblight_segment_t PROGMEM my_raise1_layer_left_only[] = RGBLIGHT_LAYER_SE
 );
 
 const rgblight_segment_t PROGMEM my_raise2_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_SECOND, 1, HSV_ORANGE}
+    {ONBOARD_LED_INDEX_SECOND, 1, HSV_PURPLE}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -484,7 +498,7 @@ const rgblight_segment_t PROGMEM my_raise1_layer_right_only[] = RGBLIGHT_LAYER_S
 );
 
 const rgblight_segment_t PROGMEM my_raise2_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_SECOND + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_ORANGE}
+    {ONBOARD_LED_INDEX_SECOND + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_PURPLE}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -524,7 +538,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         state = update_tri_layer_state(state, _LOWER2, _RAISE1, _ADJUST);
     }
 
-    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
     rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER1));
     rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER2));
     rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE1));
@@ -538,7 +551,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _BASE1));
     rgblight_set_layer_state(1, layer_state_cmp(state, _BASE2));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));//光らない。テンポラリはOK
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3));
 
     return state;
 }
