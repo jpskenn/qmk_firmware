@@ -29,6 +29,7 @@ bool update_led_color(int *);
 bool update_color(int *, int);
 
 // LED counter
+bool is_led_counter_enabled = false;
 int led_0_color[3] = {0, 0, 0};
 int led_1_color[3] = {0, 0, 0};
 int led_2_color[3] = {0, 0, 0};
@@ -81,7 +82,8 @@ enum custom_keycodes {
   VERSION,
   KEY_WAIT,
   IND_TOG,
-  LED_RST,
+  LCTR_RST,
+  LCTR_TOG,
 };
 
 // key code macros
@@ -194,9 +196,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    LED_RST,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
+        KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  LCTR_TOG, RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
              AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  BASE3,  KC_NUM,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
@@ -235,11 +237,21 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 // Handle key codes
 //------------------------------------------------------------------------------
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
+    if (is_led_counter_enabled && record->event.pressed) {
         update_led_counter(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
-        case LED_RST: // Reset LED counter to Zero.
+        case LCTR_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
+            if (record->event.pressed) {
+                if(is_led_counter_enabled) {
+                    rgblight_set_effect_range(0, 6);
+                } else {
+                    rgblight_set_effect_range(0, 0);
+                }
+                is_led_counter_enabled = !is_led_counter_enabled;
+            }
+            return false;
+        case LCTR_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
                 rgblight_setrgb_range(0, 0, 0, 0, 2);
                 for(int i=0; i < 3; i++) {led_0_color[i] = 0;}
