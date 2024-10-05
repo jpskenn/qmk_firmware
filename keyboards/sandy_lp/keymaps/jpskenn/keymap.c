@@ -55,59 +55,65 @@ enum custom_keycodes {
 };
 
 // key code macros
-#define ESC_BASE3 LT(_BASE3, KC_ESC)
-#define ZH_BASE3 LT(_BASE3, JP_ZKHK)
-#define SP_LOW1  LT(_LOWER1, KC_SPC)
-#define SP_RAI1  LT(_RAISE1, KC_SPC)
-#define SP_LOW2  LT(_LOWER2, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
+#define ESC_BASE3   LT(_BASE3, KC_ESC)
+#define ZH_BASE3    LT(_BASE3, JP_ZKHK)
+#define SP_LOW1     LT(_LOWER1, KC_SPC)
+#define SP_RAI1     LT(_RAISE1, KC_SPC)
+#define SP_LOW2     LT(_LOWER2, KC_SPC)
+#define SP_ADJ      LT(_ADJUST, KC_SPC)
 
-#define SP_SFT  LSFT_T(KC_SPC)
-#define BS_SFT  LSFT_T(KC_BSPC)
+#define SP_SFT      LSFT_T(KC_SPC)
+#define BS_SFT      LSFT_T(KC_BSPC)
 
-#define CTL_ESC   LCTL_T(KC_ESC)
+#define CTL_TAB     LCTL_T(KC_TAB)
 
-#define BASE1   DF(_BASE1)
-#define BASE2   DF(_BASE2)
-#define NUMERIC TG(_BASE3)
+#define BASE1       DF(_BASE1)
+#define BASE2       DF(_BASE2)
+#define BASE3       TG(_BASE3)
 
-#define GUI_LANG1  LGUI_T(KC_LNG1)
-#define GUI_LANG2  LGUI_T(KC_LNG2)
-#define ALT_LANG1  LALT_T(KC_LNG1)
-#define ALT_LANG2  LALT_T(KC_LNG2)
+#define CMD_LANG1   LGUI_T(KC_LNG1)
+#define CMD_LANG2   LGUI_T(KC_LNG2)
+#define CTL_LANG1   LALT_T(KC_LNG1)
+#define CTL_LANG2   LALT_T(KC_LNG2)
 
-#define MAC_SLP LAG(KC_EJCT)
+#define MAC_SLP     LAG(KC_EJCT)
+#define MAC_PSCR    LSG(KC_5)
+#define WIN_PSCR    LSG(KC_S)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+        ESC_BASE3,KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+    //  ESC_BASE3,KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+        CTL_TAB,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  MAC_PSCR, KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+    //  CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
+             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  KC_ESC,   DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-                          KC_LOPT,  GUI_LANG2,SP_SFT,     SP_LOW1,  KC_BTN1,  BS_SFT,   SP_RAI1,    GUI_LANG1,KC_ROPT
+                          KC_LOPT,  CMD_LANG2,SP_SFT,     SP_LOW1,  KC_MUTE,  BS_SFT,   SP_RAI1,    CMD_LANG1,KC_ROPT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_BASE2] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+        _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
+    //  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+        _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
+    //  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  XXXXXXX,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
+             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-                          KC_LWIN,  ALT_LANG2,SP_SFT,   SP_LOW1,    KC_BTN1,  BS_SFT,   SP_RAI1,  ALT_LANG1,  KC_APP
+                          KC_LALT,  CTL_LANG2,_______,    _______,  _______,  _______,  _______,    CTL_LANG1,  KC_LWIN
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_BASE3] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    _______,
+             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_EQL,   KC_P1,    KC_P2,    KC_P3,    KC_CALC,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    SP_LOW2,  _______,  _______,  _______,    KC_P0,      KC_PDOT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -125,22 +131,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER2] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+        KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
+        CTL_TAB,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  MAC_PSCR, KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  _______,  DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
+             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DM_PLY1,  KC_ESC,   DM_PLY2,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
-                          KC_LOPT,  GUI_LANG2,SP_SFT,     _______,  KC_BTN1,  KC_BTN2,  SP_RAI1,    GUI_LANG1,KC_ROPT
+                          KC_LOPT,  CMD_LANG2,SP_SFT,     _______,  KC_MUTE,  BS_SFT,   SP_RAI1,    CMD_LANG1,KC_ROPT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_RAISE1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,  _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
+        KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_MINS,  KC_EQL,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        _______,  KC_GRV,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
+        _______,  KC_GRV,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_UNDS,  KC_PLUS,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_VOLD,  KC_VOLU,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,
+             KC_TILD,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    KC_VOLD,  KC_VOLU
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -158,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, BASE1,    BASE2,    NUMERIC,  _______,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        KC_CAPS,  _______,  MAC_SLP,  _______,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
+        KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_RSTP,  DM_REC2,  NUMERIC,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
+             AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  BASE3,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+  ---------+---------+---------+---------+--------  -+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -174,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //------------------------------------------------------------------------------
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_BASE1] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+    [_BASE1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_BASE2] = { ENCODER_CCW_CW(_______, _______) },
     [_BASE3] = { ENCODER_CCW_CW(_______, _______) },
     [_LOWER1] = { ENCODER_CCW_CW(_______, _______) },
@@ -184,6 +190,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
 };
 #endif
+
+//------------------------------------------------------------------------------
+// Audio
+//------------------------------------------------------------------------------
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
+    36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+     9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 
+     0,  1,  2,  3,  4,  5,  6,  7,  8
+);
 
 //------------------------------------------------------------------------------
 // Handle key codes
