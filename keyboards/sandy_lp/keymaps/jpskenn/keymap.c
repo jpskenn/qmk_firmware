@@ -17,6 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "audio.h"
+
+// Audio settings in EEPROM. Enable audio, but not turn ON by default.
+// Also see eeconfig_init_user().
+extern audio_config_t audio_config;
 
 // PROTOTYPE
 void update_led_counter(void);
@@ -663,8 +668,15 @@ void keyboard_post_init_user(void) {
 // EEPROM Initialization, EEPROM is getting reset!
 // ------------------------------------------------------------------------------
 void eeconfig_init_user(void) {
-    // write user configuration to EEPROM
+    // user configuration
     user_config.raw = 0;
     user_config.indicator_state = 1; // Layer indicator LED state: 0 = on(brightness = high)
     eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
+
+    // Audio settings
+    audio_config.raw = eeconfig_read_audio();
+    audio_config.valid = true; // これをtrueにしておかないと、audio.cで初期化されていないと判断され、ここでの設定内容が上書きされてしまう。
+    audio_config.enable = false; // Audio機能の初期状態はOFF。ファームウェア開発中に書き換えするたびにピロピロ鳴ってうるさいので、落ち着いたら自分でONにする運用。
+    audio_config.clicky_enable = true;
+    eeconfig_update_audio(audio_config.raw);
 }
