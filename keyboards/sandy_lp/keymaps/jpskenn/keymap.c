@@ -105,8 +105,8 @@ enum custom_keycodes {
 
 #define CMD_LANG1   LGUI_T(KC_LNG1)
 #define CMD_LANG2   LGUI_T(KC_LNG2)
-#define CTL_LANG1   LALT_T(KC_LNG1)
-#define CTL_LANG2   LALT_T(KC_LNG2)
+#define CTL_LANG1   LCTL_T(KC_LNG1)
+#define CTL_LANG2   LCTL_T(KC_LNG2)
 
 #define MAC_SLP     LAG(KC_EJCT)
 #define MAC_PSCR    LSG(KC_5)
