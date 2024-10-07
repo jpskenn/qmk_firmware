@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case LCTR_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
-                rgblight_setrgb_range(0, 0, 0, 0, 2);
+                rgblight_setrgb_range(0, 0, 0, 0, 5);
                 for(int i=0; i < 3; i++) {led_0_color[i] = 0;}
                 for(int i=0; i < 3; i++) {led_1_color[i] = 0;}
                 for(int i=0; i < 3; i++) {led_2_color[i] = 0;}
