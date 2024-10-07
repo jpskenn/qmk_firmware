@@ -619,6 +619,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         state = update_tri_layer_state(state, _LOWER2, _RAISE1, _ADJUST);
     }
 
+    rgblight_set_layer_state(2, layer_state_cmp(state, _BASE3)); // for TG(_BASE3)
     rgblight_set_layer_state(5, layer_state_cmp(state, _LOWER1));
     rgblight_set_layer_state(6, layer_state_cmp(state, _LOWER2));
     rgblight_set_layer_state(7, layer_state_cmp(state, _RAISE1));
