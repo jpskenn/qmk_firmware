@@ -246,6 +246,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgblight_set_effect_range(0, 6);
                 } else {
                     rgblight_set_effect_range(0, 0);
+                    rgblight_sethsv_range(0, 0, 0, 0, 6);
+                    led_0_hue = 0;
+                    led_1_hue = 0;
+                    led_2_hue = 0;
                 }
                 is_led_counter_enabled = !is_led_counter_enabled;
             }
