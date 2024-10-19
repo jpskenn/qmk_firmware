@@ -25,14 +25,13 @@ extern audio_config_t audio_config;
 
 // PROTOTYPE
 void update_led_counter(void);
-bool update_led_color(int *);
-bool update_color(int *, int);
+bool update_led_hue(int *);
 
 // LED counter
 bool is_led_counter_enabled = false;
-int led_0_color[3] = {0, 0, 0};
-int led_1_color[3] = {0, 0, 0};
-int led_2_color[3] = {0, 0, 0};
+int led_0_hue = 0;
+int led_1_hue = 0;
+int led_2_hue = 0;
 
 // recording status flags for "Dynamic Macro"
 bool is_dm_rec1 = false;
@@ -254,9 +253,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LCTR_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
                 rgblight_setrgb_range(0, 0, 0, 0, 5);
-                for(int i=0; i < 3; i++) {led_0_color[i] = 0;}
-                for(int i=0; i < 3; i++) {led_1_color[i] = 0;}
-                for(int i=0; i < 3; i++) {led_2_color[i] = 0;}
+                led_0_hue = 0;
+                led_1_hue = 0;
+                led_2_hue = 0;
             }
             return false;
         case VERSION: // Output firmware info.
@@ -350,39 +349,28 @@ bool dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 void update_led_counter() {
     // LED色を表示（左右3個ずつペア）
-    rgblight_setrgb_at(led_0_color[0], led_0_color[1], led_0_color[2], 0);
-    rgblight_setrgb_at(led_1_color[0], led_1_color[1], led_1_color[2], 1);
-    rgblight_setrgb_at(led_2_color[0], led_2_color[1], led_2_color[2], 2);
+    rgblight_sethsv_at(led_0_hue, 255, rgblight_get_val(), 0);
+    rgblight_sethsv_at(led_1_hue, 255, rgblight_get_val(), 1);
+    rgblight_sethsv_at(led_2_hue, 255, rgblight_get_val(), 2);
 
-    rgblight_setrgb_at(led_0_color[0], led_0_color[1], led_0_color[2], 3);
-    rgblight_setrgb_at(led_1_color[0], led_1_color[1], led_1_color[2], 4);
-    rgblight_setrgb_at(led_2_color[0], led_2_color[1], led_2_color[2], 5);
+    rgblight_sethsv_at(led_0_hue, 255, rgblight_get_val(), 3);
+    rgblight_sethsv_at(led_1_hue, 255, rgblight_get_val(), 4);
+    rgblight_sethsv_at(led_2_hue, 255, rgblight_get_val(), 5);
 
     // LED色を更新し、LED色が一周した場合のみ次のLED色を更新する。
-    if(update_led_color(led_0_color)) {
-        if(update_led_color(led_1_color)) {
-            update_led_color(led_2_color);
+    if(update_led_hue(&led_0_hue)) {
+        if(update_led_hue(&led_1_hue)) {
+            update_led_hue(&led_2_hue);
         }
     }
 }
 
-bool update_led_color(int led_color[]) {
-    if(update_color(led_color, 0)){             // R
-        if(update_color(led_color, 1)) {        // G
-            if(update_color(led_color, 2)) {    // B
-                return true; // LED色が1周したときtrue
-            }
-        }
-    }
-    return false;
-}
-
-bool update_color(int led_color[], int index) {
-    if(led_color[index] == 0) { // 取りうる値は、0 または 現在のLEDの明るさ のみ。
-        led_color[index] = rgblight_get_val(); // 現在のLEDの明るさをLED色としてセットする。
+bool update_led_hue(int *led_hue) {
+    *led_hue += 32;
+    if(*led_hue < 255) {
         return false;
-    } else {
-        led_color[index] = 0;
+    } else { // 255を超えてhueが一周したら、0にリセット。
+        *led_hue = 0;
         return true;
     }
 }
