@@ -195,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, BASE1,    BASE2,    BASE3,  _______,  MAC_SLP,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, BASE1,    BASE2,    BASE3,  MAC_SLP,  _______,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  LCTR_TOG, RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
