@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern audio_config_t audio_config;
 
 // PROTOTYPE
+void initialize_led_counter(void);
 void update_led_counter(void);
 bool update_led_hue(int *);
 
@@ -246,20 +247,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgblight_set_effect_range(0, 6);
                 } else {
                     rgblight_set_effect_range(0, 0);
-                    rgblight_sethsv_range(0, 0, 0, 0, 6);
-                    led_0_hue = 0;
-                    led_1_hue = 0;
-                    led_2_hue = 0;
+                    initialize_led_counter();
                 }
                 is_led_counter_enabled = !is_led_counter_enabled;
             }
             return false;
         case LCTR_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
-                rgblight_sethsv_range(0, 0, 0, 0, 6);
-                led_0_hue = 0;
-                led_1_hue = 0;
-                led_2_hue = 0;
+                initialize_led_counter();
             }
             return false;
         case VERSION: // Output firmware info.
@@ -351,7 +346,21 @@ bool dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 // RGB Light: LED Counter
 //------------------------------------------------------------------------------
+void initialize_led_counter() {
+    rgblight_sethsv_range(0, 255, rgblight_get_val(), 0, 6);
+    led_0_hue = 0;
+    led_1_hue = 0;
+    led_2_hue = 0;
+}
+
 void update_led_counter() {
+    // LED色を更新し、LED色が一周した場合のみ次のLED色を更新する。
+    if(update_led_hue(&led_0_hue)) {
+        if(update_led_hue(&led_1_hue)) {
+            update_led_hue(&led_2_hue);
+        }
+    }
+
     // LED色を表示（左右3個ずつペア）
     rgblight_sethsv_at(led_0_hue, 255, rgblight_get_val(), 0);
     rgblight_sethsv_at(led_1_hue, 255, rgblight_get_val(), 1);
@@ -360,13 +369,6 @@ void update_led_counter() {
     rgblight_sethsv_at(led_0_hue, 255, rgblight_get_val(), 3);
     rgblight_sethsv_at(led_1_hue, 255, rgblight_get_val(), 4);
     rgblight_sethsv_at(led_2_hue, 255, rgblight_get_val(), 5);
-
-    // LED色を更新し、LED色が一周した場合のみ次のLED色を更新する。
-    if(update_led_hue(&led_0_hue)) {
-        if(update_led_hue(&led_1_hue)) {
-            update_led_hue(&led_2_hue);
-        }
-    }
 }
 
 bool update_led_hue(int *led_hue) {
