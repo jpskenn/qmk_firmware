@@ -29,10 +29,11 @@ void update_led_counter(void);
 bool update_led_hue(int *);
 
 // LED counter
+#define LED_COUNTER_DEFAULT_HUE 224
 bool is_led_counter_enabled = false;
-int led_0_hue = 0;
-int led_1_hue = 0;
-int led_2_hue = 0;
+int led_0_hue = LED_COUNTER_DEFAULT_HUE;
+int led_1_hue = LED_COUNTER_DEFAULT_HUE;
+int led_2_hue = LED_COUNTER_DEFAULT_HUE;
 
 // recording status flags for "Dynamic Macro"
 bool is_dm_rec1 = false;
@@ -54,8 +55,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_right_only[];
 typedef union {
     uint32_t raw;
     struct {
-        // Layer indicator state
-        int8_t indicator_state :4;
+        uint8_t indicator_state :8; // Layer indicator state
+        bool is_led_counter_enabled :1; // LED counter enabled
     };
 } user_config_t;
 
@@ -250,6 +251,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     initialize_led_counter();
                 }
                 is_led_counter_enabled = !is_led_counter_enabled;
+
+                // Write to EEPROM
+                user_config.is_led_counter_enabled = is_led_counter_enabled;
+                eeconfig_update_user(user_config.raw);
             }
             return false;
         case LCTR_RST: // Reset LED counter to Zero.
@@ -347,10 +352,10 @@ bool dynamic_macro_play_user(int8_t direction) {
 // RGB Light: LED Counter
 //------------------------------------------------------------------------------
 void initialize_led_counter() {
-    rgblight_sethsv_range(0, 255, rgblight_get_val(), 0, 6);
-    led_0_hue = 0;
-    led_1_hue = 0;
-    led_2_hue = 0;
+    rgblight_sethsv_range(LED_COUNTER_DEFAULT_HUE, 255, rgblight_get_val(), 0, 6);
+    led_0_hue = LED_COUNTER_DEFAULT_HUE;
+    led_1_hue = LED_COUNTER_DEFAULT_HUE;
+    led_2_hue = LED_COUNTER_DEFAULT_HUE;
 }
 
 void update_led_counter() {
@@ -661,6 +666,9 @@ void keyboard_post_init_user(void) {
             break;
     }
 
+    // Restore LED conter enabled / disabled
+    is_led_counter_enabled = user_config.is_led_counter_enabled;
+
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
 }
@@ -672,6 +680,7 @@ void eeconfig_init_user(void) {
     // user configuration
     user_config.raw = 0;
     user_config.indicator_state = 1; // Layer indicator LED state: 1 = Both side
+    user_config.is_led_counter_enabled = false; // LED counter enabled: false
     eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 
     // Audio settings
