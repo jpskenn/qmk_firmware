@@ -646,13 +646,13 @@ void keyboard_post_init_user(void) {
             rgblight_layers = NULL;
             rgblight_sethsv_range(HSV_BLACK, 0, 2);
             break;
-        case 1: // Brightness: High
+        case 1: // Bothside
             rgblight_layers = my_rgb_layers;
             break;
-        case 2: // Brightness: Slightly
+        case 2: // Left only
             rgblight_layers = my_rgb_layers_left_only;
             break;
-        case 3: // Brightness: Middle
+        case 3: // Right only
             rgblight_layers = my_rgb_layers_right_only;
             break;
         default:
@@ -671,7 +671,7 @@ void keyboard_post_init_user(void) {
 void eeconfig_init_user(void) {
     // user configuration
     user_config.raw = 0;
-    user_config.indicator_state = 1; // Layer indicator LED state: 0 = on(brightness = high)
+    user_config.indicator_state = 1; // Layer indicator LED state: 1 = Both side
     eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 
     // Audio settings
