@@ -701,4 +701,3 @@ void eeconfig_init_user(void) {
     audio_config.clicky_enable = true;
     eeconfig_update_audio(audio_config.raw);
 }
-                                                                  
