@@ -24,9 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern audio_config_t audio_config;
 
 // PROTOTYPE
-void initialize_led_counter(void);
-void update_led_counter(void);
-bool update_led_hue(int *);
+void led_counter_reset(void);
+void led_counter_update(void);
+bool led_counter_hue_update(int *);
+void led_counter_turn_on(void);
+void led_counter_turn_off(void);
 
 // LED counter
 #define LED_COUNTER_DEFAULT_HUE 224
@@ -239,18 +241,16 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 //------------------------------------------------------------------------------
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (is_led_counter_enabled && record->event.pressed) {
-        update_led_counter(); // 何かキーが押されたら、LEDカウンタを更新。
+        led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
         case LCTR_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
-                if(is_led_counter_enabled) {
-                    rgblight_set_effect_range(0, 6);
-                } else {
-                    rgblight_set_effect_range(0, 0);
-                    initialize_led_counter();
+                if(is_led_counter_enabled) { // on --> off
+                    led_counter_turn_off();
+                } else { // off --> on
+                    led_counter_turn_on();
                 }
-                is_led_counter_enabled = !is_led_counter_enabled;
 
                 // Write to EEPROM
                 user_config.is_led_counter_enabled = is_led_counter_enabled;
@@ -259,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case LCTR_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
-                initialize_led_counter();
+                led_counter_reset();
             }
             return false;
         case VERSION: // Output firmware info.
@@ -351,18 +351,29 @@ bool dynamic_macro_play_user(int8_t direction) {
 //------------------------------------------------------------------------------
 // RGB Light: LED Counter
 //------------------------------------------------------------------------------
-void initialize_led_counter() {
+void led_counter_turn_on() {
+    is_led_counter_enabled = true;
+    rgblight_set_effect_range(0, 0);
+    led_counter_reset();
+}
+
+void led_counter_turn_off() {
+    is_led_counter_enabled = false;
+    rgblight_set_effect_range(0, 6);
+}
+
+void led_counter_reset() {
     rgblight_sethsv_range(LED_COUNTER_DEFAULT_HUE, 255, rgblight_get_val(), 0, 6);
     led_0_hue = LED_COUNTER_DEFAULT_HUE;
     led_1_hue = LED_COUNTER_DEFAULT_HUE;
     led_2_hue = LED_COUNTER_DEFAULT_HUE;
 }
 
-void update_led_counter() {
+void led_counter_update() {
     // LED色を更新し、LED色が一周した場合のみ次のLED色を更新する。
-    if(update_led_hue(&led_0_hue)) {
-        if(update_led_hue(&led_1_hue)) {
-            update_led_hue(&led_2_hue);
+    if(led_counter_hue_update(&led_0_hue)) {
+        if(led_counter_hue_update(&led_1_hue)) {
+            led_counter_hue_update(&led_2_hue);
         }
     }
 
@@ -376,7 +387,7 @@ void update_led_counter() {
     rgblight_sethsv_at(led_2_hue, 255, rgblight_get_val(), 5);
 }
 
-bool update_led_hue(int *led_hue) {
+bool led_counter_hue_update(int *led_hue) {
     *led_hue += 32;
     if(*led_hue < 255) {
         return false;
@@ -690,3 +701,4 @@ void eeconfig_init_user(void) {
     audio_config.clicky_enable = true;
     eeconfig_update_audio(audio_config.raw);
 }
+                                                                  
