@@ -678,7 +678,11 @@ void keyboard_post_init_user(void) {
     }
 
     // Restore LED conter enabled / disabled
-    is_led_counter_enabled = user_config.is_led_counter_enabled;
+    if (user_config.is_led_counter_enabled) {
+        led_counter_turn_on();
+    } else {
+        led_counter_turn_off();
+    }
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
