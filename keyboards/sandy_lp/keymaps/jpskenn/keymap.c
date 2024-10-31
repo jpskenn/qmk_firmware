@@ -335,7 +335,7 @@ bool dynamic_macro_play_user(int8_t direction) {
 #ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
     bool dynamic_macro_record_start_user(int8_t direction) {
-        rgblight_blink_layer_repeat(9, 250, 3);//TODO マクロ記録中、ずっとブリンクならんの？
+        rgblight_blink_layer_repeat(10, 250, 3);//TODO マクロ記録中、ずっとブリンクならんの？
         return true;
     }
 
@@ -343,7 +343,7 @@ bool dynamic_macro_play_user(int8_t direction) {
         //TODO is_dm_rec1,2を使って、ダイナミックマクロ記録中に、ずっとBlinkさせたりできないか？
         is_dm_rec1 = false;
         is_dm_rec2 = false;
-        rgblight_blink_layer_repeat(10, 250, 3);
+        rgblight_blink_layer_repeat(11, 250, 3);
         return true;
     }
 #endif
