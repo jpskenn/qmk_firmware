@@ -272,6 +272,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
+        case SELECTOR:
+            if (record->event.pressed) {
+                // Hold action for layer 3
+                layer_on(1);
+            } else {
+                // Release action for layer 3
+                layer_off(1);
+            }
+            return false;
         case LCTR_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
                 if(is_led_counter_enabled) { // on --> off
