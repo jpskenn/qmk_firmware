@@ -76,50 +76,78 @@ enum layer_number {
     _ADJUST,
 };
 
-// custom key codes
-enum custom_keycodes {
-  BASE1 = SAFE_RANGE,
-  BASE2,
-  BASE3,
-  ADJUST,
-  VERSION,
-  KEY_WAIT,
-  IND_TOG,
-  LCTR_RST,
-  LCTR_TOG,
+// Tap Dance declarations
+enum {
+    TD_SELECTOR,
 };
 
-// key code macros
-#define TAB_BASE3   LT(_BASE3, KC_TAB)
-#define ZH_BASE3    LT(_BASE3, JP_ZKHK)
-#define SP_LOW1     LT(_LOWER1, KC_SPC)
-#define SP_RAI1     LT(_RAISE1, KC_SPC)
-#define SP_LOW2     LT(_LOWER2, KC_SPC)
-#define SP_ADJ      LT(_ADJUST, KC_SPC)
+// Tap Dacne functions
+void dance_select_each(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            layer_move(2);
+            break;
+        case 2:
+            layer_move(3);
+            break;
+        case 3:
+            layer_clear();
+        case 4:
+            break;
+    }
+}
 
-#define SP_SFT      LSFT_T(KC_SPC)
-#define BS_SFT      LSFT_T(KC_BSPC)
+void dance_select_finished(tap_dance_state_t *state, void *user_data) {
 
-#define CTL_ESC     LCTL_T(KC_ESC)
+}
 
-#define BASE1       DF(_BASE1)
-#define BASE2       DF(_BASE2)
-#define BASE3       TG(_BASE3)
+void dance_select_reset(tap_dance_state_t *state, void *user_data) {
 
-#define CMD_LANG1   LGUI_T(KC_LNG1)
-#define CMD_LANG2   LGUI_T(KC_LNG2)
-#define CTL_LANG1   LCTL_T(KC_LNG1)
-#define CTL_LANG2   LCTL_T(KC_LNG2)
+}
 
-#define MAC_SLP     LAG(KC_EJCT)
-#define MAC_PSCR    LSG(KC_5)
-#define WIN_PSCR    LSG(KC_S)
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SELECTOR] = ACTION_TAP_DANCE_FN_ADVANCED(dance_select_each, dance_select_finished, dance_select_reset)
+};
+
+
+// custom key codes
+enum custom_keycodes {
+    VERSION = SAFE_RANGE,
+    KEY_WAIT,
+    IND_TOG,
+    LCTR_RST,
+    LCTR_TOG,
+    SELECTOR
+  };
+
+  // key code macros
+  #define SP_LOW1     LT(_LOWER1, KC_SPC)
+  #define SP_RAI1     LT(_RAISE1, KC_SPC)
+  #define SP_LOW2     LT(_LOWER2, KC_SPC)
+  #define SP_ADJ      LT(_ADJUST, KC_SPC)
+
+  #define SP_SFT      LSFT_T(KC_SPC)
+  #define BS_SFT      LSFT_T(KC_BSPC)
+
+  #define CTL_ESC     LCTL_T(KC_ESC)
+
+  #define CMD_LANG1   LGUI_T(KC_LNG1)
+  #define CMD_LANG2   LGUI_T(KC_LNG2)
+  #define CTL_LANG1   LCTL_T(KC_LNG1)
+  #define CTL_LANG2   LCTL_T(KC_LNG2)
+
+  #define MAC_SLP     LAG(KC_EJCT)
+  #define MAC_PSCR    LSG(KC_5)
+  #define WIN_PSCR    LSG(KC_S)
+
+  #define SELECTOR    TD(TD_SELECTOR)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        TAB_BASE3,KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     XXXXXXX,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    //  TAB_BASE3,KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     SELECTOR,  XXXXXXX,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+    //  KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_LBRC,  KC_RBRC,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  MAC_PSCR, KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     //  CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
@@ -199,11 +227,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, BASE1,    BASE2,    BASE3,  MAC_SLP,  _______,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, _______,  _______,  _______,  MAC_SLP,  _______,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  LCTR_TOG, RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  BASE3,  KC_NUM,  KC_PSCR,  KC_SCRL,  KC_PAUS,
+             AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  _______,  KC_NUM,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
                           _______,  _______,  _______,    _______,  _______,  _______,  _______,    _______,  _______
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -265,16 +293,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
-            }
-            return false;
-        case BASE1: // Change default layer & write default layer to EEPROM.
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_BASE1);
-            }
-            return false;
-        case BASE2: // Change default layer & write default layer to EEPROM.
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_BASE2);
             }
             return false;
         case DM_REC1: // Toggle recording status
