@@ -81,35 +81,21 @@ enum {
     TD_SELECTOR,
 };
 
-// Tap Dacne functions
-void dance_select_each(tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
-        case 1:
-            layer_move(2);
-            break;
-        case 2:
-            layer_move(3);
-            break;
-        case 3:
-            layer_clear();
-        case 4:
-            break;
-    }
-}
+#define SELECTOR    TD(TD_SELECTOR)
 
-void dance_select_finished(tap_dance_state_t *state, void *user_data) {
-
-}
-
-void dance_select_reset(tap_dance_state_t *state, void *user_data) {
-
-}
-
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_SELECTOR] = ACTION_TAP_DANCE_FN_ADVANCED(dance_select_each, dance_select_finished, dance_select_reset)
+enum {
+    SINGLE_TAP = 1,
+    SINGLE_HOLD = 2,
+    DOUBLE_TAP = 3,
+    TRIPLE_TAP = 4,
 };
 
+typedef struct {
+    bool is_press_action;
+    int state;
+} tap;
+
+// int cur_dance (tap_dance_state_t *state);
 
 // custom key codes
 enum custom_keycodes {
@@ -118,7 +104,6 @@ enum custom_keycodes {
     IND_TOG,
     LCTR_RST,
     LCTR_TOG,
-    SELECTOR
   };
 
   // key code macros
@@ -141,8 +126,6 @@ enum custom_keycodes {
   #define MAC_PSCR    LSG(KC_5)
   #define WIN_PSCR    LSG(KC_S)
 
-  #define SELECTOR    TD(TD_SELECTOR)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -159,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_BASE2] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,
     //  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX,  WIN_PSCR, _______,  _______,  _______,  _______,  _______,  _______,
@@ -183,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER1] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,   KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_INS,
+        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,     _______,   KC_F12,   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
@@ -272,15 +255,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
-        case SELECTOR:
-            if (record->event.pressed) {
-                // Hold action for layer 3
-                layer_on(1);
-            } else {
-                // Release action for layer 3
-                layer_off(1);
-            }
-            return false;
+        // case SELECTOR:
+        //     if (record->event.pressed) {
+        //         // Hold action for layer 3
+        //         layer_on(1);
+        //     } else {
+        //         // Release action for layer 3
+        //         layer_off(1);
+        //     }
+        //     return false;
         case LCTR_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
                 if(is_led_counter_enabled) { // on --> off
@@ -368,6 +351,72 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+//------------------------------------------------------------------------------
+// Tap Dance
+//------------------------------------------------------------------------------
+// Tap Danceのインスタンスを初期化
+static tap xtap_state = {
+    .is_press_action = true,
+    .state = 0
+};
+
+// Tap Danceの状態を決定する関数
+int cur_dance (tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (!state->pressed) return SINGLE_TAP;
+        else return SINGLE_HOLD;
+    }
+    else if (state->count == 2) {
+        return DOUBLE_TAP;
+    }
+    else if (state->count == 3) {
+        return TRIPLE_TAP;
+    }
+    else return 6; //magic number. At some point this method will expand to work for more presses
+}
+
+// Tap Danceが終了したときに呼び出される関数
+void x_finished_1 (tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            layer_move(2);
+            break;
+        case SINGLE_HOLD:
+            layer_on(1);
+            break;
+        case DOUBLE_TAP:
+            layer_move(3);
+            break;
+        case TRIPLE_TAP:
+            layer_clear();
+            break;
+    }
+}
+
+// Tap Danceがリセットされたときに呼び出される関数
+void x_reset_1 (tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            layer_off(1);
+            break;
+        case DOUBLE_TAP:
+            break;
+        case TRIPLE_TAP:
+            break;
+    }
+
+    xtap_state.state = 0;
+}
+
+// Tap Danceのアクションを定義
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SELECTOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_1, x_reset_1),
+};
 
 //------------------------------------------------------------------------------
 // Dynamic Macro
