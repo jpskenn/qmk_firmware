@@ -506,16 +506,16 @@ bool led_counter_hue_update(int *led_hue) {
 //------------------------------------------------------------------------------
 
 // layer information
-// 0   base
+// 0   BASE
 // 0.1 Caps lock
 // 0.2 Scroll lock
-// 1   temp1    special
-// 2   temp2    temp for Base
-// 3   temp3    temp for Base
-// 4   temp4    FLIP
-// 5   temp5    temp for FLIP
-// 6   temp6    temp for FLIP
-// 7   temp7    Adjust
+// 1   num
+// 2   sym
+// 3   FLIP
+// 4   FLIP num
+// 5   FLIP sym
+// 6   Special
+// 7   Adjust
 
 // ---------- Both side ---------
 // for Base layer: All
@@ -536,38 +536,38 @@ const rgblight_segment_t PROGMEM my_scroll_lock_layer[] = RGBLIGHT_LAYER_SEGMENT
 
 // for temporal(lower, raise) layer: change Second
 const rgblight_segment_t PROGMEM my_temp1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_GREEN},
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST, 1, HSV_CYAN},
     {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST, 1, HSV_CHARTREUSE},
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_YELLOW},
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_BLUE},
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM my_temp4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 2, HSV_GREEN},
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST, 2, HSV_CYAN},
     {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST, 2, HSV_CHARTREUSE},
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp6_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 2, HSV_YELLOW},
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_GOLD},
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_temp7_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_RED},
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_RED}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_RED},
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_RED}
 );
 
 // Blink: All
