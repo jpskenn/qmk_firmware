@@ -105,12 +105,13 @@ enum custom_keycodes {
   };
 
   // key code macros
+  #define FLIP      MO(_FLIP)
+  #define FLIP_NUM  MO(_FLIP_NUM)
+  #define FLIP_SYM  MO(_FLIP_SYM)
+
   #define SPC_SYM   LT(_SYM, KC_SPC)
   #define TAB_NUM   LT(_NUM, KC_TAB)
   #define BS_NUM    LT(_NUM, KC_BSPC)
-  #define FLIP      LT(_FLIP)
-  #define FLIP_NUM  LT(_FLIP_NUM)
-  #define FLIP_SYM  LT(_FLIP_SYM)
   #define SPC_F_SYM LT(_FLIP_SYM, KC_SPC)
   #define BS_F_NUM  LT(_FLIP_NUM, KC_BSPC)
   #define TAB_F_NUM LT(_FLIP_NUM, KC_TAB)
@@ -133,7 +134,7 @@ enum custom_keycodes {
 
   #define OSM_WIN   OSM(KC_LWIN)
   #define OSM_CTL   OSM(KC_LCTL)
-  #define OSM_ALT   OSM(KC_ALT)
+  #define OSM_ALT   OSM(KC_LALT)
   #define OSM_SFT   OSM(KC_LSFT)
 
   #define MAC_SLP     LAG(KC_EJCT)
@@ -154,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SELECTOR, KC_ESC,   SELECTOR, KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
-                          KC_LOPT,  CTL_LNG2, SPC_SFT,    FLIP,     KC_MUTE,  FLIP,    ,CTL_LNG2,   OSM_WIN
+                          KC_LOPT,  CTL_LNG2, SPC_SFT,    FLIP,     KC_MUTE,  FLIP,     SPC_SYM,    CTL_LNG2, OSM_WIN
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
     ),
     [_NUM] = LAYOUT(
@@ -196,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         ENT_SFT,  KC_PMNS,  KC_P6,    KC_P5,    KC_P4,    KC_PSLS,  _______,  _______,  _______,  KC_F4,    KC_F5,    KC_F6,    KC_F11,   CTL_ESC,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_CALC,  KC_P3,    KC_P2,    KC_P1,    KC_PEQL,  DM_PLY2   _______,  DM_PLY1,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F12,
+             KC_CALC,  KC_P3,    KC_P2,    KC_P1,    KC_PEQL,  _______,  _______,  _______,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F12,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
                           KC_PDOT,  KC_P0,    SPC_F_SYM,  _______,  _______,  _______,  SPC_SFT,    OSM_CTL,  OSM_ALT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -242,13 +243,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //------------------------------------------------------------------------------
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_BASE1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_BASE2] = { ENCODER_CCW_CW(_______, _______) },
-    [_BASE3] = { ENCODER_CCW_CW(_______, _______) },
-    [_LOWER1] = { ENCODER_CCW_CW(_______, _______) },
-    [_LOWER2] = { ENCODER_CCW_CW(_______, _______) },
-    [_RAISE1] = { ENCODER_CCW_CW(_______, _______) },
-    [_RAISE2] = { ENCODER_CCW_CW(_______, _______) },
+    [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NUM] = { ENCODER_CCW_CW(_______, _______) },
+    [_SYM] = { ENCODER_CCW_CW(_______, _______) },
+    [_FLIP] = { ENCODER_CCW_CW(_______, _______) },
+    [_FLIP_NUM] = { ENCODER_CCW_CW(_______, _______) },
+    [_FLIP_SYM] = { ENCODER_CCW_CW(_______, _______) },
+    [_SPECIAL] = { ENCODER_CCW_CW(_______, _______) },
     [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
 };
 #endif
@@ -354,12 +355,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // per key settings for HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CMD_LANG1:
-        case CMD_LANG2:
-        case CTL_LANG1:
-        case CTL_LANG2:
+        case CMD_LNG1:
+        case CMD_LNG2:
+        case CTL_LNG1:
+        case CTL_LNG2:
         case CTL_ESC:
-        case SP_SFT:
+        case SPC_SFT:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
