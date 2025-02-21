@@ -272,15 +272,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
-        // case SELECTOR:
-        //     if (record->event.pressed) {
-        //         // Hold action for layer 3
-        //         layer_on(1);
-        //     } else {
-        //         // Release action for layer 3
-        //         layer_off(1);
-        //     }
-        //     return false;
         case CNT_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
                 if(is_led_counter_enabled) { // on --> off
@@ -743,16 +734,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers_right_only[] = RGBLIGHT_LA
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Set the layer status
-
-    // DISABLE TRI_LAYER SETTINGS
-    // Note:Halfでは2キー同時押しでのレイヤー判定をおこなわないため。
-    // if (state != update_tri_layer_state(state, _LOWER1, _RAISE1, _ADJUST)) {
-    //     state = update_tri_layer_state(state, _LOWER1, _RAISE1, _ADJUST);
-    // } else {
-    //     state = update_tri_layer_state(state, _LOWER2, _RAISE1, _ADJUST);
-    // }
-
     rgblight_set_layer_state(3, layer_state_cmp(state, 1));
     rgblight_set_layer_state(4, layer_state_cmp(state, 2));
     rgblight_set_layer_state(5, layer_state_cmp(state, 3));
