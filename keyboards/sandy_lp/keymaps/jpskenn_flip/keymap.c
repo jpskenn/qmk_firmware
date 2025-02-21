@@ -390,13 +390,13 @@ void x_finished_1 (tap_dance_state_t *state, void *user_data) {
 
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            layer_move(2);
+            layer_move(_NUM);
             break;
         case SINGLE_HOLD:
-            layer_on(1);
+            layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(3);
+            layer_move(_SYM);
             break;
         case TRIPLE_TAP:
             layer_clear();
@@ -410,7 +410,7 @@ void x_reset_1 (tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             break;
         case SINGLE_HOLD:
-            layer_off(1);
+            layer_off(_SPECIAL);
             break;
         case DOUBLE_TAP:
             break;
