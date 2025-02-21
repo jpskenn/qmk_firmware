@@ -132,7 +132,7 @@ enum custom_keycodes {
   #define CTL_LNG1     LCTL_T(KC_LNG1)
   #define CTL_LNG2     LCTL_T(KC_LNG2)
 
-  #define OSM_WIN   OSM(KC_LWIN)
+  #define OSM_WIN   OSM(KC_LWIN)  // RemapでCtrl + ShiftなOSMとして扱われている。なぜ？
   #define OSM_CTL   OSM(KC_LCTL)
   #define OSM_ALT   OSM(KC_LALT)
   #define OSM_SFT   OSM(KC_LSFT)
