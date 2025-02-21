@@ -100,8 +100,8 @@ enum custom_keycodes {
     VERSION = SAFE_RANGE,
     KEY_WAIT,
     IND_TOG,
-    LCTR_RST,
-    LCTR_TOG,
+    CNT_RST,
+    CNT_TOG,
   };
 
   // key code macros
@@ -227,9 +227,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
-        KEY_WAIT, _______,  _______,  _______,  MAC_SLP,  _______,    LCTR_RST, RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
+        KEY_WAIT, _______,  _______,  _______,  MAC_SLP,  _______,  CNT_RST,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD, KC_INS,
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-        KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  LCTR_TOG, RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
+        KC_CAPS,  MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,  CNT_TOG,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,  VERSION,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
              AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,  DM_RSTP,  DM_REC2,  _______,  KC_NUM,  KC_PSCR,  KC_SCRL,  KC_PAUS,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
@@ -281,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         layer_off(1);
         //     }
         //     return false;
-        case LCTR_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
+        case CNT_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
                 if(is_led_counter_enabled) { // on --> off
                     led_counter_turn_off();
@@ -294,7 +294,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw);
             }
             return false;
-        case LCTR_RST: // Reset LED counter to Zero.
+        case CNT_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
                 led_counter_reset();
             }
