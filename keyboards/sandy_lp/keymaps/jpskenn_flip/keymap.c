@@ -612,31 +612,31 @@ const rgblight_segment_t PROGMEM my_scroll_lock_layer_left_only[] = RGBLIGHT_LAY
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_temp1_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp2_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST, 1, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp2_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST, 1, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp3_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM my_temp4_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 2, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp5_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST, 2, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp5_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST, 2, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp6_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 2, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_temp7_layer_left_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST, 1, HSV_RED}
+    {ONBOARD_LED_INDEX_FIRST, 3, HSV_RED}
 );
 
 // Blink: all
@@ -681,31 +681,31 @@ const rgblight_segment_t PROGMEM my_scroll_lock_layer_right_only[] = RGBLIGHT_LA
 
 // for temporal layer
 const rgblight_segment_t PROGMEM my_temp1_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp2_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp2_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp3_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM my_temp4_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_GREEN}
-);
-
-const rgblight_segment_t PROGMEM my_temp5_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
     {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_CYAN}
 );
 
+const rgblight_segment_t PROGMEM my_temp5_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_CHARTREUSE}
+);
+
 const rgblight_segment_t PROGMEM my_temp6_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 2, HSV_YELLOW}
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_temp7_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
-    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 1, HSV_RED}
+    {ONBOARD_LED_INDEX_FIRST + ONBOARD_LED_COUNT_PER_SIDE, 3, HSV_RED}
 );
 
 const rgblight_segment_t PROGMEM my_blink1_layer_right_only[] = RGBLIGHT_LAYER_SEGMENTS(
