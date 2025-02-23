@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//TOOD FLIPのロック（FLIPレイヤーへの遷移をなくし、必要ならDM_PLYとかをアサイン）
+//TODO OSMがONのとき、インジケーターに表示（OSM終わったら消灯）
+
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "audio.h"
