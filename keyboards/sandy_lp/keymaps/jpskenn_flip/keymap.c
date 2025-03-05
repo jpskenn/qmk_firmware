@@ -261,6 +261,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 //------------------------------------------------------------------------------
+// Chordal Hold Handedness
+//------------------------------------------------------------------------------
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R','R','R','R','R','R','R',
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R','R','R','R','R','R','R',
+          'L', 'L', 'L', 'L', 'L', 'L', '*','R','R','R','R','R','R',
+                    'L', 'L', 'L', 'L', '*','R','R','R','R'
+        );
+
+//------------------------------------------------------------------------------
 // Audio
 //------------------------------------------------------------------------------
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
