@@ -81,7 +81,8 @@ enum layer_number {
 
 // Tap Dance declarations
 enum {
-    TD_SELECTOR,
+    TD_SELECTOR_L,
+    TD_SELECTOR_R,
 };
 
 enum {
@@ -145,7 +146,8 @@ enum custom_keycodes {
   #define MAC_PSCR    LSG(KC_5)
   #define WIN_PSCR    LSG(KC_S)
 
-  #define SELECTOR    TD(TD_SELECTOR)
+  #define SEL_L       TD(TD_SELECTOR_L)
+  #define SEL_R       TD(TD_SELECTOR_R)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
@@ -156,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     XXXXXXX,  WIN_PSCR, KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  ENT_SFT,
     //  CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_SCLN,  KC_QUOT,  KC_H,     KC_J,     KC_K,     KC_L,     KC_MINS,  KC_ENT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SELECTOR, KC_ESC,   SELECTOR, KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
+             KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SEL_L,    KC_ESC,   SEL_R,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
                           KC_LOPT,  CTL_LNG2, SPC_SFT,    FLIP,     KC_MUTE,  FLIP,     SPC_SYM,    CTL_LNG1, OSM_WIN
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -167,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         _______,  KC_F11,   KC_F6,    KC_F5,    KC_F4,    _______,  _______,  _______,  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  _______,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_F12,   KC_F3,    KC_F2,    KC_F1,    _______,  _______,  _______,  DM_PLY2,  KC_TAB,   KC_P1,    KC_P2,    KC_P3,    KC_CALC,
+             KC_F12,   KC_F3,    KC_F2,    KC_F1,    _______,  _______,  _______,  _______,  KC_TAB,   KC_P1,    KC_P2,    KC_P3,    KC_CALC,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
                           _______,  _______,  _______,    FLIP_NUM, _______,  FLIP_NUM, _______,    KC_P0,    KC_PDOT
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -178,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
         OSM_CTL,  KC_GRV,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_SCLN,  KC_QUOT,
     // |----+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+----|
-             KC_TILD,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  DM_PLY2,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,
+             KC_TILD,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,
     // |-----------------+---------+---------+-----------+---------+---------+---------+-----------+---------+---------+---------------------------|
                           OSM_ALT,  OSM_CTL,  _______,    FLIP_SYM, _______,  FLIP_SYM,  _______,   OSM_CTL,  OSM_WIN
     // |-------------------------------------------------------------------------------------------------------------------------------------------|
@@ -367,7 +369,12 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 // Tap Dance
 //------------------------------------------------------------------------------
 // Tap Danceのインスタンスを初期化
-static tap xtap_state = {
+static tap xtap_state_l = {
+    .is_press_action = true,
+    .state = 0
+};
+
+static tap xtap_state_r = {
     .is_press_action = true,
     .state = 0
 };
@@ -388,28 +395,47 @@ int cur_dance (tap_dance_state_t *state) {
 }
 
 // Tap Danceが終了したときに呼び出される関数
-void x_finished_1 (tap_dance_state_t *state, void *user_data) {
-    xtap_state.state = cur_dance(state);
+void x_finished_l (tap_dance_state_t *state, void *user_data) {
+    xtap_state_l.state = cur_dance(state);
 
-    switch (xtap_state.state) {
+    switch (xtap_state_l.state) {
         case SINGLE_TAP:
-            layer_move(_NUM);
+            layer_clear();
             break;
         case SINGLE_HOLD:
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_SYM);
+            layer_move(_FLIP_NUM);
             break;
         case TRIPLE_TAP:
+            layer_move(_FLIP_SYM);
+            break;
+    }
+}
+
+void x_finished_r (tap_dance_state_t *state, void *user_data) {
+    xtap_state_r.state = cur_dance(state);
+
+    switch (xtap_state_r.state) {
+        case SINGLE_TAP:
             layer_clear();
+            break;
+        case SINGLE_HOLD:
+            layer_on(_SPECIAL);
+            break;
+        case DOUBLE_TAP:
+            layer_move(_NUM);
+            break;
+        case TRIPLE_TAP:
+            layer_move(_SYM);
             break;
     }
 }
 
 // Tap Danceがリセットされたときに呼び出される関数
-void x_reset_1 (tap_dance_state_t *state, void *user_data) {
-    switch (xtap_state.state) {
+void x_reset_l (tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state_l.state) {
         case SINGLE_TAP:
             break;
         case SINGLE_HOLD:
@@ -421,12 +447,29 @@ void x_reset_1 (tap_dance_state_t *state, void *user_data) {
             break;
     }
 
-    xtap_state.state = 0;
+    xtap_state_l.state = 0;
+}
+
+void x_reset_r (tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state_r.state) {
+        case SINGLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            layer_off(_SPECIAL);
+            break;
+        case DOUBLE_TAP:
+            break;
+        case TRIPLE_TAP:
+            break;
+    }
+
+    xtap_state_r.state = 0;
 }
 
 // Tap Danceのアクションを定義
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_SELECTOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_1, x_reset_1),
+    [TD_SELECTOR_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_l, x_reset_l),
+    [TD_SELECTOR_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_r, x_reset_r),
 };
 
 //------------------------------------------------------------------------------
