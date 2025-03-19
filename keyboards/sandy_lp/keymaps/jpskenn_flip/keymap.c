@@ -87,10 +87,12 @@ enum {
 };
 
 enum {
-    SINGLE_TAP = 1,
+    SINGLE_TAP  = 1,
     SINGLE_HOLD = 2,
-    DOUBLE_TAP = 3,
-    TRIPLE_TAP = 4,
+    DOUBLE_TAP  = 3,
+    DOUBLE_HOLD = 4,
+    TRIPLE_TAP  = 5,
+    TRIPLE_HOLD = 6,
 };
 
 typedef struct {
@@ -399,12 +401,14 @@ int cur_dance (tap_dance_state_t *state) {
         else return SINGLE_HOLD;
     }
     else if (state->count == 2) {
-        return DOUBLE_TAP;
+        if (!state->pressed) return DOUBLE_TAP;
+        else return DOUBLE_HOLD;
     }
     else if (state->count == 3) {
-        return TRIPLE_TAP;
+        if (!state->pressed) return TRIPLE_TAP;
+        return TRIPLE_HOLD;
     }
-    else return 6; //magic number. At some point this method will expand to work for more presses
+    else return 9; //magic number. At some point this method will expand to work for more presses
 }
 
 // Tap Danceが終了したときに呼び出される関数
@@ -421,8 +425,14 @@ void x_finished_l (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             layer_move(_FLIP_NUM);
             break;
+        case DOUBLE_HOLD:
+            layer_on(_FLIP_NUM);
+            break;
         case TRIPLE_TAP:
             layer_move(_FLIP_SYM);
+            break;
+        case TRIPLE_HOLD:
+            layer_on(_FLIP_SYM);
             break;
     }
 }
@@ -440,8 +450,14 @@ void x_finished_r (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             layer_move(_NUM);
             break;
+        case DOUBLE_HOLD:
+            layer_on(_NUM);
+            break;
         case TRIPLE_TAP:
             layer_move(_SYM);
+            break;
+        case TRIPLE_HOLD:
+            layer_on(_SYM);
             break;
     }
 }
@@ -456,7 +472,13 @@ void x_reset_l (tap_dance_state_t *state, void *user_data) {
             break;
         case DOUBLE_TAP:
             break;
+        case DOUBLE_HOLD:
+            layer_off(_FLIP_NUM);
+            break;
         case TRIPLE_TAP:
+            break;
+        case TRIPLE_HOLD:
+            layer_off(_FLIP_SYM);
             break;
     }
 
@@ -472,7 +494,13 @@ void x_reset_r (tap_dance_state_t *state, void *user_data) {
             break;
         case DOUBLE_TAP:
             break;
+        case DOUBLE_HOLD:
+            layer_off(_NUM);
+            break;
         case TRIPLE_TAP:
+            break;
+        case TRIPLE_HOLD:
+            layer_off(_SYM);
             break;
     }
 
