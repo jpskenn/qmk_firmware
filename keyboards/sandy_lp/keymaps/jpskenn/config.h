@@ -33,3 +33,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Tap-Hold */
 #define HOLD_ON_OTHER_KEY_PRESS
+#define CHORDAL_HOLD
