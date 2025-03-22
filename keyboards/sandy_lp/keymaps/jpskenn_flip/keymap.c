@@ -423,16 +423,16 @@ void x_finished_l (tap_dance_state_t *state, void *user_data) {
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_FLIP_NUM);
+            layer_move(_NUM);
             break;
         case DOUBLE_HOLD:
-            layer_on(_FLIP_NUM);
+            layer_on(_NUM);
             break;
         case TRIPLE_TAP:
-            layer_move(_FLIP_SYM);
+            layer_move(_SYM);
             break;
         case TRIPLE_HOLD:
-            layer_on(_FLIP_SYM);
+            layer_on(_SYM);
             break;
     }
 }
@@ -473,12 +473,12 @@ void x_reset_l (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case DOUBLE_HOLD:
-            layer_off(_FLIP_NUM);
+            layer_off(_NUM);
             break;
         case TRIPLE_TAP:
             break;
         case TRIPLE_HOLD:
-            layer_off(_FLIP_SYM);
+            layer_off(_SYM);
             break;
     }
 
