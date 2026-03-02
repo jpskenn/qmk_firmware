@@ -2,14 +2,6 @@
 MCU = RP2040
 
 # Split
-SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor
 
-# EEPROM (EE_HANDS用)
-EEPROM_DRIVER = wear_leveling
 
-# VIA
-VIA_ENABLE = yes
-
-# RGB
-WS2812_DRIVER = pio
