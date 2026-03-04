@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
-#include "audio.h"
+// #include "audio.h"
 
 // Audio settings in EEPROM. Enable audio, but not turn ON by default.
 // Also see eeconfig_init_user().
