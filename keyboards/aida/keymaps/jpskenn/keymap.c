@@ -3,7 +3,9 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
-// #include "audio.h"
+#ifdef AUDIO_ENABLE
+#include "audio.h"
+#endif
 
 // Audio settings in EEPROM. Enable audio, but not turn ON by default.
 // Also see eeconfig_init_user().
@@ -73,6 +75,8 @@ enum custom_keycodes {
   IND_TOG,
   LCTR_RST,
   LCTR_TOG,
+  CNT_RST,
+  CNT_TOG,
 };
 
 // key code macros
@@ -85,19 +89,21 @@ enum custom_keycodes {
 #define SP_LOW2     LT(_LOWER2, KC_SPC)
 #define SP_ADJ      LT(_ADJUST, KC_SPC)
 
-#define SP_SFT      LSFT_T(KC_SPC)
+#define SPC_SFT      LSFT_T(KC_SPC)
 #define BS_SFT      LSFT_T(KC_BSPC)
 
-#define CTL_ESC     LCTL_T(KC_ESC)
+#define ESC_ALT     LALT_T(KC_ESC)
+
+#define ESC_CTL     LCTL_T(KC_ESC)
 
 #define BASE1       DF(_BASE1)
 #define BASE2       DF(_BASE2)
 #define TG_NUM      TG(_BASE3)
 
-#define CMD_LANG1   LGUI_T(KC_LNG1)
-#define CMD_LANG2   LGUI_T(KC_LNG2)
-#define CTL_LANG1   LCTL_T(KC_LNG1)
-#define CTL_LANG2   LCTL_T(KC_LNG2)
+#define LNG1_GUI   LGUI_T(KC_LNG1)
+#define LNG2_GUI   LGUI_T(KC_LNG2)
+#define LNG1_CTL   LCTL_T(KC_LNG1)
+#define LNG2_CTL   LCTL_T(KC_LNG2)
 
 #define MAC_SLP     LAG(KC_EJCT)
 #define MAC_PSCR    LSG(KC_5)
@@ -116,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
       KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_ESC,     KC_ENT,   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                        ESC_ALT,  CTL_LANG2,SPC_SFT,    TAB_F_NUM,  BS_SFT,   ENT_RAI1, CTL_LANG1,  OSM_WIN
+                        ESC_ALT,  LNG2_CTL,SPC_SFT,    TAB_F_NUM,  BS_SFT,   ENT_RAI1, LNG1_CTL,  OSM_WIN
 ),
 [_BASE2] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -159,7 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
 ),
 [_RAISE1] = LAYOUT(
-LAYOUT TEMPLATE
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                 KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -181,14 +186,16 @@ LAYOUT TEMPLATE
 ),
 [_ADJUST] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              RGB_HUI,  RGB_SAI,  RGB_VAI,  IND_TOG,  RGB_RMOD,
+          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,
+          MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              UG_HUED,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
      AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
 )
+};
+
 // LAYOUT TEMPLATE
 //    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
 //           ,  ,  ,  ,  ,              ,  ,  ,  ,  ,
@@ -198,7 +205,6 @@ LAYOUT TEMPLATE
 //      ,  ,  ,  ,  ,  ,    ,  ,  ,  ,  ,  ,
 //    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
 //                        ,  ,  , ,       ,  ,  ,
-};
 
 //------------------------------------------------------------------------------
 // Rotary Encoder with VIA
@@ -319,11 +325,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 // per key settings for HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CMD_LNG1:
-        case CMD_LNG2:
-        case CTL_LNG1:
-        case CTL_LNG2:
-        case CTL_ESC:
+        case LNG1_GUI:
+        case LNG2_GUI:
+        case LNG1_CTL:
+        case LNG2_CTL:
+        case ESC_CTL:
         case SPC_SFT:
             // Immediately select the hold action when another key is pressed.
             return true;
