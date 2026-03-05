@@ -3,13 +3,15 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
-#ifdef AUDIO_ENABLE
+#if defined(AUDIO_ENABLE)
 #include "audio.h"
 #endif
 
 // Audio settings in EEPROM. Enable audio, but not turn ON by default.
 // Also see eeconfig_init_user().
+#if defined(AUDIO_ENABLE)
 extern audio_config_t audio_config;
+#endif
 
 // PROTOTYPE
 void led_counter_reset(void);
@@ -56,19 +58,39 @@ user_config_t user_config;
 enum layers {
     _BASE1 = 0,
     _BASE2,
-    _BASE3,
-    _LOWER1,
+    _F_NUM,
+    _LOWER,
     _LOWER2,
-    _RAISE1,
-    _RAISE2,
+    _RAISE,
+    _SPECIAL,
     _ADJUST,
 };
+
+// Tap Dance declarations
+enum {
+    TD_SELECTOR_L,
+    TD_SELECTOR_R,
+};
+
+enum {
+    SINGLE_TAP  = 1,
+    SINGLE_HOLD = 2,
+    DOUBLE_TAP  = 3,
+    DOUBLE_HOLD = 4,
+    TRIPLE_TAP  = 5,
+    TRIPLE_HOLD = 6,
+};
+
+typedef struct {
+    bool is_press_action;
+    int state;
+} tap;
 
 // custom key codes
 enum custom_keycodes {
   BASE1 = SAFE_RANGE,
   BASE2,
-  BASE3,
+  F_NUM,
   ADJUST,
   VERSION,
   KEY_WAIT,
@@ -81,12 +103,11 @@ enum custom_keycodes {
 
 // key code macros
 #define Q_BASE2   LT(_BASE2, KC_Q)
-#define TAB_F_NUM   LT(_BASE3, KC_TAB)
-#define ENT_RAI1    LT(_RAISE1, KC_ENT)
-//#define ZH_BASE3    LT(_BASE3, JP_ZKHK)
-#define SP_LOW1     LT(_LOWER1, KC_SPC)
-#define SP_RAI1     LT(_RAISE1, KC_SPC)
-#define SP_LOW2     LT(_LOWER2, KC_SPC)
+#define TAB_F_NUM   LT(_F_NUM, KC_TAB)
+#define ENT_RAI    LT(_RAISE, KC_ENT)
+//#define ZH_F_NUM    LT(_F_NUM, JP_ZKHK)
+#define SP_LOW     LT(_LOWER, KC_SPC)
+#define SP_RAI     LT(_RAISE, KC_SPC)
 #define SP_ADJ      LT(_ADJUST, KC_SPC)
 
 #define SPC_SFT      LSFT_T(KC_SPC)
@@ -98,7 +119,7 @@ enum custom_keycodes {
 
 #define BASE1       DF(_BASE1)
 #define BASE2       DF(_BASE2)
-#define TG_NUM      TG(_BASE3)
+#define TG_F_NUM      TG(_F_NUM)
 
 #define LNG1_GUI   LGUI_T(KC_LNG1)
 #define LNG2_GUI   LGUI_T(KC_LNG2)
@@ -122,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
       KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_ESC,     KC_ENT,   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                        ESC_ALT,  LNG2_CTL,SPC_SFT,    TAB_F_NUM,  BS_SFT,   ENT_RAI1, LNG1_CTL,  OSM_WIN
+                        ESC_ALT,  LNG2_CTL,SPC_SFT,    TAB_F_NUM,  BS_SFT,   ENT_RAI, LNG1_CTL,  OSM_WIN
 ),
 [_BASE2] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -134,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
 ),
-[_BASE3] = LAYOUT(
+[_F_NUM] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           KC_F10,   KC_F9,    KC_F8,    KC_F7,    _______,              KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -144,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______,    _______,    _______,  _______,  KC_P0,      KC_PDOT
 ),
-[_LOWER1] = LAYOUT(
+[_LOWER] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -164,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
 ),
-[_RAISE1] = LAYOUT(
+[_RAISE] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                 KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -174,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______,    _______,    _______,  _______,  KC_VOLD,    KC_VOLU
 ),
-[_RAISE2] = LAYOUT(
+[_SPECIAL] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -186,11 +207,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_ADJUST] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
+          BASE1,    BASE2,    TG_F_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              UG_HUED,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-     AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
+     AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_F_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                        _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
 )
@@ -207,29 +228,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                        ,  ,  , ,       ,  ,  ,
 
 //------------------------------------------------------------------------------
-// Rotary Encoder with VIA
-//------------------------------------------------------------------------------
-#ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NUM] = { ENCODER_CCW_CW(_______, _______) },
-    [_SYM] = { ENCODER_CCW_CW(_______, _______) },
-    [_FLIP] = { ENCODER_CCW_CW(_______, _______) },
-    [_FLIP_NUM] = { ENCODER_CCW_CW(_______, _______) },
-    [_FLIP_SYM] = { ENCODER_CCW_CW(_______, _______) },
-    [_SPECIAL] = { ENCODER_CCW_CW(_______, _______) },
-    [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
-};
-#endif
-
-//------------------------------------------------------------------------------
 // Audio
 //------------------------------------------------------------------------------
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
-        31, 32, 33, 34, 35,     36, 37, 38, 39, 40,
-        21, 22, 23, 24, 25,     26, 27, 28, 29, 30,
-     9, 10, 11, 12, 13, 14,     15, 16, 17, 18, 19, 20,
-             0,  1,  2,  3,      4,  5,  6,  7,  8
+        30, 31, 32, 33, 34,     35, 36, 37, 38, 39,
+        20, 21, 22, 23, 24,     25, 26, 27, 28, 29,
+     8,  9, 10, 11, 12, 13,     14, 15, 16, 17, 18, 19,
+             0,  1,  2,  3,      4,  5,  6,  7
 );
 
 //------------------------------------------------------------------------------
@@ -313,10 +318,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------------------------------------------------------------------------------
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
-        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R','R','R','R','R','R','R',
-        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R','R','R','R','R','R','R',
-          'L', 'L', 'L', 'L', 'L', 'L', '*','R','R','R','R','R','R',
-                    '*', '*', '*', '*', '*','*','*','*','*'
+             'L', 'L', 'L', 'L', 'L',    'R','R','R','R','R',
+             'L', 'L', 'L', 'L', 'L',    'R','R','R','R','R',
+        'L', 'L', 'L', 'L', 'L', 'L',    'R','R','R','R','R','R',
+                  '*', '*', '*', '*',    '*','*','*','*'
         );
 
 //------------------------------------------------------------------------------
@@ -382,16 +387,16 @@ void x_finished_l (tap_dance_state_t *state, void *user_data) {
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_NUM);
+            layer_move(_F_NUM);
             break;
         case DOUBLE_HOLD:
-            layer_on(_NUM);
+            layer_on(_F_NUM);
             break;
         case TRIPLE_TAP:
-            layer_move(_SYM);
+            layer_move(_RAISE);
             break;
         case TRIPLE_HOLD:
-            layer_on(_SYM);
+            layer_on(_RAISE);
             break;
     }
 }
@@ -407,16 +412,16 @@ void x_finished_r (tap_dance_state_t *state, void *user_data) {
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_NUM);
+            layer_move(_F_NUM);
             break;
         case DOUBLE_HOLD:
-            layer_on(_NUM);
+            layer_on(_F_NUM);
             break;
         case TRIPLE_TAP:
-            layer_move(_SYM);
+            layer_move(_RAISE);
             break;
         case TRIPLE_HOLD:
-            layer_on(_SYM);
+            layer_on(_RAISE);
             break;
     }
 }
@@ -432,12 +437,12 @@ void x_reset_l (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case DOUBLE_HOLD:
-            layer_off(_NUM);
+            layer_off(_F_NUM);
             break;
         case TRIPLE_TAP:
             break;
         case TRIPLE_HOLD:
-            layer_off(_SYM);
+            layer_off(_RAISE);
             break;
     }
 
@@ -454,12 +459,12 @@ void x_reset_r (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case DOUBLE_HOLD:
-            layer_off(_NUM);
+            layer_off(_F_NUM);
             break;
         case TRIPLE_TAP:
             break;
         case TRIPLE_HOLD:
-            layer_off(_SYM);
+            layer_off(_RAISE);
             break;
     }
 
@@ -855,9 +860,9 @@ void eeconfig_init_user(void) {
     eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 
     // Audio settings
-    audio_config.raw = eeconfig_read_audio();
+    eeconfig_read_audio(&audio_config);
     audio_config.valid = true; // これをtrueにしておかないと、audio.cで初期化されていないと判断され、ここでの設定内容が上書きされてしまう。
     audio_config.enable = false; // Audio機能の初期状態はOFF。ファームウェア開発中に書き換えするたびにピロピロ鳴ってうるさいので、落ち着いたら自分でONにする運用。
     audio_config.clicky_enable = true;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
