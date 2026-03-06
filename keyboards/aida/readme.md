@@ -4,9 +4,9 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Takeshi Nishio](https://github.com/jpskenn)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
+* Hardware Supported: The PCBs
+* Hardware Availability: [Aida@GitHub](https://github.com/jpskenn/Aida)
 
 Make example for this keyboard (after setting up your build environment):
 
