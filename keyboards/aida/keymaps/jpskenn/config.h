@@ -35,3 +35,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define HOLD_ON_OTHER_KEY_PRESS
 // #define CHORDAL_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+#define EE_HANDS
