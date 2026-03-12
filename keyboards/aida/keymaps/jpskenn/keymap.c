@@ -132,6 +132,8 @@ enum custom_keycodes {
 
 #define OSM_WIN   OSM(KC_LWIN)  // RemapでCtrl + ShiftなOSMとして扱われている。なぜ？
 
+#define SEL_L       TD(TD_SELECTOR_L)
+#define SEL_R       TD(TD_SELECTOR_R)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
