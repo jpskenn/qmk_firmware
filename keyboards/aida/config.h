@@ -1,3 +1,5 @@
 #pragma once
 
-#define EE_HANDS
+#define MASTER_LEFT
+
+#define SERIAL_USART_TX_PIN GP14
