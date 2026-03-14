@@ -58,7 +58,7 @@ user_config_t user_config;
 enum layers {
     _BASE1 = 0,
     _BASE2,
-    _F_NUM,
+    _NUM,
     _LOWER,
     _LOWER2,
     _RAISE,
@@ -102,24 +102,31 @@ enum custom_keycodes {
 };
 
 // key code macros
-#define Q_BASE2   LT(_BASE2, KC_Q)
-#define TAB_F_NUM   LT(_F_NUM, KC_TAB)
+#define Q_NUM   LT(_NUM, KC_Q)
+#define TAB_NUM   LT(_NUM, KC_TAB)
+#define MINS_NUM    LT(_NUM, KC_MINS)
+
 #define ENT_RAI    LT(_RAISE, KC_ENT)
-//#define ZH_F_NUM    LT(_F_NUM, JP_ZKHK)
-#define SP_LOW     LT(_LOWER, KC_SPC)
 #define SP_RAI     LT(_RAISE, KC_SPC)
-#define SP_ADJ      LT(_ADJUST, KC_SPC)
+
+#define SP_LOW     LT(_LOWER, KC_SPC)
+#define TAB_LOW     LT(_LOWER, KC_TAB)
+
 
 #define SPC_SFT      LSFT_T(KC_SPC)
 #define BS_SFT      LSFT_T(KC_BSPC)
+#define SLSH_SFT    LSFT_T(KC_SLSH)
 
 #define ESC_ALT     LALT_T(KC_ESC)
 
 #define ESC_CTL     LCTL_T(KC_ESC)
+#define TAB_CTL     LCTL_T(KC_TAB)
 
 #define BASE1       DF(_BASE1)
 #define BASE2       DF(_BASE2)
-#define TG_F_NUM      TG(_F_NUM)
+#define TG_NUM      TG(_NUM)
+#define ADJUST      MO(_ADJUST)
+#define TG_ADJ      TG(_ADJUST)
 
 #define LNG1_GUI   LGUI_T(KC_LNG1)
 #define LNG2_GUI   LGUI_T(KC_LNG2)
@@ -139,13 +146,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE1] = LAYOUT(
     //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-           KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                 KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
+           Q_NUM,  KC_W,     KC_E,     KC_R,     KC_T,                 KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
     //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-           KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                 KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,
+           KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                 KC_H,     KC_J,     KC_K,     KC_L,     MINS_NUM,
     //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-      KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_ESC,     KC_ENT,   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
+      KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SEL_L,      SEL_R,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   SLSH_SFT,
     //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                        ESC_ALT,  LNG2_CTL,SPC_SFT,    TAB_F_NUM,  BS_SFT,   ENT_RAI, LNG1_CTL,  OSM_WIN
+                        ESC_ALT,  LNG2_CTL, SPC_SFT,    TAB_LOW,    BS_SFT,   ENT_RAI,  LNG1_CTL,   OSM_WIN
 ),
 [_BASE2] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -155,9 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
      _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                       _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
+                       _______,  LNG2_GUI, _______,    TAB_CTL,    _______,  _______,  LNG1_GUI,   _______
 ),
-[_F_NUM] = LAYOUT(
+[_NUM] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           KC_F10,   KC_F9,    KC_F8,    KC_F7,    _______,              KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -199,23 +206,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_SPECIAL] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,
+          _______,  _______,  _______,  _______,  _______,              WIN_PSCR, _______,  _______,  _______,  MAC_PSCR,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
      _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                       _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
+                       _______,  _______,  _______, TG_ADJ,        TG_ADJ,   _______,  _______,    _______
 ),
 [_ADJUST] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          BASE1,    BASE2,    TG_F_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
+          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
           MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              UG_HUED,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-     AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_F_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
+     AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                       _______,  _______,  _______, _______,       _______,  _______,  _______,    _______
+                       _______,  _______,  _______, TG_ADJ,        TG_ADJ,  _______,  _______,    _______
 )
 };
 
@@ -389,10 +396,10 @@ void x_finished_l (tap_dance_state_t *state, void *user_data) {
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_F_NUM);
+            layer_move(_NUM);
             break;
         case DOUBLE_HOLD:
-            layer_on(_F_NUM);
+            layer_on(_NUM);
             break;
         case TRIPLE_TAP:
             layer_move(_RAISE);
@@ -414,10 +421,10 @@ void x_finished_r (tap_dance_state_t *state, void *user_data) {
             layer_on(_SPECIAL);
             break;
         case DOUBLE_TAP:
-            layer_move(_F_NUM);
+            layer_move(_NUM);
             break;
         case DOUBLE_HOLD:
-            layer_on(_F_NUM);
+            layer_on(_NUM);
             break;
         case TRIPLE_TAP:
             layer_move(_RAISE);
@@ -439,7 +446,7 @@ void x_reset_l (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case DOUBLE_HOLD:
-            layer_off(_F_NUM);
+            layer_off(_NUM);
             break;
         case TRIPLE_TAP:
             break;
@@ -461,7 +468,7 @@ void x_reset_r (tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case DOUBLE_HOLD:
-            layer_off(_F_NUM);
+            layer_off(_NUM);
             break;
         case TRIPLE_TAP:
             break;
