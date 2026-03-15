@@ -90,7 +90,8 @@ typedef struct {
 enum custom_keycodes {
   BASE1 = SAFE_RANGE,
   BASE2,
-  F_NUM,
+  NUM,
+  SPECIAL,
   ADJUST,
   VERSION,
   KEY_WAIT,
@@ -202,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
      KC_TILD,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,    _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_QUOT,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                       _______,  _______,  _______,    _______,    _______,  _______,  KC_VOLD,    KC_VOLU
+                       _______,  _______,  _______,    _______,    KC_DEL,   _______,  KC_VOLD,    KC_VOLU
 ),
 [_SPECIAL] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -216,9 +217,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_ADJUST] = LAYOUT(
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              UG_HUEU,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
+          BASE1,    BASE2,    TG_NUM,   MAC_SLP,  _______,              CNT_RST,  UG_SATU,  UG_VALU,  IND_TOG,  UG_NEXT,
    //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-          MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              UG_HUED,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
+          MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  _______,              CNT_TOG,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
    //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
      AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
    //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
@@ -275,6 +276,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
                 SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            return false;
+        case BASE1: // Change default layer & write default layer to EEPROM.
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE1);
+            }
+            return false;
+        case BASE2: // Change default layer & write default layer to EEPROM.
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE2);
             }
             return false;
         case DM_REC1: // Toggle recording status
