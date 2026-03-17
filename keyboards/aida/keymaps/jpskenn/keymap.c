@@ -147,11 +147,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE1] = LAYOUT(
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-        Q_NUM,    KC_W,     KC_E,     KC_R,     KC_T,                 KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
+       Q_NUM,    KC_W,     KC_E,     KC_R,     KC_T,                 KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-        KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                 KC_H,     KC_J,     KC_K,     KC_L,     MINS_NUM,
+       KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                 KC_H,     KC_J,     KC_K,     KC_L,     MINS_NUM,
 //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SEL_L,      SEL_R,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   SLSH_SFT,
+  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SEL_L,      SEL_R,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   SLSH_SFT,
 //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                     ESC_ALT,  LNG2_CTL, SPC_SFT,    TAB_LOW,    BS_SFT,   ENT_RAI,  LNG1_CTL,   OSM_WIN
 ),
