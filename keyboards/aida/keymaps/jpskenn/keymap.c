@@ -31,10 +31,12 @@ int led_2_hue = LED_COUNTER_DEFAULT_HUE;
 bool is_dm_rec1 = false;
 bool is_dm_rec2 = false;
 
+#ifdef RGBLIGHT_ENABLE
 // list of lighting layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[];
 const rgblight_segment_t* const PROGMEM my_rgb_layers_left_only[];
 const rgblight_segment_t* const PROGMEM my_rgb_layers_right_only[];
+#endif
 
 // Indicator LED settings
 #define ONBOARD_LED_INDEX_FIRST 0        // First LED position
@@ -305,6 +307,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case IND_TOG: // Toggle LED indicator status
+            #ifdef RGBLIGHT_ENABLE
             if (record->event.pressed) {
                 switch (user_config.indicator_state) {
                     case 0: // off --> on(Both side)
@@ -328,6 +331,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw); // Write the new status to EEPROM
             }
             return false;
+            #endif
         default:
             break;
     }
@@ -517,8 +521,9 @@ bool dynamic_macro_play_user(int8_t direction) {
     layer_state_set_user(layer_state);
     return true;
 }
-
-#ifdef RGBLIGHT_LAYER_BLINK // RGB Lighting & RGB Layer Blink
+#ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_LAYER_BLINK
+    // RGB Lighting & RGB Layer Blink
     // Blink indicator when start / stop recorging.
     bool dynamic_macro_record_start_user(int8_t direction) {
         rgblight_blink_layer_repeat(9, 250, 3);//TODO マクロ記録中、ずっとブリンクならんの？
@@ -533,10 +538,12 @@ bool dynamic_macro_play_user(int8_t direction) {
         return true;
     }
 #endif
+#endif
 
 //------------------------------------------------------------------------------
 // RGB Light: LED Counter
 //------------------------------------------------------------------------------
+#ifdef RGBLIGHT_ENABLE
 void led_counter_turn_on() {
     is_led_counter_enabled = true;
     rgblight_set_effect_range(0, 0);
@@ -582,11 +589,12 @@ bool led_counter_hue_update(int *led_hue) {
         return true;
     }
 }
+#endif
 
 //------------------------------------------------------------------------------
 // RGB Light: Lighting Layers
 //------------------------------------------------------------------------------
-
+#ifdef RGBLIGHT_ENABLE
 // layer information
 // 0   BASE
 // 0.1 Caps lock
@@ -840,6 +848,7 @@ bool led_update_user(led_t led_state) {
 
     return true;
 }
+#endif
 
 // ------------------------------------------------------------------------------
 // Keyboard Initialization
@@ -848,6 +857,7 @@ void keyboard_post_init_user(void) {
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
 
+    #ifdef RGBLIGHT_ENABLE
     // Enable the LED layers as stored state
     switch (user_config.indicator_state) {
         case 0: // off
@@ -878,6 +888,7 @@ void keyboard_post_init_user(void) {
 
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
+    #endif
 }
 
 // ------------------------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 #define MASTER_LEFT
 
+// for USART Half-duplex
 #define SERIAL_USART_TX_PIN GP14
 
 /* RGB Lighting */
