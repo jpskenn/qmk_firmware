@@ -21,3 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RP_PWM_USE_PWM1
 #define RP_PWM_USE_PWM1 TRUE
+
+#undef RP_SIO_USE_UART0
+#define RP_SIO_USE_UART0 TRUE
+#undef RP_SIO_USE_UART1
+#define RP_SIO_USE_UART1 FALSE

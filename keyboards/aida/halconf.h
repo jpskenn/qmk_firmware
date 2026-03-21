@@ -21,3 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef HAL_USE_PWM
 #define HAL_USE_PWM TRUE
+
+// #define HAL_USE_SIO TRUE
+
+#include_next <halconf.h>
