@@ -2,3 +2,5 @@ TAP_DANCE_ENABLE = yes
 
 AUDIO_ENABLE = yes
 AUDIO_DRIVER = pwm_hardware
+
+DYNAMIC_MACRO_ENABLE = yes
