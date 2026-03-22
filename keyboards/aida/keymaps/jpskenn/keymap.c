@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "process_dynamic_macro.h"
 #if defined(AUDIO_ENABLE)
 #include "audio.h"
 #endif
@@ -68,26 +69,6 @@ enum layers {
     _ADJUST,
 };
 
-// Tap Dance declarations
-enum {
-    TD_SELECTOR_L,
-    TD_SELECTOR_R,
-};
-
-enum {
-    SINGLE_TAP  = 1,
-    SINGLE_HOLD = 2,
-    DOUBLE_TAP  = 3,
-    DOUBLE_HOLD = 4,
-    TRIPLE_TAP  = 5,
-    TRIPLE_HOLD = 6,
-};
-
-typedef struct {
-    bool is_press_action;
-    int state;
-} tap;
-
 // custom key codes
 enum custom_keycodes {
   BASE1 = SAFE_RANGE,
@@ -102,6 +83,8 @@ enum custom_keycodes {
   LCTR_TOG,
   CNT_RST,
   CNT_TOG,
+  DMP1_SPL,
+  DMP2_SPL,
 };
 
 // key code macros
@@ -115,7 +98,6 @@ enum custom_keycodes {
 
 #define SP_LOW     LT(_LOWER, KC_SPC)
 #define TAB_LOW     LT(_LOWER, KC_TAB)
-
 
 #define SPC_SFT      LSFT_T(KC_SPC)
 #define BS_SFT      LSFT_T(KC_BSPC)
@@ -143,9 +125,6 @@ enum custom_keycodes {
 
 #define OSM_WIN   OSM(KC_LWIN)  // RemapでCtrl + ShiftなOSMとして扱われている。なぜ？
 
-#define SEL_L       TD(TD_SELECTOR_L)
-#define SEL_R       TD(TD_SELECTOR_R)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE1] = LAYOUT(
@@ -154,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
        KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                 KC_H,     KC_J,     KC_K,     KC_L,     MINS_NUM,
 //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     SEL_L,      SEL_R,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   SLSH_SFT,
+  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     DMP1_SPL,   DMP2_SPL, KC_N,     KC_M,     KC_COMM,  KC_DOT,   SLSH_SFT,
 //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                     ESC_ALT,  LNG2_CTL, SPC_SFT,    TAB_LOW,    BS_SFT,   ENT_RAI,  LNG1_CTL,   OSM_WIN
 ),
@@ -224,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
        MU_TOGG,  MU_NEXT,  AU_NEXT,  AU_PREV,  DM_REC1,             DM_REC2,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_PREV,
 //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-  AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST, _______,    _______,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
+  AU_TOGG,  CK_TOGG,  CK_DOWN,  CK_UP,    CK_RST,   DM_REC1,    DM_REC2,  TG_NUM,   KC_NUM,   KC_PSCR,  KC_SCRL,  KC_PAUS,
 //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
                     _______,  _______,  _______,    _______,    _______,  VERSION,  _______,    _______
 )
@@ -253,6 +232,9 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 //------------------------------------------------------------------------------
 // Handle key codes
 //------------------------------------------------------------------------------
+// キー押下時間測定タイマー
+static uint16_t key_press_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (is_led_counter_enabled && record->event.pressed) {
         led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
@@ -301,6 +283,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 is_dm_rec2 = true;
             }
             return true; // continue processing
+        case DMP1_SPL:
+            if (record->event.pressed) {
+                key_press_timer = timer_read();
+                layer_on(_SPECIAL);
+            } else {
+                layer_off(_SPECIAL);
+
+                if(timer_elapsed(key_press_timer) < TAPPING_TERM) {
+                    process_dynamic_macro(DM_PLY1, record);
+                }
+            }
+            return false;
+        case DMP2_SPL:
+            if (record->event.pressed) {
+                key_press_timer = timer_read();
+                layer_on(_SPECIAL);
+            } else {
+                layer_off(_SPECIAL);
+
+                if(timer_elapsed(key_press_timer) < TAPPING_TERM) {
+                    process_dynamic_macro(DM_PLY2, record);
+                }
+            }
+            return false;
         case KEY_WAIT: // Just wait specific time. Nice to use with Dynamic Macro.
             if (record->event.pressed) {
                 wait_ms(250);
@@ -375,142 +381,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case Q_NUM:
             return 250;  // 少し長め
         default:
-            return 200;
+            return TAPPING_TERM;
     }
 }
-
-//------------------------------------------------------------------------------
-// Tap Dance
-//------------------------------------------------------------------------------
-// Tap Danceのインスタンスを初期化
-static tap xtap_state_l = {
-    .is_press_action = true,
-    .state = 0
-};
-
-static tap xtap_state_r = {
-    .is_press_action = true,
-    .state = 0
-};
-
-// Tap Danceの状態を決定する関数
-int cur_dance (tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (!state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
-    }
-    else if (state->count == 2) {
-        if (!state->pressed) return DOUBLE_TAP;
-        else return DOUBLE_HOLD;
-    }
-    else if (state->count == 3) {
-        if (!state->pressed) return TRIPLE_TAP;
-        return TRIPLE_HOLD;
-    }
-    else return 9; //magic number. At some point this method will expand to work for more presses
-}
-
-// Tap Danceが終了したときに呼び出される関数
-void x_finished_l (tap_dance_state_t *state, void *user_data) {
-    xtap_state_l.state = cur_dance(state);
-
-    switch (xtap_state_l.state) {
-        case SINGLE_TAP:
-            layer_clear();
-            break;
-        case SINGLE_HOLD:
-            layer_on(_SPECIAL);
-            break;
-        case DOUBLE_TAP:
-            layer_move(_NUM);
-            break;
-        case DOUBLE_HOLD:
-            layer_on(_NUM);
-            break;
-        case TRIPLE_TAP:
-            layer_move(_RAISE);
-            break;
-        case TRIPLE_HOLD:
-            layer_on(_RAISE);
-            break;
-    }
-}
-
-void x_finished_r (tap_dance_state_t *state, void *user_data) {
-    xtap_state_r.state = cur_dance(state);
-
-    switch (xtap_state_r.state) {
-        case SINGLE_TAP:
-            layer_clear();
-            break;
-        case SINGLE_HOLD:
-            layer_on(_SPECIAL);
-            break;
-        case DOUBLE_TAP:
-            layer_move(_NUM);
-            break;
-        case DOUBLE_HOLD:
-            layer_on(_NUM);
-            break;
-        case TRIPLE_TAP:
-            layer_move(_RAISE);
-            break;
-        case TRIPLE_HOLD:
-            layer_on(_RAISE);
-            break;
-    }
-}
-
-// Tap Danceがリセットされたときに呼び出される関数
-void x_reset_l (tap_dance_state_t *state, void *user_data) {
-    switch (xtap_state_l.state) {
-        case SINGLE_TAP:
-            break;
-        case SINGLE_HOLD:
-            layer_off(_SPECIAL);
-            break;
-        case DOUBLE_TAP:
-            break;
-        case DOUBLE_HOLD:
-            layer_off(_NUM);
-            break;
-        case TRIPLE_TAP:
-            break;
-        case TRIPLE_HOLD:
-            layer_off(_RAISE);
-            break;
-    }
-
-    xtap_state_l.state = 0;
-}
-
-void x_reset_r (tap_dance_state_t *state, void *user_data) {
-    switch (xtap_state_r.state) {
-        case SINGLE_TAP:
-            break;
-        case SINGLE_HOLD:
-            layer_off(_SPECIAL);
-            break;
-        case DOUBLE_TAP:
-            break;
-        case DOUBLE_HOLD:
-            layer_off(_NUM);
-            break;
-        case TRIPLE_TAP:
-            break;
-        case TRIPLE_HOLD:
-            layer_off(_RAISE);
-            break;
-    }
-
-    xtap_state_r.state = 0;
-}
-
-// Tap Danceのアクションを定義
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_SELECTOR_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_l, x_reset_l),
-    [TD_SELECTOR_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished_r, x_reset_r),
-};
 
 //------------------------------------------------------------------------------
 // Dynamic Macro
