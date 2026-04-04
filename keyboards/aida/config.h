@@ -8,4 +8,6 @@
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #define RGBLIGHT_LAYERS_RETAIN_VAL
 
-#define SPLIT_USB_TIMEOUT 5000  // 5秒まで待機を延長
+// 左手側のGPIOを3V3に接続して、擬似的にVBUSを再現。
+// PCのコールドブート時に、マスター判定できずに反応がなくなってしまうのを回避
+#define USB_VBUS_PIN GP22
