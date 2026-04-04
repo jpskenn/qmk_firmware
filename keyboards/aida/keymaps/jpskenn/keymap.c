@@ -376,7 +376,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case P_NUM:
         case Q_NUM:
             return 250;  // 少し長め
         default:
