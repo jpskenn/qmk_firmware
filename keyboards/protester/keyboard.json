@@ -1,0 +1,53 @@
+{
+    "manufacturer": "jpskenn",
+    "keyboard_name": "protester",
+    "maintainer": "jpskenn",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP11", "GP15", "GP16", "GP20"]
+        ]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "rgblight": {
+        "led_count": 33,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "static_gradient": true
+        }
+    },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0}
+            ]
+        }
+    }
+}
