@@ -63,6 +63,9 @@
     },
     "split": {
         "enabled": true,
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
         "serial": {
             "driver": "vendor"
         },
