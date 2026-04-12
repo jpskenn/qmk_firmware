@@ -85,6 +85,7 @@ enum custom_keycodes {
   CNT_TOG,
   DMP1_SPL,
   DMP2_SPL,
+  HF_PRINT,
 };
 
 // key code macros
@@ -152,9 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
        KC_F11,   KC_F6,    KC_F5,    KC_F4,    _______,              KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,
 //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
-  KC_F12,   KC_F3,    KC_F2,    KC_F1,    _______,  _______,    _______,  KC_TAB,   KC_P1,    KC_P2,    KC_P3,    KC_CALC,
+  KC_F12,   KC_F3,    KC_F2,    KC_F1,    _______,  _______,    _______,  _______,  KC_P1,    KC_P2,    KC_P3,    KC_CALC,
 //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
-                    _______,  _______,  _______,    _______,    _______,  _______,  KC_P0,      KC_PDOT
+                    _______,  _______,  _______,    _______,    KC_DEL,   _______,  KC_P0,      KC_PDOT
 ),
 [_LOWER] = LAYOUT(
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
@@ -188,9 +189,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_SPECIAL] = LAYOUT(
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-       _______,  HF_CONU,  HF_CONT,  HF_NEXT,  HF_TOGG,              HF_TOGG, HF_NEXT,  HF_CONT,  HF_CONU,  MAC_PSCR,
+       HF_PRINT, HF_CONU,  HF_CONT,  HF_NEXT,  HF_TOGG,              WIN_PSCR, _______,  _______,  _______,  MAC_PSCR,
 //----+---------+---------+---------+---------+---------+----| |----+---------+---------+---------+---------+---------+----//
-       _______,  HF_COND,  _______,  HF_PREV,  HF_FDBK,              HF_FDBK,  HF_PREV,  _______,  HF_COND,  _______,
+       HF_RST,   HF_COND,  _______,  HF_PREV,  HF_FDBK,              _______,  _______,  _______,  _______,  _______,
 //---------+---------+---------+---------+---------+---------| |---------+---------+---------+---------+---------+---------//
    _______,  _______, _______,  _______,  _______,  _______,    _______,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,
 //-----------------+---------+---------+-----------+---------| |---------+---------+-----------+---------------------------//
@@ -255,6 +256,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CNT_RST: // Reset LED counter to Zero.
             if (record->event.pressed) {
                 led_counter_reset();
+            }
+            return false;
+        case HF_PRINT: // Print Haptic configs.
+            if (record->event.pressed) {
+                SEND_STRING ("Haptic: enable = ");
+                send_byte(haptic_get_enable());
+                SEND_STRING (" feedback = ");
+                send_byte(haptic_get_feedback());
+                SEND_STRING (" mode = ");
+                send_byte(haptic_get_mode());
             }
             return false;
         case VERSION: // Output firmware info.
