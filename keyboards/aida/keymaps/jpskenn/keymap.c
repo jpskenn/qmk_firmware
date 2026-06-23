@@ -240,6 +240,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_counter_update(); // 何かキーが押されたら、LEDカウンタを更新。
     }
     switch (keycode) {
+        case LNG1_GUI:   // Play haptic when "HOLD"
+        case LNG2_GUI:
+        case LNG1_CTL:
+        case LNG2_CTL:
+        case ESC_ALT:
+        case ESC_CTL:
+        case SPC_SFT:
+        case ENT_RAI
+        case BS_SFT:
+            // record->tap.count == 0 のときホールド確定
+            if (record->event.pressed && record->tap.count == 0) {
+                haptic_play();
+            }
+            break;
         case CNT_TOG: // Turn ON/OFF LED counter. While ON, Effect range is restricted.
             if (record->event.pressed) {
                 if(is_led_counter_enabled) { // on --> off
@@ -753,6 +767,9 @@ bool led_update_user(led_t led_state) {
 // TODO 自分の環境に合わせてオーバーライドしてカスタマイズ。
 // TODO 特に、LSFT_T(KC_SPC)とかで発動してしまうのを抑制したい。
 bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
+    return false; // すべてのキーコードでハプティックを無効にする
+    // ハプティックを動作させたいときは、process_record()で個別に指定する。
+
     switch (keycode) {
 #ifdef NO_HAPTIC_MOD
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
