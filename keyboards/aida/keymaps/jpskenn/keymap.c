@@ -98,6 +98,7 @@ enum custom_keycodes {
 
 #define SP_LOW     LT(_LOWER, KC_SPC)
 #define TAB_LOW     LT(_LOWER, KC_TAB)
+#define WIN_LOW     LT(_LOWER, KC_LWIN)
 
 #define SPC_SFT      LSFT_T(KC_SPC)
 #define BS_SFT      LSFT_T(KC_BSPC)
@@ -249,6 +250,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SPC_SFT:
         case ENT_RAI
         case BS_SFT:
+        case TAB_LOW:
+        case WIN_LOW:
             // record->tap.count == 0 のときホールド確定
             if (record->event.pressed && record->tap.count == 0) {
                 haptic_play();
